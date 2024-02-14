@@ -6,7 +6,7 @@ import eduni.distributions.Normal;
 import controller.IKontrolleriForM;
 
 public class OmaMoottori extends Moottori{
-	
+	//Test
 	private Saapumisprosessi saapumisprosessi;
 
 	private Palvelupiste[] palvelupisteet;
