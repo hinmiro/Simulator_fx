@@ -5,7 +5,7 @@ import simu.framework.Trace;
 
 
 // TODO:
-// Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)
+// Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)...
 public class Asiakas {
 	private double saapumisaika;
 	private double poistumisaika;
