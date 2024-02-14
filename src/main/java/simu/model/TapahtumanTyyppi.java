@@ -1,11 +1,8 @@
 package simu.model;
-
+import simu.framework.*;
 // TODO:
 // Tapahtumien tyypit määritellään simulointimallin vaatimusten perusteella
-public enum TapahtumanTyyppi {
-	ARR1,
-	DEP1,
-	DEP2,
-	DEP3
+public enum TapahtumanTyyppi implements ITapahtumanTyyppi {
+    SAAPUMINEN, INFOTISKI, UUDEN_TILIN_AVAUS, TALLETUS, SIJOITUS_PALVELUT;
 
 }
