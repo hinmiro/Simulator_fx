@@ -30,12 +30,14 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     private TextField aika;
     private TextField viive;
     private TextField varatut;
-    private TextField happyCustomer;
     private Label tulos;
     private Label aikaLabel;
     private Label viiveLabel;
     private Label varatutLabel;
     private Label tulosLabel;
+    private Label happyCustomerLabel;
+    private Label happyCustomer;
+
 
     private Button kaynnistaButton;
     private Button hidastaButton;
@@ -90,21 +92,21 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             aikaLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
             aika = new TextField();
             aika.setPromptText("Syötä aika");
-            aika.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+            aika.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
             aika.setPrefWidth(150);
 
             viiveLabel = new Label("Viive:");
             viiveLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
             viive = new TextField();
             viive.setPromptText("Syötä viive");
-            viive.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+            viive.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
             viive.setPrefWidth(150);
 
             varatutLabel = new Label("Varatut asiakkaat:");
             varatutLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
             varatut = new TextField();
-            varatut.setPromptText("Varattujen aikojen prosentti");
-            varatut.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+            varatut.setPromptText("Syötä prosentti");
+            varatut.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
             varatut.setPrefWidth(150);
 
 
@@ -113,6 +115,13 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             tulos = new Label();
             tulos.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
             tulos.setPrefWidth(150);
+
+            happyCustomerLabel = new Label("Asiakastyytyväisyys:");
+            happyCustomerLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+            happyCustomer = new Label();
+            happyCustomer.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+            happyCustomer.setPrefWidth(150);
+
 
             HBox hBox = new HBox();
             hBox.setPadding(new Insets(15, 12, 15, 12)); // marginaalit ylÃ¤, oikea, ala, vasen
@@ -131,9 +140,11 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             grid.add(varatut, 1, 2);
             grid.add(tulosLabel, 0, 3);      // sarake, rivi
             grid.add(tulos, 1, 3);           // sarake, rivi
-            grid.add(kaynnistaButton, 0, 4);  // sarake, rivi
-            grid.add(nopeutaButton, 1, 4);   // sarake, rivi
-            grid.add(hidastaButton, 1, 5);   // sarake, rivi
+            grid.add(happyCustomerLabel, 0, 4);
+            grid.add(happyCustomer, 1, 4);
+            grid.add(kaynnistaButton, 0, 5);  // sarake, rivi
+            grid.add(nopeutaButton, 1, 5);   // sarake, rivi
+            grid.add(hidastaButton, 1, 6);   // sarake, rivi
 
             naytto = new Visualisointi2(500, 300);
 
