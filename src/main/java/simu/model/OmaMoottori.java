@@ -44,6 +44,7 @@ public class OmaMoottori extends Moottori {
 					palvelupisteet[1].lisaaVarattuJonoon(as);
 				else
 					palvelupisteet[0].lisaaJonoon(as);
+				kontrolleri.visualisoiAsiakas();
 				saapumisprosessi.generoiSeuraava();
 				break;
 			case INFOTISKI: // 0

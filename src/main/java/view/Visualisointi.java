@@ -20,6 +20,8 @@ public class Visualisointi extends Canvas implements IVisualisointi{
 	
 
 	public void tyhjennaNaytto() {
+		i = 0;
+		j = 10;
 		gc.setFill(Color.YELLOW);
 		gc.fillRect(0, 0, this.getWidth(), this.getHeight());
 	}
