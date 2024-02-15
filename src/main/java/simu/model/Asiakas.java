@@ -3,6 +3,7 @@ package simu.model;
 import simu.framework.Kello;
 import simu.framework.Trace;
 
+
 // TODO:
 // Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)
 public class Asiakas{
@@ -93,20 +94,5 @@ public class Asiakas{
 	public static double getHappyRating(){
 		return happyRating / totalCustomers;
 	}
-
-//    @Override
-//    public int compareTo(Asiakas a) {
-//		// If 'this' is reserved and 'a' is not reserved, 'this' should have higher priority
-//		if (this.isOnVarattu() && !a.isOnVarattu()) {
-//			return -1;
-//		}
-//		// If 'a' is reserved and 'this' is not reserved, 'a' should have higher priority
-//		else if (!this.isOnVarattu() && a.isOnVarattu()) {
-//			return 1;
-//		}
-//		// If both 'this' and 'a' have the same reservation status, their order remains unchanged
-//		else {
-//			return 0;
-//		}
-	//}
 }
+
