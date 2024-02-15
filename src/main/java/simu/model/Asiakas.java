@@ -3,10 +3,13 @@ package simu.model;
 import simu.framework.Kello;
 import simu.framework.Trace;
 
+import java.util.Random;
+
 
 // TODO:
 // Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)
 public class Asiakas{
+	private static Random random = new Random();
 	private double saapumisaika;
 	private double poistumisaika;
 	private int id;
@@ -16,13 +19,17 @@ public class Asiakas{
 	private static int totalCustomers = 0;
 	private static double happyRating = 0;
 	private boolean onVarattu;
-
+	private byte tavoite;
 
 
 	public Asiakas(boolean onVarattu) {
 		id = i++;
 		this.onVarattu = onVarattu;
 		saapumisaika = Kello.getInstance().getAika();
+		if (!onVarattu)
+			tavoite = (byte) random.nextInt(3);
+		else
+			tavoite = (byte) (random.nextInt(2) + 1);
 		Trace.out(Trace.Level.INFO, "Uusi asiakas nro " + id + " saapui klo "+saapumisaika);
 	}
 
@@ -44,7 +51,13 @@ public class Asiakas{
 		this.saapumisaika = saapumisaika;
 	}
 
+	public byte getTavoite() {
+		return tavoite;
+	}
 
+	public void setTavoite(byte tavoite) {
+		this.tavoite = tavoite;
+	}
 
 	public boolean isOnVarattu() {
 		return onVarattu;

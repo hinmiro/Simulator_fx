@@ -41,7 +41,7 @@ public class OmaMoottori extends Moottori {
 			case SAAPUMINEN:
 				Asiakas as = new Asiakas(generateTrueFalse());
 				if (as.isOnVarattu())
-					palvelupisteet[1].lisaaVarattuJonoon(as);
+					palvelupisteet[as.getTavoite()].lisaaVarattuJonoon(as);
 				else
 					palvelupisteet[0].lisaaJonoon(as);
 				kontrolleri.visualisoiAsiakas();
@@ -50,42 +50,67 @@ public class OmaMoottori extends Moottori {
 			case INFOTISKI: // 0
 				a = (Asiakas) palvelupisteet[0].otaJonosta();
 				System.out.println("##########000");
-				palvelupisteet[1].lisaaJonoon(a);
+				if (a.getTavoite() == 0){
+					a.setPoistumisaika(Kello.getInstance().getAika());
+					a.raportti();
+					break;
+				}
+				palvelupisteet[a.getTavoite()].lisaaJonoon(a);
 				break;
 			case UUDEN_TILIN_AVAUS: // 1
 				if (palvelupisteet[1].onVarattuJonossa()) {
 					System.out.println("############################3");
 					a = (Asiakas) palvelupisteet[1].otaVarattuJonosta();
-					if (!palvelupisteet[1].onVarattu()) {
-						palvelupisteet[2].lisaaJonoon(a);
-					} else {
-						if (palvelupisteet[2].onJonossa()) {
-							palvelupisteet[2].lisaaJononSeuraavaksi(a);
-						} else {
+					if (new Random().nextBoolean()) {
+						if (!palvelupisteet[1].onVarattu()) {
 							palvelupisteet[2].lisaaJonoon(a);
+						} else {
+							if (palvelupisteet[2].onJonossa()) {
+								palvelupisteet[2].lisaaJononSeuraavaksi(a);
+							} else {
+								palvelupisteet[2].lisaaJonoon(a);
+							}
 						}
+					}
+					else {
+						a.setPoistumisaika(Kello.getInstance().getAika());
+						a.raportti();
 					}
 				} else {
 					a = (Asiakas) palvelupisteet[1].otaJonosta();
-					palvelupisteet[2].lisaaJonoon(a);
+					if (new Random().nextBoolean())
+						palvelupisteet[2].lisaaJonoon(a);
+					else {
+						a.setPoistumisaika(Kello.getInstance().getAika());
+						a.raportti();
+					}
 				}
 				break;
 			case TALLETUS:  // 2
 				if (palvelupisteet[2].onVarattuJonossa()) {
 					a = (Asiakas) palvelupisteet[2].otaVarattuJonosta();
-					if (!palvelupisteet[2].onVarattu()) {
-						palvelupisteet[3].lisaaJonoon(a);
-					} else {
-						if (palvelupisteet[3].onJonossa()) {
-							palvelupisteet[3].lisaaJononSeuraavaksi(a);
-						} else {
+					if (new Random().nextBoolean()) {
+						if (!palvelupisteet[2].onVarattu()) {
 							palvelupisteet[3].lisaaJonoon(a);
+						} else {
+							if (palvelupisteet[3].onJonossa()) {
+								palvelupisteet[3].lisaaJononSeuraavaksi(a);
+							} else {
+								palvelupisteet[3].lisaaJonoon(a);
+							}
 						}
+					} else {
+						a.setPoistumisaika(Kello.getInstance().getAika());
+						a.raportti();
 					}
 				} else {
 					a = (Asiakas) palvelupisteet[2].otaJonosta();
-					palvelupisteet[3].lisaaJonoon(a);
-
+					if (new Random().nextBoolean())
+						palvelupisteet[3].lisaaJonoon(a);
+					else {
+						a.setPoistumisaika(Kello.getInstance().getAika());
+						a.raportti();
+					}
 				}
 				break;
 			case SIJOITUS_PALVELUT: // 3
