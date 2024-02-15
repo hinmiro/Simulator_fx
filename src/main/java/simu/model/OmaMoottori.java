@@ -49,12 +49,10 @@ public class OmaMoottori extends Moottori {
 				break;
 			case INFOTISKI: // 0
 				a = (Asiakas) palvelupisteet[0].otaJonosta();
-				System.out.println("##########000");
 				palvelupisteet[1].lisaaJonoon(a);
 				break;
 			case UUDEN_TILIN_AVAUS: // 1
 				if (palvelupisteet[1].onVarattuJonossa()) {
-					System.out.println("############################3");
 					a = (Asiakas) palvelupisteet[1].otaVarattuJonosta();
 					if (!palvelupisteet[1].onVarattu()) {
 						palvelupisteet[2].lisaaJonoon(a);

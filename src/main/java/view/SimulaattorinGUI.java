@@ -29,9 +29,12 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     // Käyttöliittymäkomponentit:
     private TextField aika;
     private TextField viive;
+    private TextField varatut;
+    private TextField happyCustomer;
     private Label tulos;
     private Label aikaLabel;
     private Label viiveLabel;
+    private Label varatutLabel;
     private Label tulosLabel;
 
     private Button kaynnistaButton;
@@ -85,15 +88,25 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
 
             aikaLabel = new Label("Simulointiaika:");
             aikaLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-            aika = new TextField("Syötä aika");
+            aika = new TextField();
+            aika.setPromptText("Syötä aika");
             aika.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
             aika.setPrefWidth(150);
 
             viiveLabel = new Label("Viive:");
             viiveLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-            viive = new TextField("Syötä viive");
+            viive = new TextField();
+            viive.setPromptText("Syötä viive");
             viive.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
             viive.setPrefWidth(150);
+
+            varatutLabel = new Label("Varatut asiakkaat:");
+            varatutLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+            varatut = new TextField();
+            varatut.setPromptText("Varattujen aikojen prosentti");
+            varatut.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+            varatut.setPrefWidth(150);
+
 
             tulosLabel = new Label("Kokonaisaika:");
             tulosLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -114,13 +127,15 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             grid.add(aika, 1, 0);          // sarake, rivi
             grid.add(viiveLabel, 0, 1);      // sarake, rivi
             grid.add(viive, 1, 1);           // sarake, rivi
-            grid.add(tulosLabel, 0, 2);      // sarake, rivi
-            grid.add(tulos, 1, 2);           // sarake, rivi
-            grid.add(kaynnistaButton, 0, 3);  // sarake, rivi
-            grid.add(nopeutaButton, 0, 4);   // sarake, rivi
-            grid.add(hidastaButton, 1, 4);   // sarake, rivi
+            grid.add(varatutLabel, 0,2);
+            grid.add(varatut, 1, 2);
+            grid.add(tulosLabel, 0, 3);      // sarake, rivi
+            grid.add(tulos, 1, 3);           // sarake, rivi
+            grid.add(kaynnistaButton, 0, 4);  // sarake, rivi
+            grid.add(nopeutaButton, 1, 4);   // sarake, rivi
+            grid.add(hidastaButton, 1, 5);   // sarake, rivi
 
-            naytto = new Visualisointi2(400, 200);
+            naytto = new Visualisointi2(600, 400);
 
             // TÃ¤ytetÃ¤Ã¤n boxi:
             hBox.getChildren().addAll(grid, (Canvas) naytto);
