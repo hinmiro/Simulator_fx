@@ -20,7 +20,6 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET M√
 	public Moottori(IKontrolleriForM kontrolleri){  // UUSITTU
 		
 		this.kontrolleri = kontrolleri;  //UUSI
-		this.varatutProsentti = varatutProsentti;
 
 		kello = Kello.getInstance(); // Otetaan kello muuttujaan yksinkertaistamaan koodia
 		
@@ -32,8 +31,8 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET M√
 	}
 
 	@Override
-	public void setVaratutAsiakkaat() {
-
+	public void setVaratutAsiakkaat(int varatutProsentti) {
+		this.varatutProsentti = varatutProsentti;
 	}
 
 	@Override
@@ -50,7 +49,8 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET M√
 	public long getViive() {
 		return viive;
 	}
-	
+
+	public int getVaratutProsentti(){ return  varatutProsentti; }
 	@Override
 	public void run(){ // Entinen aja()
 		alustukset(); // luodaan mm. ensimm√§inen tapahtuma

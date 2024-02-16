@@ -39,7 +39,8 @@ public class OmaMoottori extends Moottori {
 		switch ((TapahtumanTyyppi) t.getTyyppi()) {
 
 			case SAAPUMINEN:
-				Asiakas as = new Asiakas(generateTrueFalse(prosentti));
+				Asiakas as = new Asiakas(generateTrueFalse());
+				System.out.println(as.isOnVarattu());
 				if (as.isOnVarattu())
 					palvelupisteet[as.getTavoite()].lisaaVarattuJonoon(as);
 				else
@@ -150,8 +151,8 @@ public class OmaMoottori extends Moottori {
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
 	}
 
-	protected boolean generateTrueFalse(int prosentti) {
+	protected boolean generateTrueFalse() {
 		Random random = new Random();
-        return random.nextDouble() * 100 <= prosentti;
+        return random.nextDouble() * 100 <= getVaratutProsentti();
 	}
 }
