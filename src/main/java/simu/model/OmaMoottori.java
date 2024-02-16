@@ -12,6 +12,7 @@ public class OmaMoottori extends Moottori {
 	private Saapumisprosessi saapumisprosessi;
 
 	private Palvelupiste[] palvelupisteet;
+	private int prosentti;
 
 	public OmaMoottori(IKontrolleriForM kontrolleri){
 
@@ -27,6 +28,9 @@ public class OmaMoottori extends Moottori {
 
 	}
 
+	public void setProsentti(int uusiProsentti) {
+		prosentti = uusiProsentti;
+	}
 	@Override
 	protected void alustukset() {
 		saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
@@ -150,7 +154,7 @@ public class OmaMoottori extends Moottori {
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
 	}
 
-	protected boolean generateTrueFalse(int prosentti) {
+	protected boolean generateTrueFalse() {
 		Random random = new Random();
         return random.nextDouble() * 100 <= prosentti;
 	}
