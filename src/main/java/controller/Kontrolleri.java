@@ -2,6 +2,7 @@ package controller;
 
 import javafx.application.Platform;
 import simu.framework.IMoottori;
+import simu.framework.Moottori;
 import simu.model.OmaMoottori;
 import view.ISimulaattorinUI;
 
@@ -23,7 +24,7 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
 		moottori.setSimulointiaika(ui.getAika());
 		moottori.setViive(ui.getViive());
-	//	moottori.
+		moottori.setVaratutAsiakkaat(ui.getVaratutAsiakkaat());
 		ui.getVisualisointi().tyhjennaNaytto();
 		((Thread)moottori).start();
 		//((Thread)moottori).run(); // Ei missään tapauksessa näin. Miksi?		
@@ -38,9 +39,8 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	public void nopeuta() { // nopeutetaan moottorisäiettä
 		moottori.setViive((long)(moottori.getViive()*0.9));
 	}
-	
-	
-	
+
+
 	// Simulointitulosten välittämistä käyttöliittymään.
 	// Koska FX-ui:n päivitykset tulevat moottorisäikeestä, ne pitää ohjata JavaFX-säikeeseen:
 		
