@@ -29,6 +29,11 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET MÃ
 	}
 
 	@Override
+	public void setVaratutAsiakkaat(int prosentti) {
+
+	}
+
+	@Override
 	public void setSimulointiaika(double aika) {
 		simulointiaika = aika;
 	}

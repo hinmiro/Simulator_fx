@@ -5,6 +5,7 @@ public interface ISimulaattorinUI {
 	// Kontrolleri tarvitsee syötteitä, jotka se välittää Moottorille
 	public double getAika();
 	public long getViive();
+	public int getVaratutAsiakkaat();
 	
 	//Kontrolleri antaa käyttöliittymälle tuloksia, joita Moottori tuottaa 
 	public void setLoppuaika(double aika);

@@ -165,6 +165,9 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     //Käyttöliittymän rajapintametodit (kutsutaan kontrollerista)
 
     @Override
+    public int getVaratutAsiakkaat() { return Integer.parseInt(varatut.getText());}
+
+    @Override
     public double getAika() {
         return Double.parseDouble(aika.getText());
     }
