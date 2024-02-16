@@ -9,15 +9,18 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET MÃ
 	private long viive = 0;
 	
 	private Kello kello;
+	private int varatutProsentti;
 	
 	protected Tapahtumalista tapahtumalista;
 
 	protected IKontrolleriForM kontrolleri; // UUSI
+
 	
 
 	public Moottori(IKontrolleriForM kontrolleri){  // UUSITTU
 		
 		this.kontrolleri = kontrolleri;  //UUSI
+		this.varatutProsentti = varatutProsentti;
 
 		kello = Kello.getInstance(); // Otetaan kello muuttujaan yksinkertaistamaan koodia
 		
@@ -29,7 +32,7 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET MÃ
 	}
 
 	@Override
-	public void setVaratutAsiakkaat(int prosentti) {
+	public void setVaratutAsiakkaat() {
 
 	}
 

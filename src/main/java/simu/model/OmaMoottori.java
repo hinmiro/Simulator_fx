@@ -39,7 +39,7 @@ public class OmaMoottori extends Moottori {
 		switch ((TapahtumanTyyppi) t.getTyyppi()) {
 
 			case SAAPUMINEN:
-				Asiakas as = new Asiakas(generateTrueFalse());
+				Asiakas as = new Asiakas(generateTrueFalse(prosentti));
 				if (as.isOnVarattu())
 					palvelupisteet[as.getTavoite()].lisaaVarattuJonoon(as);
 				else
@@ -50,7 +50,6 @@ public class OmaMoottori extends Moottori {
 			case INFOTISKI: // 0
 				a = (Asiakas) palvelupisteet[0].otaJonosta();
 				palvelupisteet[1].lisaaJonoon(a);
-				System.out.println("##########000");
 				if (a.getTavoite() == 0){
 					a.setPoistumisaika(Kello.getInstance().getAika());
 					a.raportti();
@@ -151,9 +150,8 @@ public class OmaMoottori extends Moottori {
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
 	}
 
-	protected boolean generateTrueFalse() {
+	protected boolean generateTrueFalse(int prosentti) {
 		Random random = new Random();
-		double normalNum = new Normal(5, random.nextInt(10) + 1).sample();
-		return normalNum <= 2 || normalNum >= 8;
+        return random.nextDouble() * 100 <= prosentti;
 	}
 }
