@@ -32,6 +32,7 @@ public class OmaMoottori extends Moottori {
 		saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
 	}
 
+	//TODO Check if in suoritaTapahtuma in if else logic smth wrong or not
 	@Override
 	protected void suoritaTapahtuma(Tapahtuma t) {  // B-vaiheen tapahtumat
 
@@ -50,7 +51,6 @@ public class OmaMoottori extends Moottori {
 				break;
 			case INFOTISKI: // 0
 				a = (Asiakas) palvelupisteet[0].otaJonosta();
-				palvelupisteet[1].lisaaJonoon(a);
 				if (a.getTavoite() == 0){
 					a.setPoistumisaika(Kello.getInstance().getAika());
 					a.raportti();
@@ -133,7 +133,10 @@ public class OmaMoottori extends Moottori {
 	protected void yritaCTapahtumat() {
 		for (Palvelupiste p : palvelupisteet) {
 			if (!p.onVarattu() && p.onJonossa()) {
-				p.aloitaPalvelu();
+				p.aloitaPalvelu(false);
+			}
+			else if (!p.onVarattu() && p.onVarattuJonossa()){
+				p.aloitaPalvelu(true);
 			}
 		}
 	}
@@ -153,6 +156,8 @@ public class OmaMoottori extends Moottori {
 
 	protected boolean generateTrueFalse() {
 		Random random = new Random();
-        return random.nextDouble() * 100 <= getVaratutProsentti();
+		double rn = random.nextDouble() * 100;
+		System.out.println("Random: " + rn + " Prosentti: " + getVaratutProsentti());
+        return rn <= getVaratutProsentti() || getVaratutProsentti() == 100;
 	}
 }
