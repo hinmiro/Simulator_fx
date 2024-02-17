@@ -42,6 +42,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     private Button kaynnistaButton;
     private Button hidastaButton;
     private Button nopeutaButton;
+    private Button clearButton;
 
     private IVisualisointi naytto;
 
@@ -75,18 +76,36 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             kaynnistaButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
+                    nopeutaButton.setDisable(false);
+                    hidastaButton.setDisable(false);
                     kontrolleri.kaynnistaSimulointi();
                     //kaynnistaButton.setDisable(true);
+                }
+            });
+
+            clearButton = new Button();
+            clearButton.setText("Tyhjennä");
+            clearButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    aika.clear();
+                    viive.clear();
+                    varatut.clear();
+                    tulos.setText("");
+                    happyCustomer.setText("");
                 }
             });
 
             hidastaButton = new Button();
             hidastaButton.setText("Hidasta");
             hidastaButton.setOnAction(e -> kontrolleri.hidasta());
+            hidastaButton.setDisable(true);
 
             nopeutaButton = new Button();
             nopeutaButton.setText("Nopeuta");
             nopeutaButton.setOnAction(e -> kontrolleri.nopeuta());
+            nopeutaButton.setDisable(true);
+
 
             aikaLabel = new Label("Simulointiaika:");
             aikaLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -123,6 +142,8 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             happyCustomer.setPrefWidth(150);
 
 
+
+
             HBox hBox = new HBox();
             hBox.setPadding(new Insets(15, 12, 15, 12)); // marginaalit ylÃ¤, oikea, ala, vasen
             hBox.setSpacing(10);   // noodien välimatka 10 pikseliä
@@ -143,6 +164,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             grid.add(happyCustomerLabel, 0, 4);
             grid.add(happyCustomer, 1, 4);
             grid.add(kaynnistaButton, 0, 5);  // sarake, rivi
+            grid.add(clearButton, 0, 6);
             grid.add(nopeutaButton, 1, 5);   // sarake, rivi
             grid.add(hidastaButton, 1, 6);   // sarake, rivi
 
@@ -151,7 +173,10 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             // TÃ¤ytetÃ¤Ã¤n boxi:
             hBox.getChildren().addAll(grid, (Canvas) naytto);
 
+
+
             Scene scene = new Scene(hBox);
+            scene.getStylesheets().add("style.css");
             primaryStage.setScene(scene);
             primaryStage.show();
 
@@ -178,9 +203,10 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     }
 
     @Override
-    public void setLoppuaika(double aika) {
+    public void setLoppuaika(double aika, double happyCustomer) {
         DecimalFormat formatter = new DecimalFormat("#0.00");
         this.tulos.setText(formatter.format(aika));
+        this.happyCustomer.setText(formatter.format(happyCustomer));
     }
 
 

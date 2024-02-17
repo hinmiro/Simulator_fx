@@ -155,7 +155,7 @@ public class OmaMoottori extends Moottori {
 
 
 		// UUTTA graafista
-		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
+		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika(), Asiakas.getHappyRating());
 	}
 
 	protected boolean generateTrueFalse() {

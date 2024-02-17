@@ -45,8 +45,8 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	// Koska FX-ui:n päivitykset tulevat moottorisäikeestä, ne pitää ohjata JavaFX-säikeeseen:
 		
 	@Override
-	public void naytaLoppuaika(double aika) {
-		Platform.runLater(()->ui.setLoppuaika(aika)); 
+	public void naytaLoppuaika(double aika, double happyCustomer) {
+		Platform.runLater(()->ui.setLoppuaika(aika, happyCustomer));
 	}
 
 	
