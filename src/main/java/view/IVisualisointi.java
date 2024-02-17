@@ -8,6 +8,7 @@ public interface IVisualisointi {
 	public void tyhjennaNaytto();
 	
 	public void uusiAsiakas();
+	public void naytaVirheIlmoitus(String s);
 
 	GraphicsContext getGraphicsContext2D();
 

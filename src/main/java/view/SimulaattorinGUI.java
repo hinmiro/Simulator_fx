@@ -217,8 +217,13 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
         DecimalFormat formatter = new DecimalFormat("#0.00");
         this.tulos.setText(formatter.format(aika));
         this.happyCustomer.setText(formatter.format(happyCustomer));
+        hidastaButton.setDisable(true);
+        nopeutaButton.setDisable(true);
     }
-
+    @Override
+    public void naytaVirheIlmoitus(String virhe) {
+        naytto.naytaVirheIlmoitus(virhe);
+    }
 
     @Override
     public IVisualisointi getVisualisointi() {

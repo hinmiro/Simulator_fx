@@ -34,5 +34,10 @@ public class Visualisointi extends Canvas implements IVisualisointi{
 		//j = (j + 12) % this.getHeight();
 		if (i==0) j+=10;			
 	}
-	
+
+	@Override
+	public void naytaVirheIlmoitus(String s) {
+
+	}
+
 }
