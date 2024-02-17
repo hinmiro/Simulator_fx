@@ -27,3 +27,8 @@
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
+
+.root {
+    -fx-background-color: linear-gradient(to bottom, #ADD8E6, #ffffff);
+}
+
