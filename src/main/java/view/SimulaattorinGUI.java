@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -52,6 +53,9 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     private Button clearButton;
 
     private IVisualisointi naytto;
+    private IVisualisointi naytto2;
+    private IVisualisointi naytto3;
+    private IVisualisointi naytto4;
 
 
     @Override
@@ -76,7 +80,8 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             });
 
 
-            primaryStage.setTitle("Simulaattori");
+            primaryStage.getIcons().add(new Image("dollar.png"));
+            primaryStage.setTitle("Pankkipalvelut Simulaattori");
 
             kaynnistaButton = new Button();
             kaynnistaButton.setText("Käynnistä simulointi");
@@ -176,11 +181,20 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             grid.add(nopeutaButton, 1, 5);   // sarake, rivi
             grid.add(hidastaButton, 1, 6);   // sarake, rivi
 
-            naytto = new Visualisointi2(500, 300);
-
+            GridPane nahtava = new GridPane();
+            naytto = new Visualisointi2(250, 150);
+            naytto2 = new Visualisointi(250, 150);
+            naytto3 = new Visualisointi2(250, 150);
+            naytto4 = new Visualisointi2(250, 150);
+            nahtava.setHgap(10);
+            nahtava.setVgap(10);
+            nahtava.add((Canvas) naytto, 0, 0);
+            nahtava.add((Canvas) naytto2, 1, 0);
+            nahtava.add((Canvas) naytto3, 0, 1);
+            nahtava.add((Canvas) naytto4, 1, 1);
 
             // TÃ¤ytetÃ¤Ã¤n boxi:
-            hBox.getChildren().addAll(grid, (Canvas) naytto);
+            hBox.getChildren().addAll(grid, nahtava);
 
 
 

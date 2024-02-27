@@ -12,7 +12,7 @@ public class Palvelupiste {
 	private final Tapahtumalista tapahtumalista;
 	private final TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 
-	//JonoStartegia strategia; //optio: asiakkaiden järjestys
+	//JonoStrategia strategia; //optio: asiakkaiden järjestys
 
 	private boolean varattu = false;
 
@@ -47,6 +47,14 @@ public class Palvelupiste {
 		return varattuJono.poll();
 	}
 
+	public int getJononPituus() {
+		return jono.size();
+	}
+
+	public int getVaratunJononPituus() {
+		return varattuJono.size();
+	}
+
 
 	public void aloitaPalvelu(boolean varattuAsiakas) {  //Aloitetaan uusi palvelu, asiakas on jonossa palvelun aikana
 
@@ -73,6 +81,13 @@ public class Palvelupiste {
 
 	public boolean onVarattuJonossa() {
 		return !varattuJono.isEmpty();
+	}
+
+	public boolean checkForCustomerJono(Asiakas asiakas) {
+		return jono.contains(asiakas);
+	}
+	public boolean checkForCustomerVarattuJono(Asiakas asiakas) {
+		return varattuJono.contains(asiakas);
 	}
 
 }
