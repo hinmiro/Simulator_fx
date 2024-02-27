@@ -60,7 +60,14 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 		moottori.setViive((long)(moottori.getViive()*0.9));
 	}
 
-
+	@Override
+	public void lisaaPalvelu(String lisattavaPiste) {
+		((OmaMoottori) moottori).addPalvelu(lisattavaPiste);
+	}
+	@Override
+	public void poistaPalvelu(String poistettavaPiste) {
+		((OmaMoottori) moottori).deletePalvelu(poistettavaPiste);
+	}
 	// Simulointitulosten välittämistä käyttöliittymään.
 	// Koska FX-ui:n päivitykset tulevat moottorisäikeestä, ne pitää ohjata JavaFX-säikeeseen:
 		

@@ -2,6 +2,7 @@ package view;
 
 
 import java.text.DecimalFormat;
+
 import controller.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -115,12 +116,11 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             });
 
 
-
             poistaPalvelupiste = new Button();
             poistaPalvelupiste.setText("Poista Palvelupiste");
-            poistaPalvelupiste.setDisable(true);
+            poistaPalvelupiste.setDisable(false);
             comboPoista = new ComboBox<>();
-            comboPoista.getItems().addAll("Infopiste","Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
+            comboPoista.getItems().addAll("Infopiste", "Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
             poistaPalvelupiste.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -132,9 +132,9 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
 
             lisaaPalvelupiste = new Button();
             lisaaPalvelupiste.setText("Lisää Palvelupiste");
-            lisaaPalvelupiste.setDisable(true);
+            lisaaPalvelupiste.setDisable(false);
             comboLisaa = new ComboBox<>();
-            comboLisaa.getItems().addAll("Infopiste","Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
+            comboLisaa.getItems().addAll("Infopiste", "Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
             lisaaPalvelupiste.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -188,8 +188,6 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             happyCustomer.setPrefWidth(150);
 
 
-
-
             HBox hBox = new HBox();
             hBox.setPadding(new Insets(15, 12, 15, 12)); // marginaalit ylÃ¤, oikea, ala, vasen
             hBox.setSpacing(10);   // noodien välimatka 10 pikseliä
@@ -203,7 +201,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             grid.add(aika, 1, 0);          // sarake, rivi
             grid.add(viiveLabel, 0, 1);      // sarake, rivi
             grid.add(viive, 1, 1);           // sarake, rivi
-            grid.add(varatutLabel, 0,2);
+            grid.add(varatutLabel, 0, 2);
             grid.add(varatut, 1, 2);
             grid.add(tulosLabel, 0, 3);      // sarake, rivi
             grid.add(tulos, 1, 3);           // sarake, rivi
@@ -234,8 +232,6 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             hBox.getChildren().addAll(grid, nahtava);
 
 
-
-
             Scene scene = new Scene(hBox);
             scene.getStylesheets().add("style.css");
             primaryStage.setScene(scene);
@@ -251,7 +247,9 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     //Käyttöliittymän rajapintametodit (kutsutaan kontrollerista)
 
     @Override
-    public int getVaratutAsiakkaat() { return Integer.parseInt(varatut.getText());}
+    public int getVaratutAsiakkaat() {
+        return Integer.parseInt(varatut.getText());
+    }
 
     @Override
     public double getAika() {
@@ -272,23 +270,27 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
         nopeutaButton.setDisable(true);
         kaynnistaButton.setDisable(false);
     }
+
     @Override
     public void naytaVirheIlmoitus(String virhe) {
         naytto.naytaVirheIlmoitus(virhe);
     }
 
+    @Override
     public void lisaaUusiPalvelupiste(String lisattavaPiste) {
-     //   kontrolleri.lisaaPalvelu(lisattavaPiste);
+           kontrolleri.lisaaPalvelu(lisattavaPiste);
     }
 
+    @Override
     public void poistaPalvelupiste(String poistettavaPiste) {
-      //  kontrolleri.poistaPalvelu(poistettavaPiste);
+          kontrolleri.poistaPalvelu(poistettavaPiste);
     }
 
     @Override
     public IVisualisointi getVisualisointi() {
         return naytto;
     }
+
 }
 
 

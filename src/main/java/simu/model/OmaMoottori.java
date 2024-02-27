@@ -32,12 +32,50 @@ public class OmaMoottori extends Moottori {
 
     }
 
-    public void addPalvelu(String type, String count) {
-
+    public void addPalvelu(String type) {
+        switch (type) {
+            case "Infopiste":
+                palvelupisteet.get("0").add(new Palvelupiste(new Normal(10, 6), tapahtumalista, TapahtumanTyyppi.INFOTISKI));
+                System.out.println(palvelupisteet.get("0").size() + " infopisteet");
+                break;
+            case "Uusi tili":
+                palvelupisteet.get("1").add(new Palvelupiste(new Normal(10, 10), tapahtumalista, TapahtumanTyyppi.UUDEN_TILIN_AVAUS));
+                System.out.println(palvelupisteet.get("1").size() + " uudet tilit");
+                break;
+            case "Talletuspiste":
+                palvelupisteet.get("2").add(new Palvelupiste(new Normal(5, 3), tapahtumalista, TapahtumanTyyppi.TALLETUS));
+                System.out.println(palvelupisteet.get("2").size() + " talletuspisteet");
+                break;
+            case "Sijoitusneuvonta":
+                palvelupisteet.get("3").add(new Palvelupiste(new Normal(6, 9), tapahtumalista, TapahtumanTyyppi.SIJOITUS_PALVELUT));
+                System.out.println(palvelupisteet.get("3").size() + " sijoitusneuvonta");
+                break;
+        }
     }
 
-    public void deletePalvelu(String type, String count) {
-
+    public void deletePalvelu(String type) {
+        switch (type) {
+            case "Infopiste":
+                if (palvelupisteet.get("0").size() > 1) // Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
+                    palvelupisteet.get("0").remove(palvelupisteet.get("0").size() - 1);
+                System.out.println(palvelupisteet.get("0").size() + " infopisteet");
+                break;
+            case "Uusi tili":
+                if (palvelupisteet.get("1").size() > 1) // Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
+                    palvelupisteet.get("1").remove(palvelupisteet.get("1").size() - 1);
+                System.out.println(palvelupisteet.get("1").size() + " uudet tilit");
+                break;
+            case "Talletuspiste":
+                if (palvelupisteet.get("2").size() > 1) // Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
+                    palvelupisteet.get("2").remove(palvelupisteet.get("2").size() - 1);
+                System.out.println(palvelupisteet.get("2").size() + " talletuspisteet");
+                break;
+            case "Sijoitusneuvonta":
+                if (palvelupisteet.get("3").size() > 1) // Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
+                    palvelupisteet.get("3").remove(palvelupisteet.get("3").size() - 1);
+                System.out.println(palvelupisteet.get("3").size() + " sijoitusneuvonta");
+                break;
+        }
     }
 
     public void setProsentti(int uusiProsentti) {
