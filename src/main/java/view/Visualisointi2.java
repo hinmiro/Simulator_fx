@@ -4,6 +4,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -24,8 +25,9 @@ public class Visualisointi2 extends Canvas implements IVisualisointi{
 	
 
 	public void tyhjennaNaytto() {
-		gc.setFill(Color.GRAY);
-		gc.fillRect(0, 0, this.getWidth(), this.getHeight());
+		gc.clearRect(0,0, this.getWidth(), this.getHeight());
+		gc.setFill(Color.GREY);
+		gc.fillRect(0,0,this.getWidth(), this.getHeight());
 	}
 	
 	public void uusiAsiakas() {
@@ -43,15 +45,15 @@ public class Visualisointi2 extends Canvas implements IVisualisointi{
 
 	@Override
 	public void naytaVirheIlmoitus(String virhe) {
+		double y = this.getHeight()/2;
 		virheet.add(virhe);
-		int y = 100;
 		gc.setFill(Color.GRAY);
-		gc.fillRect(100,80,100,20);
+		gc.fillRect(0,0,this.getWidth(),this.getHeight());
 		gc.setFill(Color.DARKORANGE);
 		gc.setFont(new Font(15));
+		gc.setTextAlign(TextAlignment.CENTER);
 		for (String s : virheet) {
-			gc.fillText(s, 100, y);
-			y += 25;
+			gc.fillText(s, this.getWidth()/2, y += 20);
 		}
 	}
 	

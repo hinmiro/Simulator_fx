@@ -110,7 +110,12 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
                     varatut.clear();
                     tulos.setText("");
                     happyCustomer.setText("");
-                    getVisualisointi().tyhjennaNaytto();
+                    kaynnistaButton.setDisable(false);
+                    naytto.tyhjennaNaytto();
+                    naytto2.tyhjennaNaytto();
+                    naytto3.tyhjennaNaytto();
+                    naytto4.tyhjennaNaytto();
+                    kontrolleri.nollaaKello();
                 }
             });
 
@@ -219,10 +224,10 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             grid.add(comboPoista, 1, 9);
 
             GridPane nahtava = new GridPane();
-            naytto = new Visualisointi2(250, 150);
-            naytto2 = new Visualisointi(250, 150);
-            naytto3 = new Visualisointi2(250, 150);
-            naytto4 = new Visualisointi2(250, 150);
+            naytto = new Visualisointi2(500, 300);
+            naytto2 = new Visualisointi(500, 300);
+            naytto3 = new Visualisointi2(500, 300);
+            naytto4 = new Visualisointi2(500, 300);
             nahtava.setHgap(10);
             nahtava.setVgap(10);
             nahtava.add((Canvas) naytto, 0, 0);
@@ -276,6 +281,8 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     public void naytaVirheIlmoitus(String virhe) {
         naytto.naytaVirheIlmoitus(virhe);
     }
+
+
 
     public void lisaaUusiPalvelupiste(String lisattavaPiste) {
      //   kontrolleri.lisaaPalvelu(lisattavaPiste);

@@ -2,6 +2,7 @@ package controller;
 
 import javafx.application.Platform;
 import simu.framework.IMoottori;
+import simu.framework.Kello;
 import simu.framework.Moottori;
 import simu.model.OmaMoottori;
 import view.ISimulaattorinUI;
@@ -27,21 +28,21 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 			moottori.setSimulointiaika(ui.getAika());
 		}catch (NumberFormatException e) {
 			e.printStackTrace();
-			naytaVirheIlmoitus("Virheellinen aika");
+			naytaVirheIlmoitus("Virheellinen aika\n");
 			noErrors = false;
 		}
 		try {
 			moottori.setViive(ui.getViive());
 		}catch (NumberFormatException e) {
 			e.printStackTrace();
-			naytaVirheIlmoitus("Virheellinen viive");
+			naytaVirheIlmoitus("Virheellinen viive\n");
 			noErrors = false;
 		}
 		try {
 			moottori.setVaratutAsiakkaat(ui.getVaratutAsiakkaat());
 		}catch (NumberFormatException e) {
 			e.printStackTrace();
-			naytaVirheIlmoitus("Virheellinen varattujen aikojen prosentti (Vain 0-100%)");
+			naytaVirheIlmoitus("Virheellinen prosentti (Vain 0-100%)");
 			noErrors = false;
 		}
 		if (noErrors) {
@@ -80,6 +81,11 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 				ui.getVisualisointi().uusiAsiakas();
 			}
 		});
+	}
+
+	@Override
+	public void nollaaKello() {
+		Kello.getInstance().setAika(0);
 	}
 
 
