@@ -7,6 +7,8 @@ public interface IKontrolleriForV {
     public void kaynnistaSimulointi();
     public void nopeuta();
     public void hidasta();
+    public void nollaaKello();
+
     public void lisaaPalvelu(String lisattavaPiste);
     public void poistaPalvelu(String poistettavaPiste);
 }

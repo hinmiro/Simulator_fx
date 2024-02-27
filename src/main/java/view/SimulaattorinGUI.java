@@ -111,7 +111,12 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
                     varatut.clear();
                     tulos.setText("");
                     happyCustomer.setText("");
-                    getVisualisointi().tyhjennaNaytto();
+                    kaynnistaButton.setDisable(false);
+                    naytto.tyhjennaNaytto();
+                    naytto2.tyhjennaNaytto();
+                    naytto3.tyhjennaNaytto();
+                    naytto4.tyhjennaNaytto();
+                    kontrolleri.nollaaKello();
                 }
             });
 
@@ -120,7 +125,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             poistaPalvelupiste.setText("Poista Palvelupiste");
             poistaPalvelupiste.setDisable(false);
             comboPoista = new ComboBox<>();
-            comboPoista.getItems().addAll("Infopiste", "Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
+            comboPoista.getItems().addAll("Infopiste","Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
             poistaPalvelupiste.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -134,7 +139,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             lisaaPalvelupiste.setText("Lisää Palvelupiste");
             lisaaPalvelupiste.setDisable(false);
             comboLisaa = new ComboBox<>();
-            comboLisaa.getItems().addAll("Infopiste", "Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
+            comboLisaa.getItems().addAll("Infopiste","Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
             lisaaPalvelupiste.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -188,6 +193,8 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             happyCustomer.setPrefWidth(150);
 
 
+
+
             HBox hBox = new HBox();
             hBox.setPadding(new Insets(15, 12, 15, 12)); // marginaalit ylÃ¤, oikea, ala, vasen
             hBox.setSpacing(10);   // noodien välimatka 10 pikseliä
@@ -201,7 +208,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             grid.add(aika, 1, 0);          // sarake, rivi
             grid.add(viiveLabel, 0, 1);      // sarake, rivi
             grid.add(viive, 1, 1);           // sarake, rivi
-            grid.add(varatutLabel, 0, 2);
+            grid.add(varatutLabel, 0,2);
             grid.add(varatut, 1, 2);
             grid.add(tulosLabel, 0, 3);      // sarake, rivi
             grid.add(tulos, 1, 3);           // sarake, rivi
@@ -217,10 +224,10 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             grid.add(comboPoista, 1, 9);
 
             GridPane nahtava = new GridPane();
-            naytto = new Visualisointi2(250, 150);
-            naytto2 = new Visualisointi(250, 150);
-            naytto3 = new Visualisointi2(250, 150);
-            naytto4 = new Visualisointi2(250, 150);
+            naytto = new Visualisointi2(500, 300);
+            naytto2 = new Visualisointi(500, 300);
+            naytto3 = new Visualisointi2(500, 300);
+            naytto4 = new Visualisointi2(500, 300);
             nahtava.setHgap(10);
             nahtava.setVgap(10);
             nahtava.add((Canvas) naytto, 0, 0);
@@ -230,6 +237,8 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
 
             // TÃ¤ytetÃ¤Ã¤n boxi:
             hBox.getChildren().addAll(grid, nahtava);
+
+
 
 
             Scene scene = new Scene(hBox);
@@ -247,9 +256,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     //Käyttöliittymän rajapintametodit (kutsutaan kontrollerista)
 
     @Override
-    public int getVaratutAsiakkaat() {
-        return Integer.parseInt(varatut.getText());
-    }
+    public int getVaratutAsiakkaat() { return Integer.parseInt(varatut.getText());}
 
     @Override
     public double getAika() {
