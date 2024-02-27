@@ -51,6 +51,11 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     private Button hidastaButton;
     private Button nopeutaButton;
     private Button clearButton;
+    private Button lisaaPalvelupiste;
+    private Button poistaPalvelupiste;
+
+    private ComboBox<String> comboLisaa;
+    private ComboBox<String> comboPoista;
 
     private IVisualisointi naytto;
     private IVisualisointi naytto2;
@@ -91,7 +96,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
                     nopeutaButton.setDisable(false);
                     hidastaButton.setDisable(false);
                     kontrolleri.kaynnistaSimulointi();
-                    //kaynnistaButton.setDisable(true);
+                    kaynnistaButton.setDisable(true);
                 }
             });
 
@@ -109,6 +114,35 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
                 }
             });
 
+
+
+            poistaPalvelupiste = new Button();
+            poistaPalvelupiste.setText("Poista Palvelupiste");
+            poistaPalvelupiste.setDisable(true);
+            comboPoista = new ComboBox<>();
+            comboPoista.getItems().addAll("Infopiste","Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
+            poistaPalvelupiste.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    String poistettavaPalvelu = comboPoista.getValue();
+                    poistaPalvelupiste(poistettavaPalvelu);
+                }
+            });
+
+
+            lisaaPalvelupiste = new Button();
+            lisaaPalvelupiste.setText("Lisää Palvelupiste");
+            lisaaPalvelupiste.setDisable(true);
+            comboLisaa = new ComboBox<>();
+            comboLisaa.getItems().addAll("Infopiste","Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
+            lisaaPalvelupiste.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    String lisattavaPalvelu = comboLisaa.getValue();
+                    lisaaUusiPalvelupiste(lisattavaPalvelu);
+                }
+            });
+
             hidastaButton = new Button();
             hidastaButton.setText("Hidasta");
             hidastaButton.setOnAction(e -> kontrolleri.hidasta());
@@ -118,7 +152,6 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             nopeutaButton.setText("Nopeuta");
             nopeutaButton.setOnAction(e -> kontrolleri.nopeuta());
             nopeutaButton.setDisable(true);
-
 
             aikaLabel = new Label("Simulointiaika:");
             aikaLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -180,6 +213,10 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             grid.add(clearButton, 0, 6);
             grid.add(nopeutaButton, 1, 5);   // sarake, rivi
             grid.add(hidastaButton, 1, 6);   // sarake, rivi
+            grid.add(lisaaPalvelupiste, 0, 8);
+            grid.add(comboLisaa, 1, 8);
+            grid.add(poistaPalvelupiste, 0, 9);
+            grid.add(comboPoista, 1, 9);
 
             GridPane nahtava = new GridPane();
             naytto = new Visualisointi2(250, 150);
@@ -233,10 +270,19 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
         this.happyCustomer.setText(formatter.format(happyCustomer));
         hidastaButton.setDisable(true);
         nopeutaButton.setDisable(true);
+        kaynnistaButton.setDisable(false);
     }
     @Override
     public void naytaVirheIlmoitus(String virhe) {
         naytto.naytaVirheIlmoitus(virhe);
+    }
+
+    public void lisaaUusiPalvelupiste(String lisattavaPiste) {
+     //   kontrolleri.lisaaPalvelu(lisattavaPiste);
+    }
+
+    public void poistaPalvelupiste(String poistettavaPiste) {
+      //  kontrolleri.poistaPalvelu(poistettavaPiste);
     }
 
     @Override
