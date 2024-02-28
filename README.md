@@ -3,3 +3,4 @@ TODO:
 - Palvelupisteiden käyttöasteen laskeminen (työnalla).
 - Keskimääräinen jonotusaika
 - Käyttöliittymän tekoa
+- Testit
