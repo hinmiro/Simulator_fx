@@ -28,14 +28,14 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 			moottori.setSimulointiaika(ui.getAika());
 		}catch (NumberFormatException e) {
 			e.printStackTrace();
-			naytaVirheIlmoitus("Virheellinen aika\n");
+			naytaVirheIlmoitus("Virheellinen aika");
 			noErrors = false;
 		}
 		try {
 			moottori.setViive(ui.getViive());
 		}catch (NumberFormatException e) {
 			e.printStackTrace();
-			naytaVirheIlmoitus("Virheellinen viive\n");
+			naytaVirheIlmoitus("Virheellinen viive");
 			noErrors = false;
 		}
 		try {
@@ -75,6 +75,7 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	@Override
 	public void naytaLoppuaika(double aika, double happyCustomer) {
 		Platform.runLater(()->ui.setLoppuaika(aika, happyCustomer));
+		Platform.runLater(()->ui.getVisualisointi2().setText("Aloita uusi simulaatio tyhjentämällä ensiksi kentät."));
 	}
 	private void naytaVirheIlmoitus(String virhe) {
 		Platform.runLater(() -> ui.naytaVirheIlmoitus(virhe));

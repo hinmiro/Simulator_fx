@@ -297,9 +297,4 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     public IVisualisointi getVisualisointi() {
         return naytto;
     }
-
 }
-
-
-
-

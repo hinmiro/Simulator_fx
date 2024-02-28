@@ -15,5 +15,6 @@ public interface IVisualisointi {
 	double getWidth();
 
 	double getHeight();
+
 }
 

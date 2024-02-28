@@ -33,12 +33,18 @@ public class Visualisointi2 extends Canvas implements IVisualisointi{
 	public void uusiAsiakas() {
 		
 		asiakasLkm++;
+
+		double x = this.getWidth()/2;
+		double y = this.getHeight()/2;
+
+		gc.clearRect(x - 50, y - 10, 100, 20);
 		
 		gc.setFill(Color.GRAY);
-		gc.fillRect(100,80, 100, 20);
+		gc.fillRect(0, 0, this.getWidth(), this.getHeight());
 		gc.setFill(Color.DARKORANGE);
+		gc.setTextAlign(TextAlignment.CENTER);
 		gc.setFont(new Font(20));
-		gc.fillText("Asiakas " + asiakasLkm, 100, 100);
+		gc.fillText("Asiakas " + asiakasLkm, x, y);
 		
 	}
 
@@ -55,7 +61,6 @@ public class Visualisointi2 extends Canvas implements IVisualisointi{
 		for (String s : virheet) {
 			gc.fillText(s, this.getWidth()/2, y += 20);
 		}
+		virheet.clear();
 	}
-	
-
 }
