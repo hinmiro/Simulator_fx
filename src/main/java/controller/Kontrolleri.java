@@ -75,7 +75,6 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	@Override
 	public void naytaLoppuaika(double aika, double happyCustomer) {
 		Platform.runLater(()->ui.setLoppuaika(aika, happyCustomer));
-		Platform.runLater(()->ui.getVisualisointi2().setText("Aloita uusi simulaatio tyhjentämällä ensiksi kentät."));
 	}
 	private void naytaVirheIlmoitus(String virhe) {
 		Platform.runLater(() -> ui.naytaVirheIlmoitus(virhe));
