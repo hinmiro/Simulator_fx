@@ -31,6 +31,7 @@ public class Palvelupiste {
 
 	public Asiakas otaJonosta() {  // Poistetaan palvelussa ollut
 		varattu = false;
+		Asiakas.setServiceDone(Asiakas.getServiceDone() + 1);
 		return jono.poll();
 	}
 
@@ -44,6 +45,7 @@ public class Palvelupiste {
 
 	public Asiakas otaVarattuJonosta() {
 		varattu = false;
+		Asiakas.setServiceDone(Asiakas.getServiceDone() + 1);
 		return varattuJono.poll();
 	}
 
@@ -90,5 +92,13 @@ public class Palvelupiste {
 		return varattuJono.contains(asiakas);
 	}
 
+	@Override
+	public String toString() {
+		return "Palvelupiste{" +
+				"jono size=" + jono.size() +
+				", varattuJono size=" + varattuJono.size() +
+				", varattu=" + varattu +
+				'}';
+	}
 }
 

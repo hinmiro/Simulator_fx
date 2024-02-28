@@ -117,6 +117,9 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
                     naytto3.tyhjennaNaytto();
                     naytto4.tyhjennaNaytto();
                     kontrolleri.nollaaKello();
+                    for (int i = 0; i < 100; i++) {
+                        System.out.println();
+                    }
                 }
             });
 
