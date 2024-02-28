@@ -5,10 +5,8 @@ import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
 import controller.IKontrolleriForM;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Random;
+import java.sql.SQLOutput;
+import java.util.*;
 
 public class OmaMoottori extends Moottori {
 
@@ -16,6 +14,7 @@ public class OmaMoottori extends Moottori {
 
     private HashMap<String, ArrayList<Palvelupiste>> palvelupisteet = new HashMap<>();
     private int prosentti;
+    private HashMap<String, Integer> customerCount = new HashMap<>();
 
     public OmaMoottori(IKontrolleriForM kontrolleri) {
 
@@ -103,6 +102,8 @@ public class OmaMoottori extends Moottori {
                     lisaaJonoon("0", "lisaaJonoon", as);
                 kontrolleri.visualisoiAsiakas();
                 saapumisprosessi.generoiSeuraava();
+                String palvelupisteName = "SAAPUMINEN";
+                customerCount.put(palvelupisteName, customerCount.getOrDefault(palvelupisteName, 0) + 1);
                 break;
             case INFOTISKI: // 0
                 a = otaJonosta("0", "otaJonosta");
@@ -111,6 +112,8 @@ public class OmaMoottori extends Moottori {
                         asiakas.setPoistumisaika(Kello.getInstance().getAika());
                         asiakas.raportti();
                         a.remove(asiakas);
+                        palvelupisteName = "INFOTISKI";
+                        customerCount.put(palvelupisteName, customerCount.getOrDefault(palvelupisteName, 0) + 1);
                     }
                 }
                 if (!a.isEmpty()){
@@ -124,18 +127,24 @@ public class OmaMoottori extends Moottori {
                 handleCustomers("2", a, true);
                 a = otaJonosta("1", "otaJonosta");
                 handleCustomers("2", a, false);
+                palvelupisteName = "UUDEN_TILIN_AVAUS";
+                customerCount.put(palvelupisteName, customerCount.getOrDefault(palvelupisteName, 0) + 1);
                 break;
             case TALLETUS:  // 2
                 a = otaJonosta("2", "otaVarattuJonosta");
                 handleCustomers("3", a, true);
                 a = otaJonosta("2", "otaJonosta");
                 handleCustomers("3", a, false);
+                palvelupisteName = "TALLETUS";
+                customerCount.put(palvelupisteName, customerCount.getOrDefault(palvelupisteName, 0) + 1);
                 break;
             case SIJOITUS_PALVELUT: // 3
                 a = otaJonosta("3", "otaVarattuJonosta");
                 handleCustomers("4", a, true);
                 a = otaJonosta("3", "otaJonosta");
                 handleCustomers("4", a, false);
+                palvelupisteName = "SIJOITUS_PALVELUT";
+                customerCount.put(palvelupisteName, customerCount.getOrDefault(palvelupisteName, 0) + 1);
                 break;
         }
     }
@@ -167,6 +176,9 @@ public class OmaMoottori extends Moottori {
         System.out.println("Keskimääräinen läpikulku aika on:  " + Asiakas.getAverageTimeSpent());
         System.out.println("Asiakkaita palveltu: " + Asiakas.getTotalCustomers());
         System.out.println("Keskimääräinen asiakastyytyväisyys: " + Asiakas.getHappyRating());
+        for (Map.Entry<String, Integer> entry : customerCount.entrySet()) {
+            System.out.println("Palvelupiste: " + entry.getKey() + ", Asiakkaita palveltu: " + entry.getValue());
+        }
 
 
         // UUTTA graafista

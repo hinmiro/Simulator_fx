@@ -107,5 +107,9 @@ public class Asiakas{
 	public static double getHappyRating(){
 		return happyRating / totalCustomers;
 	}
+	public static void resetStatics() {
+		totalTime = 0;
+		totalCustomers = 0;
+	}
 }
 

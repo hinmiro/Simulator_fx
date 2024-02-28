@@ -12,6 +12,7 @@ public class Palvelupiste {
 	private final Tapahtumalista tapahtumalista;
 	private final TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 
+
 	//JonoStrategia strategia; //optio: asiakkaiden järjestys
 
 	private boolean varattu = false;
