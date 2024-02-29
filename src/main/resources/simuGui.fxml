@@ -88,13 +88,13 @@
             <Button fx:id="handleTyhjenna" mnemonicParsing="false" onAction="#handleTyhjenna" prefHeight="31.0" prefWidth="90.0" style="-fx-background-radius: 30;" text="Tyhjennä" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <AnchorPane GridPane.rowIndex="1">
                <children>
-                  <Slider fx:id="nopeus" blockIncrement="1.0" cache="true" cacheHint="SPEED" majorTickUnit="200.0" max="1000.0" min="40.0" minorTickCount="1" prefHeight="0.0" prefWidth="168.0" rotate="-180.0" showTickMarks="true" snapToTicks="true" value="545.0">
+                  <Slider fx:id="nopeus" blockIncrement="1.0" cache="true" cacheHint="SPEED" layoutX="19.0" layoutY="8.0" majorTickUnit="200.0" max="1000.0" min="40.0" minorTickCount="1" onDragDone="#nopeusLiuku" onMouseReleased="#nopeusLiuku" prefHeight="0.0" prefWidth="168.0" rotate="-180.0" showTickMarks="true" snapToTicks="true" value="545.0">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Slider>
-                  <Label layoutX="126.0" layoutY="35.0" text="Nopea" />
-                  <Label layoutX="14.0" layoutY="35.0" prefHeight="18.0" prefWidth="48.0" text="Hidas" />
+                  <Label layoutX="152.0" layoutY="54.0" text="Nopea" />
+                  <Label layoutX="14.0" layoutY="54.0" prefHeight="18.0" prefWidth="48.0" text="Hidas" />
                </children>
             </AnchorPane>
             <Label fx:id="nopeusLabel" text="Nopeuta ja hidasta" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />

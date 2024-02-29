@@ -64,6 +64,11 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	}
 
 	@Override
+	public void nopeutaHidasta(double value) {
+		moottori.setViive((long)Math.round(value));
+	}
+
+	@Override
 	public void lisaaPalvelu(String lisattavaPiste) {
 		((OmaMoottori) moottori).addPalvelu(lisattavaPiste);
 	}

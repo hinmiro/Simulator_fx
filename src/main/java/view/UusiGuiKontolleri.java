@@ -88,4 +88,8 @@ public class UusiGuiKontolleri {
 
     public void setUusiGui(UusiGui uusiGui) {
     }
+
+    public void nopeusLiuku() {
+        kontrolleri.nopeutaHidasta(nopeus.getValue());
+    }
 }

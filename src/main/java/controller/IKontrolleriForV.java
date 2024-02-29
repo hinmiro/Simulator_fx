@@ -11,4 +11,5 @@ public interface IKontrolleriForV {
 
     public void lisaaPalvelu(String lisattavaPiste);
     public void poistaPalvelu(String poistettavaPiste);
+    public void nopeutaHidasta(double value);
 }
