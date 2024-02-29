@@ -10,12 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import simu.framework.Trace;
@@ -26,11 +21,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
-import static javafx.scene.paint.Color.LIGHTBLUE;
-import static javafx.scene.paint.Color.LIGHTGREY;
 
-
-public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
+public class SimulaattorinGUI2 extends Application implements ISimulaattorinUI {
 
     //Kontrollerin esittely (tarvitaan käyttöliittymässä)
     private IKontrolleriForV kontrolleri;

@@ -6,13 +6,15 @@ import simu.framework.Kello;
 import simu.framework.Moottori;
 import simu.model.OmaMoottori;
 import view.ISimulaattorinUI;
+import view.UusiGui;
+import view.UusiGuiKontolleri;
 
 public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUSI
 	
 	private IMoottori moottori; 
-	private ISimulaattorinUI ui;
+	private UusiGuiKontolleri ui;
 	
-	public Kontrolleri(ISimulaattorinUI ui) {
+	public Kontrolleri(UusiGuiKontolleri ui) {
 		this.ui = ui;
 		
 	}
@@ -46,7 +48,7 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 			noErrors = false;
 		}
 		if (noErrors) {
-			ui.getVisualisointi().tyhjennaNaytto();
+			//ui.getVisualisointi().tyhjennaNaytto();
 			((Thread) moottori).start();
 		}
 	}
@@ -94,9 +96,4 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	public void nollaaKello() {
 		Kello.getInstance().setAika(0);
 	}
-
-
-
-
-
 }
