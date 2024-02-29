@@ -58,16 +58,23 @@ public class UusiGuiKontolleri {
 
     @FXML
     public void initialize() {
+        nopeus.setDisable(true);
+        Trace.setTraceLevel(Trace.Level.INFO);
         visualisointi = new VisualisointiNaytto1(visu1);
     }
 
 
     public void kaynnistaSimulointi() {
         kontrolleri.kaynnistaSimulointi();
+        nopeus.setDisable(false);
     }
 
     public void handleTyhjenna() {
         visualisointi.tyhjennaNaytto();
+        aikaField.clear();
+        viiveField.clear();
+        varatutField.clear();
+        nopeus.setValue(545);
     }
 
     public double getAika() {
