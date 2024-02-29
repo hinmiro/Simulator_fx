@@ -37,10 +37,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="poistaButton" mnemonicParsing="false" prefHeight="32.0" prefWidth="79.0" style="-fx-background-radius: 30;" text="Poista" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Button fx:id="poistaButton" mnemonicParsing="false" onAction="#poistaPalvelu" prefHeight="32.0" prefWidth="79.0" style="-fx-background-radius: 30;" text="Poista" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
             <ComboBox fx:id="lisaaCombo" prefWidth="150.0" promptText="Lisää palvelu" visibleRowCount="4" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <ComboBox fx:id="poistaCombo" prefWidth="150.0" promptText="Poista palvelu" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-            <Button fx:id="lisaaButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="82.0" style="-fx-background-radius: 30;" text="Lisää" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Button fx:id="lisaaButton" mnemonicParsing="false" onAction="#lisaaPalvelu" prefHeight="30.0" prefWidth="82.0" style="-fx-background-radius: 30;" text="Lisää" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <Label fx:id="aikaLabel" text="Simulointiaika:">
                <font>
                   <Font size="14.0" />

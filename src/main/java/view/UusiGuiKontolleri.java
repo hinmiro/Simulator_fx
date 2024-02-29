@@ -58,7 +58,11 @@ public class UusiGuiKontolleri {
 
     @FXML
     public void initialize() {
+        poistaCombo.getItems().addAll("Infopiste","Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
+        lisaaCombo.getItems().addAll("Infopiste","Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
         nopeus.setDisable(true);
+        lisaaButton.setDisable(true);
+        poistaButton.setDisable(true);
         Trace.setTraceLevel(Trace.Level.INFO);
         visualisointi = new VisualisointiNaytto1(visu1);
     }
@@ -67,6 +71,8 @@ public class UusiGuiKontolleri {
     public void kaynnistaSimulointi() {
         kontrolleri.kaynnistaSimulointi();
         nopeus.setDisable(false);
+        lisaaButton.setDisable(false);
+        poistaButton.setDisable(false);
     }
 
     public void handleTyhjenna() {
@@ -75,6 +81,9 @@ public class UusiGuiKontolleri {
         viiveField.clear();
         varatutField.clear();
         nopeus.setValue(545);
+        nopeus.setDisable(true);
+        lisaaButton.setDisable(true);
+        poistaButton.setDisable(true);
     }
 
     public double getAika() {
@@ -98,5 +107,13 @@ public class UusiGuiKontolleri {
 
     public void nopeusLiuku() {
         kontrolleri.nopeutaHidasta(nopeus.getValue());
+    }
+
+    public void lisaaPalvelu() {
+        kontrolleri.lisaaPalvelu(lisaaCombo.getValue());
+    }
+
+    public void poistaPalvelu() {
+        kontrolleri.poistaPalvelu(poistaCombo.getValue());
     }
 }
