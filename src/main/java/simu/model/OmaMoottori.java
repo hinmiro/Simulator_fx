@@ -87,11 +87,10 @@ public class OmaMoottori extends Moottori {
         saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
     }
 
-    //TODO Check if in suoritaTapahtuma in if else logic smth wrong or not
     @Override
     protected void suoritaTapahtuma(Tapahtuma t) {  // B-vaiheen tapahtumat
 
-        ArrayList<Asiakas> a;
+        ArrayList<Asiakas> a = new ArrayList<>();
         switch ((TapahtumanTyyppi) t.getTyyppi()) {
 
             case SAAPUMINEN:
@@ -101,41 +100,47 @@ public class OmaMoottori extends Moottori {
                     lisaaJonoon(Byte.toString(as.getTavoite()), "lisaaVarattuJonoon", as);
                 else
                     lisaaJonoon("0", "lisaaJonoon", as);
+                System.out.println("Infotiski jonossa:" + palvelupisteet.get("0").toString());
+                System.out.println("Uuden tilin avaajat jonossa:" + palvelupisteet.get("1").toString());
+                System.out.println("Talletuspiste jonossa:" + palvelupisteet.get("2").toString());
+                System.out.println("Sijoitusneuvonta jonossa:" + palvelupisteet.get("3").toString());
                 kontrolleri.visualisoiAsiakas();
                 saapumisprosessi.generoiSeuraava();
                 break;
             case INFOTISKI: // 0
+                // System.out.println("Infotiski jonossa:" + palvelupisteet.get("0"););
                 a = otaJonosta("0", "otaJonosta");
-                for (Asiakas asiakas : a){
-                    if (asiakas.getTavoite() == 0) {
+                System.out.println("Infotiski palvelee asiakasta");
+                Iterator<Asiakas> iterator = a.iterator();
+                while (iterator.hasNext()) {
+                    Asiakas asiakas = iterator.next();
+                    if (asiakas != null && asiakas.getTavoite() == 0) {
+                        System.out.println(asiakas.getTavoite());
                         asiakas.setPoistumisaika(Kello.getInstance().getAika());
                         asiakas.raportti();
-                        a.remove(asiakas);
+                        iterator.remove();
                     }
                 }
                 if (!a.isEmpty()){
-                    for (Asiakas asiakas : a ) {
-                        lisaaJonoon(Byte.toString(asiakas.getTavoite()), "lisaaJonoon", asiakas);
+                    iterator = a.iterator();
+                    while (iterator.hasNext()) {
+                        Asiakas asiakas = iterator.next();
+                        if (asiakas != null) {
+                            System.out.println("asiakas " + asiakas.getId() + " siirtyy jonoon" + asiakas.getTavoite());
+                            lisaaJonoon(Byte.toString(asiakas.getTavoite()), "lisaaJonoon", asiakas);
+                            iterator.remove();
+                        }
                     }
                 }
                 break;
             case UUDEN_TILIN_AVAUS: // 1
-                a = otaJonosta("1", "otaVarattuJonosta");
-                handleCustomers("2", a, true);
-                a = otaJonosta("1", "otaJonosta");
-                handleCustomers("2", a, false);
+                palvelee(a, "1", "2");
                 break;
             case TALLETUS:  // 2
-                a = otaJonosta("2", "otaVarattuJonosta");
-                handleCustomers("3", a, true);
-                a = otaJonosta("2", "otaJonosta");
-                handleCustomers("3", a, false);
+                palvelee(a, "2", "3");
                 break;
             case SIJOITUS_PALVELUT: // 3
-                a = otaJonosta("3", "otaVarattuJonosta");
-                handleCustomers("4", a, true);
-                a = otaJonosta("3", "otaJonosta");
-                handleCustomers("4", a, false);
+                palvelee(a, "3", "4");
                 break;
         }
     }
@@ -160,6 +165,12 @@ public class OmaMoottori extends Moottori {
         });
     }
 
+    public void palvelee(ArrayList<Asiakas> a, String palvelupisteNmrAlus, String palvelupisteNmrLoppu) {
+        a = otaJonosta(palvelupisteNmrAlus, "otaVarattuJonosta");
+        handleCustomers(palvelupisteNmrLoppu, a, true);
+        a = otaJonosta(palvelupisteNmrAlus, "otaJonosta");
+        handleCustomers(palvelupisteNmrLoppu, a, false);
+    }
     @Override
     protected void tulokset() {
         System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
@@ -176,7 +187,7 @@ public class OmaMoottori extends Moottori {
     protected boolean generateTrueFalse() {
         Random random = new Random();
         double rn = random.nextDouble() * 100;
-        System.out.println("Random: " + rn + " Prosentti: " + getVaratutProsentti());
+//        System.out.println("Random: " + rn + " Prosentti: " + getVaratutProsentti());
         return rn <= getVaratutProsentti() || getVaratutProsentti() == 100;
     }
 
@@ -200,16 +211,12 @@ public class OmaMoottori extends Moottori {
         switch (cmd) {
             case "otaJonosta":
                 for (Palvelupiste p : palvelupisteet.get(palvelupisteNmr)) {
-                    if (p.onJonossa() && !p.onVarattu()) {
                         asiakkaat.add(p.otaJonosta());
-                    }
                 }
                 break;
             case "otaVarattuJonosta":
                 for (Palvelupiste p : palvelupisteet.get(palvelupisteNmr)) {
-                    if (p.onVarattuJonossa()) {
                         asiakkaat.add(p.otaVarattuJonosta());
-                    }
                 }
                 break;
         }
@@ -220,22 +227,25 @@ public class OmaMoottori extends Moottori {
         Iterator<Asiakas> iterator = a.iterator();
         while (iterator.hasNext()) {
             Asiakas asiakas = iterator.next();
-            if (varattu) {
-                if (new Random().nextBoolean() && !palvelupisteNmr.equals("4")) {
-                    lisaaJonoon(palvelupisteNmr, "lisaaVarattuJonoon", asiakas);
+            if (asiakas != null) {
+                if (varattu) {
+                    if (new Random().nextBoolean() && !palvelupisteNmr.equals("4")) {
+                        lisaaJonoon(palvelupisteNmr, "lisaaVarattuJonoon", asiakas);
+                    } else {
+                        asiakas.setPoistumisaika(Kello.getInstance().getAika());
+                        asiakas.raportti();
+                    }
                 } else {
-                    asiakas.setPoistumisaika(Kello.getInstance().getAika());
-                    asiakas.raportti();
+                    if (new Random().nextBoolean() && !palvelupisteNmr.equals("4")) {
+                        lisaaJonoon(palvelupisteNmr, "lisaaJonoon", asiakas);
+                    } else {
+                        asiakas.setPoistumisaika(Kello.getInstance().getAika());
+                        asiakas.raportti();
+                    }
                 }
-            } else {
-                if (new Random().nextBoolean() && !palvelupisteNmr.equals("4")) {
-                    lisaaJonoon(palvelupisteNmr, "lisaaJonoon", asiakas);
-                } else {
-                    asiakas.setPoistumisaika(Kello.getInstance().getAika());
-                    asiakas.raportti();
-                }
+                iterator.remove();
             }
-            iterator.remove();
         }
     }
+
 }

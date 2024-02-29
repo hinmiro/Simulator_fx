@@ -17,6 +17,7 @@ public class Asiakas{
 	private static long sum = 0;
 	private static double totalTime = 0;
 	private static int totalCustomers = 0;
+	private static int serviceDone = 0;
 	private static double happyRating = 0;
 	private boolean onVarattu;
 	private byte tavoite;
@@ -33,6 +34,14 @@ public class Asiakas{
 		Trace.out(Trace.Level.INFO, "Uusi asiakas nro " + id + " saapui klo "+saapumisaika);
 	}
 
+	public static void setServiceDone(int serviceDone) {
+		Asiakas.serviceDone = serviceDone;
+	}
+
+	public static int getServiceDone() {
+		return serviceDone;
+	}
+
 	public double getPoistumisaika() {
 		return poistumisaika;
 	}
@@ -41,6 +50,7 @@ public class Asiakas{
 		this.poistumisaika = poistumisaika;
 		totalTime += (poistumisaika - saapumisaika);
 		totalCustomers++;
+		System.out.println(totalCustomers);
 	}
 
 	public double getSaapumisaika() {
@@ -105,7 +115,7 @@ public class Asiakas{
 	}
 
 	public static double getHappyRating(){
-		return happyRating / totalCustomers;
+		return happyRating / serviceDone;
 	}
 }
 
