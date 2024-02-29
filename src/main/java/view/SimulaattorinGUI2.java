@@ -61,7 +61,7 @@ public class SimulaattorinGUI2 extends Application implements ISimulaattorinUI {
 
         Trace.setTraceLevel(Level.INFO);
 
-        kontrolleri = new Kontrolleri(this);
+       // kontrolleri = new Kontrolleri(this);
     }
 
     @Override

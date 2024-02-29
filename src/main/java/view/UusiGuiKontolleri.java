@@ -16,7 +16,7 @@ import simu.model.OmaMoottori;
 
 
 public class UusiGuiKontolleri {
-    private IVisualisointi visualisointi = new Visualisointi2(400, 400);
+    private IVisualisointi visualisointi = null;
 
     @FXML
     private Canvas visu1;
@@ -56,12 +56,18 @@ public class UusiGuiKontolleri {
         kontrolleri = new Kontrolleri(this);
     }
 
+    @FXML
+    public void initialize() {
+        visualisointi = new VisualisointiNaytto1(visu1);
+    }
+
 
     public void kaynnistaSimulointi() {
         kontrolleri.kaynnistaSimulointi();
     }
-    public void handleTyhjenna() {
 
+    public void handleTyhjenna() {
+        visualisointi.tyhjennaNaytto();
     }
 
     public double getAika() {
