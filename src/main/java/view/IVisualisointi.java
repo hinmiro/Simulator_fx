@@ -16,5 +16,7 @@ public interface IVisualisointi {
 
 	double getHeight();
 
+	public void setLoppuaika(double d, double dd, int i);
+
 }
 

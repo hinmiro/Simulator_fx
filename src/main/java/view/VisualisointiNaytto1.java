@@ -8,7 +8,7 @@ import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 
-public class VisualisointiNaytto1 implements IVisualisointi{
+public class VisualisointiNaytto1 implements IVisualisointi {
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -38,8 +38,8 @@ public class VisualisointiNaytto1 implements IVisualisointi{
     public void uusiAsiakas() {
         asiakasLkm++;
 
-        double x = canvas.getWidth()/2;
-        double y = canvas.getHeight()/2;
+        double x = canvas.getWidth() / 2;
+        double y = canvas.getHeight() / 2;
         tyhjennaNaytto();
 
         gc.setFill(Color.DARKORANGE);
@@ -52,13 +52,13 @@ public class VisualisointiNaytto1 implements IVisualisointi{
     @Override
     public void naytaVirheIlmoitus(String virhe) {
         System.out.println(virhe);
-        double y = canvas.getHeight()/2;
+        double y = canvas.getHeight() / 2;
         virheet.add(virhe);
         gc.setFill(Color.DARKORANGE);
         gc.setFont(new Font(15));
         gc.setTextAlign(TextAlignment.CENTER);
         for (String s : virheet) {
-            gc.fillText(s, canvas.getWidth()/2, y);
+            gc.fillText(s, canvas.getWidth() / 2, y);
             y += 20;
         }
     }
@@ -76,5 +76,16 @@ public class VisualisointiNaytto1 implements IVisualisointi{
     @Override
     public double getHeight() {
         return 0;
+    }
+
+    @Override
+    public void setLoppuaika(double aika, double hcr, int asiakkaat) {
+        tyhjennaNaytto();
+        gc.setFont(new Font(15));
+        gc.setFill(Color.DARKORANGE);
+        gc.setTextAlign(TextAlignment.LEFT);
+        gc.fillText("Kokonaisaika: " + String.format("%.2f", aika), canvas.getWidth() / 10, canvas.getHeight() / 10);
+        gc.fillText("Asiakastyytyväisyys: " + String.format("%.2f", hcr), canvas.getWidth() / 10, canvas.getHeight() / 10 + 20);
+        gc.fillText("Asiakasmäärä: " + asiakkaat, canvas.getWidth() / 10, canvas.getHeight() / 10 + 40);
     }
 }

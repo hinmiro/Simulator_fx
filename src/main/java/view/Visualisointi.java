@@ -34,8 +34,9 @@ public class Visualisointi extends Canvas implements IVisualisointi{
 	}
 
 	@Override
-	public void naytaVirheIlmoitus(String s) {
+	public void naytaVirheIlmoitus(String s) {}
 
-	}
+	@Override
+	public void setLoppuaika(double aika, double hcr, int i) {}
 
 }

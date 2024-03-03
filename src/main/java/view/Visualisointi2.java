@@ -63,4 +63,7 @@ public class Visualisointi2 extends Canvas implements IVisualisointi{
 		}
 		virheet.clear();
 	}
+
+	@Override
+	public void setLoppuaika(double aika, double hcr, int i) {}
 }
