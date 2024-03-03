@@ -98,8 +98,8 @@ public class UusiGuiKontolleri {
         return Integer.parseInt(varatutField.getText());
     }
 
-    public GraphicsContext getVisualisointi() {
-        return visu1.getGraphicsContext2D();
+    public IVisualisointi getVisualisointi() {
+        return visualisointi;
     }
 
     public void setUusiGui(UusiGui uusiGui) {

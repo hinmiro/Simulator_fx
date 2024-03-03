@@ -3,6 +3,8 @@ package view;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 public class VisualisointiNaytto1 implements IVisualisointi{
 
@@ -27,6 +29,16 @@ public class VisualisointiNaytto1 implements IVisualisointi{
 
     @Override
     public void uusiAsiakas() {
+        asiakasLkm++;
+
+        double x = canvas.getWidth()/2;
+        double y = canvas.getHeight()/2;
+        tyhjennaNaytto();
+
+        gc.setFill(Color.DARKORANGE);
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setFont(new Font(20));
+        gc.fillText("Asiakas " + asiakasLkm, x, y);
 
     }
 

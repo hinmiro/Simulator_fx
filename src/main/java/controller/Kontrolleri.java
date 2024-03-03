@@ -90,11 +90,11 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	
 	@Override
 	public void visualisoiAsiakas() {
-		//Platform.runLater(new Runnable(){
-			//public void run(){
-			//	ui.getVisualisointi().uusiAsiakas();
-		//	}
-		//});
+		Platform.runLater(new Runnable(){
+			public void run(){
+				ui.getVisualisointi().uusiAsiakas();
+			}
+		});
 	}
 
 	@Override
