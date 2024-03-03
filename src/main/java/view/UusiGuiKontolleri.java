@@ -58,8 +58,8 @@ public class UusiGuiKontolleri {
 
     @FXML
     public void initialize() {
-        poistaCombo.getItems().addAll("Infopiste","Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
-        lisaaCombo.getItems().addAll("Infopiste","Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
+        poistaCombo.getItems().addAll("Infopiste", "Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
+        lisaaCombo.getItems().addAll("Infopiste", "Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
         nopeus.setDisable(true);
         lisaaButton.setDisable(true);
         poistaButton.setDisable(true);
@@ -73,6 +73,7 @@ public class UusiGuiKontolleri {
         nopeus.setDisable(false);
         lisaaButton.setDisable(false);
         poistaButton.setDisable(false);
+        simuloiButton.setDisable(true);
     }
 
     public void handleTyhjenna() {
@@ -84,18 +85,19 @@ public class UusiGuiKontolleri {
         nopeus.setDisable(true);
         lisaaButton.setDisable(true);
         poistaButton.setDisable(true);
+        simuloiButton.setDisable(false);
     }
 
-    public double getAika() {
-        return Double.parseDouble(aikaField.getText());
+    public String getAika() {
+            return aikaField.getText();
     }
 
-    public long getViive() {
-        return Long.parseLong(viiveField.getText());
+    public String getViive() {
+        return viiveField.getText();
     }
 
-    public int getVaratutAsiakkaat() {
-        return Integer.parseInt(varatutField.getText());
+    public String getVaratutAsiakkaat() {
+            return varatutField.getText();
     }
 
     public IVisualisointi getVisualisointi() {

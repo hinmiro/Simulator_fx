@@ -27,28 +27,28 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 		boolean noErrors = true;
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
 		try {
-			moottori.setSimulointiaika(ui.getAika());
+			moottori.setSimulointiaika(Double.parseDouble(ui.getAika()));
 		}catch (NumberFormatException e) {
 			e.printStackTrace();
 			naytaVirheIlmoitus("Virheellinen aika");
 			noErrors = false;
 		}
 		try {
-			moottori.setViive(ui.getViive());
+			moottori.setViive(Long.parseLong(ui.getViive()));
 		}catch (NumberFormatException e) {
 			e.printStackTrace();
 			naytaVirheIlmoitus("Virheellinen viive");
 			noErrors = false;
 		}
 		try {
-			moottori.setVaratutAsiakkaat(ui.getVaratutAsiakkaat());
+			moottori.setVaratutAsiakkaat(Integer.parseInt(ui.getVaratutAsiakkaat()));
 		}catch (NumberFormatException e) {
 			e.printStackTrace();
 			naytaVirheIlmoitus("Virheellinen prosentti (Vain 0-100%)");
 			noErrors = false;
 		}
 		if (noErrors) {
-			//ui.getVisualisointi().tyhjennaNaytto();
+			ui.getVisualisointi().tyhjennaNaytto();
 			((Thread) moottori).start();
 		}
 	}
@@ -76,15 +76,13 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	public void poistaPalvelu(String poistettavaPiste) {
 		((OmaMoottori) moottori).deletePalvelu(poistettavaPiste);
 	}
-	// Simulointitulosten välittämistä käyttöliittymään.
-	// Koska FX-ui:n päivitykset tulevat moottorisäikeestä, ne pitää ohjata JavaFX-säikeeseen:
-		
+
 	@Override
 	public void naytaLoppuaika(double aika, double happyCustomer) {
 		//Platform.runLater(()->ui.setLoppuaika(aika, happyCustomer));
 	}
 	private void naytaVirheIlmoitus(String virhe) {
-		//Platform.runLater(() -> ui.naytaVirheIlmoitus(virhe));
+		Platform.runLater(() -> ui.getVisualisointi().naytaVirheIlmoitus(virhe));
 	}
 
 	
