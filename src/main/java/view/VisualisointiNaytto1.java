@@ -5,14 +5,18 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import simu.model.Palvelupiste;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class VisualisointiNaytto1 implements IVisualisointi {
 
     private GraphicsContext gc;
     private Canvas canvas;
     private ArrayList<String> virheet;
+    private HashMap<String, ArrayList<Palvelupiste>> palvelupisteet;
 
 
     int asiakasLkm = 0;
@@ -79,13 +83,27 @@ public class VisualisointiNaytto1 implements IVisualisointi {
     }
 
     @Override
-    public void setLoppuaika(double aika, double hcr, int asiakkaat) {
+    public void setLoppuaika(double aika, double hcr, int asiakkaat, HashMap palvelut) {
+        double width = canvas.getWidth() / 10;
+        double height = canvas.getHeight() / 10;
+        double row = 20;
+        int increment = 6;
         tyhjennaNaytto();
+        palvelupisteet = palvelut;
         gc.setFont(new Font(15));
         gc.setFill(Color.DARKORANGE);
         gc.setTextAlign(TextAlignment.LEFT);
-        gc.fillText("Kokonaisaika: " + String.format("%.2f", aika), canvas.getWidth() / 10, canvas.getHeight() / 10);
-        gc.fillText("Asiakastyytyväisyys: " + String.format("%.2f", hcr), canvas.getWidth() / 10, canvas.getHeight() / 10 + 20);
-        gc.fillText("Asiakasmäärä: " + asiakkaat, canvas.getWidth() / 10, canvas.getHeight() / 10 + 40);
+        gc.fillText("Kokonaisaika: " + String.format("%.2f", aika), width, height);
+        gc.fillText("Asiakastyytyväisyys: " + String.format("%.2f", hcr), width, height + row);
+        gc.fillText("Asiakasmäärä: " + asiakkaat, width, height + row * 2);
+        gc.fillText("************", width, height + row * 4);
+        for (Map.Entry<String, ArrayList<Palvelupiste>> entry : palvelupisteet.entrySet()) {
+            String key = entry.getKey();
+            ArrayList<Palvelupiste> value = entry.getValue();
+            for (Palvelupiste pp : value) {
+                gc.fillText("Keskimääräinen palvelun kesto " + pp.getNimi() + ": " + String.format("%.2f", pp.getPalvelunkesto()), width, height + row * increment);
+                increment++;
+            }
+        }
     }
 }

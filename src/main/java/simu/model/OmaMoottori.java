@@ -24,10 +24,10 @@ public class OmaMoottori extends Moottori {
         for (int i = 0; i < 4; i++) {
             palvelupisteet.put(Integer.toString(i), new ArrayList<>());
         }
-        palvelupisteet.get("0").add(new Palvelupiste(new Normal(10, 6), tapahtumalista, TapahtumanTyyppi.INFOTISKI));
-        palvelupisteet.get("1").add(new Palvelupiste(new Normal(10, 10), tapahtumalista, TapahtumanTyyppi.UUDEN_TILIN_AVAUS));
-        palvelupisteet.get("2").add(new Palvelupiste(new Normal(5, 3), tapahtumalista, TapahtumanTyyppi.TALLETUS));
-        palvelupisteet.get("3").add(new Palvelupiste(new Normal(6, 9), tapahtumalista, TapahtumanTyyppi.SIJOITUS_PALVELUT));
+        palvelupisteet.get("0").add(new Palvelupiste(new Normal(10, 6), tapahtumalista, TapahtumanTyyppi.INFOTISKI, "Info"));
+        palvelupisteet.get("1").add(new Palvelupiste(new Normal(10, 10), tapahtumalista, TapahtumanTyyppi.UUDEN_TILIN_AVAUS, "Uudet tilit"));
+        palvelupisteet.get("2").add(new Palvelupiste(new Normal(5, 3), tapahtumalista, TapahtumanTyyppi.TALLETUS, "Talletus"));
+        palvelupisteet.get("3").add(new Palvelupiste(new Normal(6, 9), tapahtumalista, TapahtumanTyyppi.SIJOITUS_PALVELUT, "Sijoutuspalvelut"));
         saapumisprosessi = new Saapumisprosessi(new Negexp(15, 5), tapahtumalista, TapahtumanTyyppi.SAAPUMINEN);
 
     }
@@ -35,19 +35,19 @@ public class OmaMoottori extends Moottori {
     public void addPalvelu(String type) {
         switch (type) {
             case "Infopiste":
-                palvelupisteet.get("0").add(new Palvelupiste(new Normal(10, 6), tapahtumalista, TapahtumanTyyppi.INFOTISKI));
+                palvelupisteet.get("0").add(new Palvelupiste(new Normal(10, 6), tapahtumalista, TapahtumanTyyppi.INFOTISKI, "Info"));
                 System.out.println(palvelupisteet.get("0").size() + " infopisteet");
                 break;
             case "Uusi tili":
-                palvelupisteet.get("1").add(new Palvelupiste(new Normal(10, 10), tapahtumalista, TapahtumanTyyppi.UUDEN_TILIN_AVAUS));
+                palvelupisteet.get("1").add(new Palvelupiste(new Normal(10, 10), tapahtumalista, TapahtumanTyyppi.UUDEN_TILIN_AVAUS, "Uudet tilit"));
                 System.out.println(palvelupisteet.get("1").size() + " uudet tilit");
                 break;
             case "Talletuspiste":
-                palvelupisteet.get("2").add(new Palvelupiste(new Normal(5, 3), tapahtumalista, TapahtumanTyyppi.TALLETUS));
+                palvelupisteet.get("2").add(new Palvelupiste(new Normal(5, 3), tapahtumalista, TapahtumanTyyppi.TALLETUS, "Talletus"));
                 System.out.println(palvelupisteet.get("2").size() + " talletuspisteet");
                 break;
             case "Sijoitusneuvonta":
-                palvelupisteet.get("3").add(new Palvelupiste(new Normal(6, 9), tapahtumalista, TapahtumanTyyppi.SIJOITUS_PALVELUT));
+                palvelupisteet.get("3").add(new Palvelupiste(new Normal(6, 9), tapahtumalista, TapahtumanTyyppi.SIJOITUS_PALVELUT, "Sijoituspalvelut"));
                 System.out.println(palvelupisteet.get("3").size() + " sijoitusneuvonta");
                 break;
         }
@@ -181,7 +181,7 @@ public class OmaMoottori extends Moottori {
 
 
         // UUTTA graafista
-        kontrolleri.naytaLoppuaika(Kello.getInstance().getAika(), Asiakas.getHappyRating(), Asiakas.getTotalCustomers());
+        kontrolleri.naytaLoppuaika(Kello.getInstance().getAika(), Asiakas.getHappyRating(), Asiakas.getTotalCustomers(), palvelupisteet);
     }
 
     protected boolean generateTrueFalse() {

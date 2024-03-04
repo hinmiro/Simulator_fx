@@ -4,6 +4,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.util.HashMap;
+
 public class Visualisointi extends Canvas implements IVisualisointi{
 
 	private final GraphicsContext gc;
@@ -37,6 +39,6 @@ public class Visualisointi extends Canvas implements IVisualisointi{
 	public void naytaVirheIlmoitus(String s) {}
 
 	@Override
-	public void setLoppuaika(double aika, double hcr, int i) {}
+	public void setLoppuaika(double aika, double hcr, int i, HashMap palvelupisteet) {}
 
 }

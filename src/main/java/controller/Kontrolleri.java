@@ -5,9 +5,13 @@ import simu.framework.IMoottori;
 import simu.framework.Kello;
 import simu.framework.Moottori;
 import simu.model.OmaMoottori;
+import simu.model.Palvelupiste;
 import view.ISimulaattorinUI;
 import view.UusiGui;
 import view.UusiGuiKontolleri;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUSI
 	
@@ -78,8 +82,8 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	}
 
 	@Override
-	public void naytaLoppuaika(double aika, double happyCustomer, int asiakkaat) {
-		Platform.runLater(()->ui.getVisualisointi().setLoppuaika(aika, happyCustomer, asiakkaat));
+	public void naytaLoppuaika(double aika, double happyCustomer, int asiakkaat, HashMap<String, ArrayList<Palvelupiste>> palvelupisteet) {
+		Platform.runLater(()->ui.getVisualisointi().setLoppuaika(aika, happyCustomer, asiakkaat, palvelupisteet));
 	}
 	private void naytaVirheIlmoitus(String virhe) {
 		Platform.runLater(() -> ui.getVisualisointi().naytaVirheIlmoitus(virhe));
