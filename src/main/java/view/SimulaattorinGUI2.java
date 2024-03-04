@@ -10,12 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import simu.framework.Trace;
@@ -26,11 +21,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
-import static javafx.scene.paint.Color.LIGHTBLUE;
-import static javafx.scene.paint.Color.LIGHTGREY;
 
-
-public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
+public class SimulaattorinGUI2 extends Application implements ISimulaattorinUI {
 
     //Kontrollerin esittely (tarvitaan käyttöliittymässä)
     private IKontrolleriForV kontrolleri;
@@ -69,7 +61,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
 
         Trace.setTraceLevel(Level.INFO);
 
-        kontrolleri = new Kontrolleri(this);
+       // kontrolleri = new Kontrolleri(this);
     }
 
     @Override
@@ -117,6 +109,9 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
                     naytto3.tyhjennaNaytto();
                     naytto4.tyhjennaNaytto();
                     kontrolleri.nollaaKello();
+                    for (int i = 0; i < 100; i++) {
+                        System.out.println();
+                    }
                 }
             });
 
@@ -297,9 +292,4 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     public IVisualisointi getVisualisointi() {
         return naytto;
     }
-
 }
-
-
-
-

@@ -5,14 +5,20 @@ import simu.framework.IMoottori;
 import simu.framework.Kello;
 import simu.framework.Moottori;
 import simu.model.OmaMoottori;
+import simu.model.Palvelupiste;
 import view.ISimulaattorinUI;
+import view.UusiGui;
+import view.UusiGuiKontolleri;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUSI
 	
 	private IMoottori moottori; 
-	private ISimulaattorinUI ui;
+	private UusiGuiKontolleri ui;
 	
-	public Kontrolleri(ISimulaattorinUI ui) {
+	public Kontrolleri(UusiGuiKontolleri ui) {
 		this.ui = ui;
 		
 	}
@@ -25,21 +31,21 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 		boolean noErrors = true;
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
 		try {
-			moottori.setSimulointiaika(ui.getAika());
+			moottori.setSimulointiaika(Double.parseDouble(ui.getAika()));
 		}catch (NumberFormatException e) {
 			e.printStackTrace();
-			naytaVirheIlmoitus("Virheellinen aika\n");
+			naytaVirheIlmoitus("Virheellinen aika");
 			noErrors = false;
 		}
 		try {
-			moottori.setViive(ui.getViive());
+			moottori.setViive(Long.parseLong(ui.getViive()));
 		}catch (NumberFormatException e) {
 			e.printStackTrace();
-			naytaVirheIlmoitus("Virheellinen viive\n");
+			naytaVirheIlmoitus("Virheellinen viive");
 			noErrors = false;
 		}
 		try {
-			moottori.setVaratutAsiakkaat(ui.getVaratutAsiakkaat());
+			moottori.setVaratutAsiakkaat(Integer.parseInt(ui.getVaratutAsiakkaat()));
 		}catch (NumberFormatException e) {
 			e.printStackTrace();
 			naytaVirheIlmoitus("Virheellinen prosentti (Vain 0-100%)");
@@ -62,6 +68,11 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	}
 
 	@Override
+	public void nopeutaHidasta(double value) {
+		moottori.setViive((long)Math.round(value));
+	}
+
+	@Override
 	public void lisaaPalvelu(String lisattavaPiste) {
 		((OmaMoottori) moottori).addPalvelu(lisattavaPiste);
 	}
@@ -69,15 +80,13 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	public void poistaPalvelu(String poistettavaPiste) {
 		((OmaMoottori) moottori).deletePalvelu(poistettavaPiste);
 	}
-	// Simulointitulosten välittämistä käyttöliittymään.
-	// Koska FX-ui:n päivitykset tulevat moottorisäikeestä, ne pitää ohjata JavaFX-säikeeseen:
-		
+
 	@Override
-	public void naytaLoppuaika(double aika, double happyCustomer) {
-		Platform.runLater(()->ui.setLoppuaika(aika, happyCustomer));
+	public void naytaLoppuaika(double aika, double happyCustomer, int asiakkaat, HashMap<String, ArrayList<Palvelupiste>> palvelupisteet) {
+		Platform.runLater(()->ui.getVisualisointi().setLoppuaika(aika, happyCustomer, asiakkaat, palvelupisteet));
 	}
 	private void naytaVirheIlmoitus(String virhe) {
-		Platform.runLater(() -> ui.naytaVirheIlmoitus(virhe));
+		Platform.runLater(() -> ui.getVisualisointi().naytaVirheIlmoitus(virhe));
 	}
 
 	
@@ -94,9 +103,4 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	public void nollaaKello() {
 		Kello.getInstance().setAika(0);
 	}
-
-
-
-
-
 }
