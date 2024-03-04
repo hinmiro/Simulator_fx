@@ -89,7 +89,7 @@ public class Asiakas{
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän asti " + keskiarvo);
 	}
 
-	private int calculateHappyRating(double timeSpent) {
+	public static int calculateHappyRating(double timeSpent) {
 		if (timeSpent < 40) {
 			return 5;
 		} else if (timeSpent < 45) {
