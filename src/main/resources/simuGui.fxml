@@ -100,7 +100,7 @@
             <Label fx:id="nopeusLabel" text="Nopeuta ja hidasta" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
-      <Canvas fx:id="visu2" height="336.0" width="460.0" GridPane.columnIndex="1">
+      <Canvas fx:id="visu2" height="333.0" width="455.0" GridPane.columnIndex="1">
          <GridPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </GridPane.margin>

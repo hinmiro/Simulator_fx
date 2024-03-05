@@ -24,6 +24,7 @@ public class OmaMoottori extends Moottori {
         for (int i = 0; i < 4; i++) {
             palvelupisteet.put(Integer.toString(i), new ArrayList<>());
         }
+        //TODO: Initialize data metodi
         palvelupisteet.get("0").add(new Palvelupiste(new Normal(10, 6), tapahtumalista, TapahtumanTyyppi.INFOTISKI, "Info"));
         palvelupisteet.get("1").add(new Palvelupiste(new Normal(10, 10), tapahtumalista, TapahtumanTyyppi.UUDEN_TILIN_AVAUS, "Uudet tilit"));
         palvelupisteet.get("2").add(new Palvelupiste(new Normal(5, 3), tapahtumalista, TapahtumanTyyppi.TALLETUS, "Talletus"));
