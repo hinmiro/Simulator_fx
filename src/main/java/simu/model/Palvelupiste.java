@@ -12,16 +12,19 @@ public class Palvelupiste {
 	private final Tapahtumalista tapahtumalista;
 	private final TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 
-	//JonoStartegia strategia; //optio: asiakkaiden järjestys
+	//JonoStrategia strategia; //optio: asiakkaiden järjestys
 
 	private boolean varattu = false;
+	private double palvelunKesto;
+	private int palveluAsiakkaat = 0;
+	private String nimi;
 
 
-	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi) {
+	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi, String nimi) {
 		this.tapahtumalista = tapahtumalista;
 		this.generator = generator;
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
-
+		this.nimi = nimi;
 	}
 
 	//Asiakas(boolean varattuAika)
@@ -31,6 +34,7 @@ public class Palvelupiste {
 
 	public Asiakas otaJonosta() {  // Poistetaan palvelussa ollut
 		varattu = false;
+		Asiakas.setServiceDone(Asiakas.getServiceDone() + 1);
 		return jono.poll();
 	}
 
@@ -44,12 +48,21 @@ public class Palvelupiste {
 
 	public Asiakas otaVarattuJonosta() {
 		varattu = false;
+		Asiakas.setServiceDone(Asiakas.getServiceDone() + 1);
 		return varattuJono.poll();
+	}
+
+	public int getJononPituus() {
+		return jono.size();
+	}
+
+	public int getVaratunJononPituus() {
+		return varattuJono.size();
 	}
 
 
 	public void aloitaPalvelu(boolean varattuAsiakas) {  //Aloitetaan uusi palvelu, asiakas on jonossa palvelun aikana
-
+		palvelunKesto = Kello.getInstance().getAika();
 		if (varattuAsiakas)
 			Trace.out(Trace.Level.INFO, "Aloitetaan uusi "+ skeduloitavanTapahtumanTyyppi +" asiakkaalle " + varattuJono.peek().getId() + " reservation: true");
 		else
@@ -57,8 +70,10 @@ public class Palvelupiste {
 
 
 		varattu = true;
+		palveluAsiakkaat++;
 		double palveluaika = generator.sample();
 		tapahtumalista.lisaa(new Tapahtuma(skeduloitavanTapahtumanTyyppi, Kello.getInstance().getAika() + palveluaika));
+		palvelunKesto += Kello.getInstance().getAika() + palveluaika - palvelunKesto;
 	}
 
 
@@ -75,5 +90,32 @@ public class Palvelupiste {
 		return !varattuJono.isEmpty();
 	}
 
+	public boolean checkForCustomerJono(Asiakas asiakas) {
+		return jono.contains(asiakas);
+	}
+	public boolean checkForCustomerVarattuJono(Asiakas asiakas) {
+		return varattuJono.contains(asiakas);
+	}
+
+	public int getPalveluAsiakkaat() {
+		return palveluAsiakkaat;
+	}
+
+	public double getPalvelunkesto() {
+		return palvelunKesto/palveluAsiakkaat;
+	}
+
+	public String getNimi() {
+		return this.nimi;
+	}
+
+	@Override
+	public String toString() {
+		return "Palvelupiste{" +
+				"jono size=" + jono.size() +
+				", varattuJono size=" + varattuJono.size() +
+				", varattu=" + varattu +
+				'}';
+	}
 }
 

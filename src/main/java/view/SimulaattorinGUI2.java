@@ -2,6 +2,7 @@ package view;
 
 
 import java.text.DecimalFormat;
+
 import controller.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -9,11 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import simu.framework.Trace;
@@ -24,11 +21,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
-import static javafx.scene.paint.Color.LIGHTBLUE;
-import static javafx.scene.paint.Color.LIGHTGREY;
 
-
-public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
+public class SimulaattorinGUI2 extends Application implements ISimulaattorinUI {
 
     //Kontrollerin esittely (tarvitaan käyttöliittymässä)
     private IKontrolleriForV kontrolleri;
@@ -57,6 +51,9 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     private ComboBox<String> comboPoista;
 
     private IVisualisointi naytto;
+    private IVisualisointi naytto2;
+    private IVisualisointi naytto3;
+    private IVisualisointi naytto4;
 
 
     @Override
@@ -64,7 +61,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
 
         Trace.setTraceLevel(Level.INFO);
 
-        kontrolleri = new Kontrolleri(this);
+       // kontrolleri = new Kontrolleri(this);
     }
 
     @Override
@@ -81,7 +78,8 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             });
 
 
-            primaryStage.setTitle("Simulaattori");
+            primaryStage.getIcons().add(new Image("dollar.png"));
+            primaryStage.setTitle("Pankkipalvelut Simulaattori");
 
             kaynnistaButton = new Button();
             kaynnistaButton.setText("Käynnistä simulointi");
@@ -105,15 +103,22 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
                     varatut.clear();
                     tulos.setText("");
                     happyCustomer.setText("");
-                    getVisualisointi().tyhjennaNaytto();
+                    kaynnistaButton.setDisable(false);
+                    naytto.tyhjennaNaytto();
+                    naytto2.tyhjennaNaytto();
+                    naytto3.tyhjennaNaytto();
+                    naytto4.tyhjennaNaytto();
+                    kontrolleri.nollaaKello();
+                    for (int i = 0; i < 100; i++) {
+                        System.out.println();
+                    }
                 }
             });
 
 
-
             poistaPalvelupiste = new Button();
             poistaPalvelupiste.setText("Poista Palvelupiste");
-            poistaPalvelupiste.setDisable(true);
+            poistaPalvelupiste.setDisable(false);
             comboPoista = new ComboBox<>();
             comboPoista.getItems().addAll("Infopiste","Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
             poistaPalvelupiste.setOnAction(new EventHandler<ActionEvent>() {
@@ -127,7 +132,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
 
             lisaaPalvelupiste = new Button();
             lisaaPalvelupiste.setText("Lisää Palvelupiste");
-            lisaaPalvelupiste.setDisable(true);
+            lisaaPalvelupiste.setDisable(false);
             comboLisaa = new ComboBox<>();
             comboLisaa.getItems().addAll("Infopiste","Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
             lisaaPalvelupiste.setOnAction(new EventHandler<ActionEvent>() {
@@ -213,11 +218,20 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             grid.add(poistaPalvelupiste, 0, 9);
             grid.add(comboPoista, 1, 9);
 
+            GridPane nahtava = new GridPane();
             naytto = new Visualisointi2(500, 300);
-
+            naytto2 = new Visualisointi(500, 300);
+            naytto3 = new Visualisointi2(500, 300);
+            naytto4 = new Visualisointi2(500, 300);
+            nahtava.setHgap(10);
+            nahtava.setVgap(10);
+            nahtava.add((Canvas) naytto, 0, 0);
+            nahtava.add((Canvas) naytto2, 1, 0);
+            nahtava.add((Canvas) naytto3, 0, 1);
+            nahtava.add((Canvas) naytto4, 1, 1);
 
             // TÃ¤ytetÃ¤Ã¤n boxi:
-            hBox.getChildren().addAll(grid, (Canvas) naytto);
+            hBox.getChildren().addAll(grid, nahtava);
 
 
 
@@ -258,17 +272,20 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
         nopeutaButton.setDisable(true);
         kaynnistaButton.setDisable(false);
     }
+
     @Override
     public void naytaVirheIlmoitus(String virhe) {
         naytto.naytaVirheIlmoitus(virhe);
     }
 
+    @Override
     public void lisaaUusiPalvelupiste(String lisattavaPiste) {
-     //   kontrolleri.lisaaPalvelu(lisattavaPiste);
+           kontrolleri.lisaaPalvelu(lisattavaPiste);
     }
 
+    @Override
     public void poistaPalvelupiste(String poistettavaPiste) {
-      //  kontrolleri.poistaPalvelu(poistettavaPiste);
+          kontrolleri.poistaPalvelu(poistettavaPiste);
     }
 
     @Override
@@ -276,7 +293,3 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
         return naytto;
     }
 }
-
-
-
-

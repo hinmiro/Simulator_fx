@@ -5,163 +5,248 @@ import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
 import controller.IKontrolleriForM;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 
 public class OmaMoottori extends Moottori {
 
-	private Saapumisprosessi saapumisprosessi;
+    private Saapumisprosessi saapumisprosessi;
 
-	private Palvelupiste[] palvelupisteet;
-	private int prosentti;
+    private HashMap<String, ArrayList<Palvelupiste>> palvelupisteet = new HashMap<>();
+    private int prosentti;
 
-	public OmaMoottori(IKontrolleriForM kontrolleri){
+    public OmaMoottori(IKontrolleriForM kontrolleri) {
 
-		super(kontrolleri);
+        super(kontrolleri);
 
-		palvelupisteet = new Palvelupiste[4];
+        for (int i = 0; i < 4; i++) {
+            palvelupisteet.put(Integer.toString(i), new ArrayList<>());
+        }
+        //TODO: Initialize data metodi
+        palvelupisteet.get("0").add(new Palvelupiste(new Normal(10, 6), tapahtumalista, TapahtumanTyyppi.INFOTISKI, "Info"));
+        palvelupisteet.get("1").add(new Palvelupiste(new Normal(10, 10), tapahtumalista, TapahtumanTyyppi.UUDEN_TILIN_AVAUS, "Uudet tilit"));
+        palvelupisteet.get("2").add(new Palvelupiste(new Normal(5, 3), tapahtumalista, TapahtumanTyyppi.TALLETUS, "Talletus"));
+        palvelupisteet.get("3").add(new Palvelupiste(new Normal(6, 9), tapahtumalista, TapahtumanTyyppi.SIJOITUS_PALVELUT, "Sijoutuspalvelut"));
+        saapumisprosessi = new Saapumisprosessi(new Negexp(15, 5), tapahtumalista, TapahtumanTyyppi.SAAPUMINEN);
 
-		palvelupisteet[0] = new Palvelupiste(new Normal(10, 6), tapahtumalista, TapahtumanTyyppi.INFOTISKI);
-		palvelupisteet[1] = new Palvelupiste(new Normal(10, 10), tapahtumalista, TapahtumanTyyppi.UUDEN_TILIN_AVAUS);
-		palvelupisteet[2] = new Palvelupiste(new Normal(5, 3), tapahtumalista, TapahtumanTyyppi.TALLETUS);
-		palvelupisteet[3] = new Palvelupiste(new Normal(6, 9), tapahtumalista, TapahtumanTyyppi.SIJOITUS_PALVELUT);
-		saapumisprosessi = new Saapumisprosessi(new Negexp(15, 5), tapahtumalista, TapahtumanTyyppi.SAAPUMINEN);
+    }
 
-	}
+    public void addPalvelu(String type) {
+        switch (type) {
+            case "Infopiste":
+                palvelupisteet.get("0").add(new Palvelupiste(new Normal(10, 6), tapahtumalista, TapahtumanTyyppi.INFOTISKI, "Info"));
+                System.out.println(palvelupisteet.get("0").size() + " infopisteet");
+                break;
+            case "Uusi tili":
+                palvelupisteet.get("1").add(new Palvelupiste(new Normal(10, 10), tapahtumalista, TapahtumanTyyppi.UUDEN_TILIN_AVAUS, "Uudet tilit"));
+                System.out.println(palvelupisteet.get("1").size() + " uudet tilit");
+                break;
+            case "Talletuspiste":
+                palvelupisteet.get("2").add(new Palvelupiste(new Normal(5, 3), tapahtumalista, TapahtumanTyyppi.TALLETUS, "Talletus"));
+                System.out.println(palvelupisteet.get("2").size() + " talletuspisteet");
+                break;
+            case "Sijoitusneuvonta":
+                palvelupisteet.get("3").add(new Palvelupiste(new Normal(6, 9), tapahtumalista, TapahtumanTyyppi.SIJOITUS_PALVELUT, "Sijoituspalvelut"));
+                System.out.println(palvelupisteet.get("3").size() + " sijoitusneuvonta");
+                break;
+        }
+    }
 
-	public void setProsentti(int uusiProsentti) {
-		prosentti = uusiProsentti;
-	}
-	@Override
-	protected void alustukset() {
-		saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
-	}
+    public void deletePalvelu(String type) {
+        switch (type) {
+            case "Infopiste":
+                if (palvelupisteet.get("0").size() > 1) // Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
+                    palvelupisteet.get("0").remove(palvelupisteet.get("0").size() - 1);
+                System.out.println(palvelupisteet.get("0").size() + " infopisteet");
+                break;
+            case "Uusi tili":
+                if (palvelupisteet.get("1").size() > 1) // Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
+                    palvelupisteet.get("1").remove(palvelupisteet.get("1").size() - 1);
+                System.out.println(palvelupisteet.get("1").size() + " uudet tilit");
+                break;
+            case "Talletuspiste":
+                if (palvelupisteet.get("2").size() > 1) // Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
+                    palvelupisteet.get("2").remove(palvelupisteet.get("2").size() - 1);
+                System.out.println(palvelupisteet.get("2").size() + " talletuspisteet");
+                break;
+            case "Sijoitusneuvonta":
+                if (palvelupisteet.get("3").size() > 1) // Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
+                    palvelupisteet.get("3").remove(palvelupisteet.get("3").size() - 1);
+                System.out.println(palvelupisteet.get("3").size() + " sijoitusneuvonta");
+                break;
+        }
+    }
 
-	//TODO Check if in suoritaTapahtuma in if else logic smth wrong or not
-	@Override
-	protected void suoritaTapahtuma(Tapahtuma t) {  // B-vaiheen tapahtumat
+    public void setProsentti(int uusiProsentti) {
+        prosentti = uusiProsentti;
+    }
 
-		Asiakas a;
-		switch ((TapahtumanTyyppi) t.getTyyppi()) {
+    @Override
+    protected void alustukset() {
+        saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
+    }
 
-			case SAAPUMINEN:
-				Asiakas as = new Asiakas(generateTrueFalse());
-				System.out.println(as.isOnVarattu());
-				if (as.isOnVarattu())
-					palvelupisteet[as.getTavoite()].lisaaVarattuJonoon(as);
-				else
-					palvelupisteet[0].lisaaJonoon(as);
-				kontrolleri.visualisoiAsiakas();
-				saapumisprosessi.generoiSeuraava();
-				break;
-			case INFOTISKI: // 0
-				a = (Asiakas) palvelupisteet[0].otaJonosta();
-				if (a.getTavoite() == 0){
-					a.setPoistumisaika(Kello.getInstance().getAika());
-					a.raportti();
-					break;
-				}
-				palvelupisteet[a.getTavoite()].lisaaJonoon(a);
-				break;
-			case UUDEN_TILIN_AVAUS: // 1
-				if (palvelupisteet[1].onVarattuJonossa()) {
-					a = (Asiakas) palvelupisteet[1].otaVarattuJonosta();
-					if (new Random().nextBoolean()) {
-						if (!palvelupisteet[1].onVarattu()) {
-							palvelupisteet[2].lisaaJonoon(a);
-						} else {
-							if (palvelupisteet[2].onJonossa()) {
-								palvelupisteet[2].lisaaJononSeuraavaksi(a);
-							} else {
-								palvelupisteet[2].lisaaJonoon(a);
-							}
-						}
-					}
-					else {
-						a.setPoistumisaika(Kello.getInstance().getAika());
-						a.raportti();
-					}
-				} else {
-					a = (Asiakas) palvelupisteet[1].otaJonosta();
-					if (new Random().nextBoolean())
-						palvelupisteet[2].lisaaJonoon(a);
-					else {
-						a.setPoistumisaika(Kello.getInstance().getAika());
-						a.raportti();
-					}
-				}
-				break;
-			case TALLETUS:  // 2
-				if (palvelupisteet[2].onVarattuJonossa()) {
-					a = (Asiakas) palvelupisteet[2].otaVarattuJonosta();
-					if (new Random().nextBoolean()) {
-						if (!palvelupisteet[2].onVarattu()) {
-							palvelupisteet[3].lisaaJonoon(a);
-						} else {
-							if (palvelupisteet[3].onJonossa()) {
-								palvelupisteet[3].lisaaJononSeuraavaksi(a);
-							} else {
-								palvelupisteet[3].lisaaJonoon(a);
-							}
-						}
-					} else {
-						a.setPoistumisaika(Kello.getInstance().getAika());
-						a.raportti();
-					}
-				} else {
-					a = (Asiakas) palvelupisteet[2].otaJonosta();
-					if (new Random().nextBoolean())
-						palvelupisteet[3].lisaaJonoon(a);
-					else {
-						a.setPoistumisaika(Kello.getInstance().getAika());
-						a.raportti();
-					}
-				}
-				break;
-			case SIJOITUS_PALVELUT: // 3
-				if (palvelupisteet[3].onVarattuJonossa()) {
-					a = (Asiakas) palvelupisteet[3].otaVarattuJonosta();
-					a.setPoistumisaika(Kello.getInstance().getAika());
-					a.raportti();
+    @Override
+    protected void suoritaTapahtuma(Tapahtuma t) {  // B-vaiheen tapahtumat
 
-				} else {
-					a = (Asiakas) palvelupisteet[3].otaJonosta();
-					a.setPoistumisaika(Kello.getInstance().getAika());
-					a.raportti();
-				}
-				break;
-		}
-	}
+        ArrayList<Asiakas> a = new ArrayList<>();
+        switch ((TapahtumanTyyppi) t.getTyyppi()) {
 
-
-	@Override
-	protected void yritaCTapahtumat() {
-		for (Palvelupiste p : palvelupisteet) {
-			if (!p.onVarattu() && p.onJonossa()) {
-				p.aloitaPalvelu(false);
-			}
-			else if (!p.onVarattu() && p.onVarattuJonossa()){
-				p.aloitaPalvelu(true);
-			}
-		}
-	}
-
-	@Override
-	protected void tulokset() {
-		System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
-		System.out.println("---------------------------------------------------------");
-		System.out.println("Keskimääräinen läpikulku aika on:  " + Asiakas.getAverageTimeSpent());
-		System.out.println("Asiakkaita palveltu: " + Asiakas.getTotalCustomers());
-		System.out.println("Keskimääräinen asiakastyytyväisyys: " + Asiakas.getHappyRating());
+            case SAAPUMINEN:
+                Asiakas as = new Asiakas(generateTrueFalse()); // uusi Asiakas saapui
+                System.out.println(as.isOnVarattu()); // debug
+                if (as.isOnVarattu())
+                    lisaaJonoon(Byte.toString(as.getTavoite()), "lisaaVarattuJonoon", as);
+                else
+                    lisaaJonoon("0", "lisaaJonoon", as);
+                System.out.println("Infotiski jonossa:" + palvelupisteet.get("0").toString());
+                System.out.println("Uuden tilin avaajat jonossa:" + palvelupisteet.get("1").toString());
+                System.out.println("Talletuspiste jonossa:" + palvelupisteet.get("2").toString());
+                System.out.println("Sijoitusneuvonta jonossa:" + palvelupisteet.get("3").toString());
+                kontrolleri.visualisoiAsiakas();
+                saapumisprosessi.generoiSeuraava();
+                break;
+            case INFOTISKI: // 0
+                // System.out.println("Infotiski jonossa:" + palvelupisteet.get("0"););
+                a = otaJonosta("0", "otaJonosta");
+                System.out.println("Infotiski palvelee asiakasta");
+                Iterator<Asiakas> iterator = a.iterator();
+                while (iterator.hasNext()) {
+                    Asiakas asiakas = iterator.next();
+                    if (asiakas != null && asiakas.getTavoite() == 0) {
+                        System.out.println(asiakas.getTavoite());
+                        asiakas.setPoistumisaika(Kello.getInstance().getAika());
+                        asiakas.raportti();
+                        iterator.remove();
+                    }
+                }
+                if (!a.isEmpty()){
+                    iterator = a.iterator();
+                    while (iterator.hasNext()) {
+                        Asiakas asiakas = iterator.next();
+                        if (asiakas != null) {
+                            System.out.println("asiakas " + asiakas.getId() + " siirtyy jonoon" + asiakas.getTavoite());
+                            lisaaJonoon(Byte.toString(asiakas.getTavoite()), "lisaaJonoon", asiakas);
+                            iterator.remove();
+                        }
+                    }
+                }
+                break;
+            case UUDEN_TILIN_AVAUS: // 1
+                palvelee(a, "1", "2");
+                break;
+            case TALLETUS:  // 2
+                palvelee(a, "2", "3");
+                break;
+            case SIJOITUS_PALVELUT: // 3
+                palvelee(a, "3", "4");
+                break;
+        }
+    }
 
 
-		// UUTTA graafista
-		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika(), Asiakas.getHappyRating());
-	}
+    // C-vaiheen tapahtumat
 
-	protected boolean generateTrueFalse() {
-		Random random = new Random();
-		double rn = random.nextDouble() * 100;
-		System.out.println("Random: " + rn + " Prosentti: " + getVaratutProsentti());
+    // Tässä vaiheessa palvelupisteet käyvät läpi jononsa ja aloittavat palvelun
+    // jos asiakas on jonossa ja palvelupiste on vapaa
+    // tai jos asiakas on varattu jonossa ja palvelupiste on vapaa
+    // Tämä metodi kutsutaan aina kun kello etenee
+    @Override
+    protected void yritaCTapahtumat() {
+        palvelupisteet.forEach((k, v) -> {
+            for (Palvelupiste p : v) {
+                if (p.onJonossa() && !p.onVarattu()) {
+                    p.aloitaPalvelu(false);
+                } else if (p.onVarattuJonossa() && !p.onVarattu()) {
+                    p.aloitaPalvelu(true);
+                }
+            }
+        });
+    }
+
+    public void palvelee(ArrayList<Asiakas> a, String palvelupisteNmrAlus, String palvelupisteNmrLoppu) {
+        a = otaJonosta(palvelupisteNmrAlus, "otaVarattuJonosta");
+        handleCustomers(palvelupisteNmrLoppu, a, true);
+        a = otaJonosta(palvelupisteNmrAlus, "otaJonosta");
+        handleCustomers(palvelupisteNmrLoppu, a, false);
+    }
+    @Override
+    protected void tulokset() {
+        System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
+        System.out.println("---------------------------------------------------------");
+        System.out.println("Keskimääräinen läpikulku aika on:  " + Asiakas.getAverageTimeSpent());
+        System.out.println("Asiakkaita palveltu: " + Asiakas.getTotalCustomers());
+        System.out.println("Keskimääräinen asiakastyytyväisyys: " + Asiakas.getHappyRating());
+
+
+        // UUTTA graafista
+        kontrolleri.naytaLoppuaika(Kello.getInstance().getAika(), Asiakas.getHappyRating(), Asiakas.getTotalCustomers(), palvelupisteet);
+    }
+
+    protected boolean generateTrueFalse() {
+        Random random = new Random();
+        double rn = random.nextDouble() * 100;
+//        System.out.println("Random: " + rn + " Prosentti: " + getVaratutProsentti());
         return rn <= getVaratutProsentti() || getVaratutProsentti() == 100;
-	}
+    }
+
+    protected void lisaaJonoon(String palvelupisteNmr, String cmd, Asiakas asiakas) {
+        switch (cmd) {
+            case "lisaaJonoon":
+                palvelupisteet.get(palvelupisteNmr).stream()
+                        .reduce((a, b) -> a.getJononPituus() < b.getJononPituus() ? a : b)
+                        .get().lisaaJonoon(asiakas);
+                break;
+            case "lisaaVarattuJonoon":
+                palvelupisteet.get(palvelupisteNmr).stream()
+                        .reduce((a, b) -> a.getVaratunJononPituus() < b.getVaratunJononPituus() ? a : b)
+                        .get().lisaaVarattuJonoon(asiakas);
+                break;
+        }
+    }
+
+    protected ArrayList<Asiakas> otaJonosta(String palvelupisteNmr, String cmd) {
+        ArrayList <Asiakas> asiakkaat = new ArrayList<>();
+        switch (cmd) {
+            case "otaJonosta":
+                for (Palvelupiste p : palvelupisteet.get(palvelupisteNmr)) {
+                        asiakkaat.add(p.otaJonosta());
+                }
+                break;
+            case "otaVarattuJonosta":
+                for (Palvelupiste p : palvelupisteet.get(palvelupisteNmr)) {
+                        asiakkaat.add(p.otaVarattuJonosta());
+                }
+                break;
+        }
+        return asiakkaat;
+    }
+
+    protected void handleCustomers(String palvelupisteNmr, ArrayList<Asiakas> a, boolean varattu) {
+        Iterator<Asiakas> iterator = a.iterator();
+        while (iterator.hasNext()) {
+            Asiakas asiakas = iterator.next();
+            if (asiakas != null) {
+                if (varattu) {
+                    if (new Random().nextBoolean() && !palvelupisteNmr.equals("4")) {
+                        lisaaJonoon(palvelupisteNmr, "lisaaVarattuJonoon", asiakas);
+                    } else {
+                        asiakas.setPoistumisaika(Kello.getInstance().getAika());
+                        asiakas.raportti();
+                    }
+                } else {
+                    if (new Random().nextBoolean() && !palvelupisteNmr.equals("4")) {
+                        lisaaJonoon(palvelupisteNmr, "lisaaJonoon", asiakas);
+                    } else {
+                        asiakas.setPoistumisaika(Kello.getInstance().getAika());
+                        asiakas.raportti();
+                    }
+                }
+                iterator.remove();
+            }
+        }
+    }
+
 }
