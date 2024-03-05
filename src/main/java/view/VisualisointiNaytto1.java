@@ -25,7 +25,7 @@ public class VisualisointiNaytto1 implements IVisualisointi {
         virheet = new ArrayList<>();
         this.canvas = canvas;
         gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.GRAY);
+        gc.setFill(Color.BLACK);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         tyhjennaNaytto();
 
@@ -33,7 +33,7 @@ public class VisualisointiNaytto1 implements IVisualisointi {
 
     @Override
     public void tyhjennaNaytto() {
-        gc.setFill(Color.GRAY);
+        gc.setFill(Color.BLACK);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         virheet.clear();
     }
@@ -46,7 +46,7 @@ public class VisualisointiNaytto1 implements IVisualisointi {
         double y = canvas.getHeight() / 2;
         tyhjennaNaytto();
 
-        gc.setFill(Color.DARKORANGE);
+        gc.setFill(Color.GREEN);
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setFont(new Font(20));
         gc.fillText("Asiakas " + asiakasLkm, x, y);
@@ -58,7 +58,7 @@ public class VisualisointiNaytto1 implements IVisualisointi {
         System.out.println(virhe);
         double y = canvas.getHeight() / 2;
         virheet.add(virhe);
-        gc.setFill(Color.DARKORANGE);
+        gc.setFill(Color.ORANGERED);
         gc.setFont(new Font(15));
         gc.setTextAlign(TextAlignment.CENTER);
         for (String s : virheet) {
@@ -91,7 +91,7 @@ public class VisualisointiNaytto1 implements IVisualisointi {
         tyhjennaNaytto();
         palvelupisteet = palvelut;
         gc.setFont(new Font(15));
-        gc.setFill(Color.DARKORANGE);
+        gc.setFill(Color.GREEN);
         gc.setTextAlign(TextAlignment.LEFT);
         gc.fillText("Kokonaisaika: " + String.format("%.2f", aika), width, height);
         gc.fillText("Asiakastyytyväisyys: " + String.format("%.2f", hcr), width, height + row);

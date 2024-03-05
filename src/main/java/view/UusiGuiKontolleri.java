@@ -17,6 +17,7 @@ import simu.model.OmaMoottori;
 
 public class UusiGuiKontolleri {
     private IVisualisointi visualisointi = null;
+    private IVisualisointi visualisointi2 = null;
 
     @FXML
     private Canvas visu1;
@@ -65,6 +66,7 @@ public class UusiGuiKontolleri {
         poistaButton.setDisable(true);
         Trace.setTraceLevel(Trace.Level.INFO);
         visualisointi = new VisualisointiNaytto1(visu1);
+        visualisointi2 =  new VisualisointiNaytto2(visu2);
     }
 
 
@@ -87,6 +89,7 @@ public class UusiGuiKontolleri {
         poistaButton.setDisable(true);
         simuloiButton.setDisable(false);
         Kello.getInstance().setAika(0);
+
     }
 
     public String getAika() {
