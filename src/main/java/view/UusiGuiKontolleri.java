@@ -86,6 +86,7 @@ public class UusiGuiKontolleri {
         lisaaButton.setDisable(true);
         poistaButton.setDisable(true);
         simuloiButton.setDisable(false);
+        Kello.getInstance().setAika(0);
     }
 
     public String getAika() {
