@@ -107,5 +107,6 @@ public class VisualisointiNaytto1 implements IVisualisointi {
                 increment += 2;
             }
         }
+        asiakasLkm = 0;
     }
 }

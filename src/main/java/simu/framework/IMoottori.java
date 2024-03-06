@@ -8,4 +8,5 @@ public interface IMoottori { // UUSI
 	public void setViive(long aika);
 	public long getViive();
 	public void setVaratutAsiakkaat(int prosentti);
+	public void initializeData();
 }

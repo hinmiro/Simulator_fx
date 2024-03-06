@@ -89,7 +89,7 @@ public class Asiakas{
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän asti " + keskiarvo);
 	}
 
-	public static int calculateHappyRating(double timeSpent) {
+	private int calculateHappyRating(double timeSpent) {
 		if (timeSpent < 40) {
 			return 5;
 		} else if (timeSpent < 45) {
@@ -117,9 +117,14 @@ public class Asiakas{
 	public static double getHappyRating(){
 		return happyRating / serviceDone;
 	}
-	public static void resetStatics() {
+
+	public static void reset(){
+		i = 1;
+		sum = 0;
 		totalTime = 0;
 		totalCustomers = 0;
+		serviceDone = 0;
+		happyRating = 0;
 	}
 }
 

@@ -56,7 +56,10 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 			((Thread) moottori).start();
 		}
 	}
-	
+	@Override
+	public void initializeData() {
+		moottori.initializeData();
+	}
 	@Override
 	public void hidasta() { // hidastetaan moottorisäiettä
 		moottori.setViive((long)(moottori.getViive()*1.10));
