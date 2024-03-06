@@ -250,4 +250,8 @@ public class OmaMoottori extends Moottori {
         }
     }
 
+    public void tyhjennaJonot() {
+
+    }
+
 }

@@ -88,6 +88,7 @@ public class UusiGuiKontolleri {
         lisaaButton.setDisable(true);
         poistaButton.setDisable(true);
         simuloiButton.setDisable(false);
+        kontrolleri.tyhjennaJonot();
         Kello.getInstance().setAika(0);
         kontrolleri.initializeData();
     }

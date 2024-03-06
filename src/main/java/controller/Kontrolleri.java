@@ -106,4 +106,9 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	public void nollaaKello() {
 		Kello.getInstance().setAika(0);
 	}
+
+	@Override
+	public void tyhjennaJonot() {
+
+	}
 }
