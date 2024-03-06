@@ -43,7 +43,7 @@ public class VisualisointiNaytto1 implements IVisualisointi {
         asiakasLkm++;
 
         double x = canvas.getWidth() / 2;
-        double y = canvas.getHeight() / 2;
+        double y = canvas.getHeight() / 10;
         tyhjennaNaytto();
 
         gc.setFill(Color.GREEN);
@@ -56,7 +56,7 @@ public class VisualisointiNaytto1 implements IVisualisointi {
     @Override
     public void naytaVirheIlmoitus(String virhe) {
         System.out.println(virhe);
-        double y = canvas.getHeight() / 2;
+        double y = canvas.getHeight() / 5;
         virheet.add(virhe);
         gc.setFill(Color.ORANGERED);
         gc.setFont(new Font(15));
@@ -65,6 +65,21 @@ public class VisualisointiNaytto1 implements IVisualisointi {
             gc.fillText(s, canvas.getWidth() / 2, y);
             y += 20;
         }
+    }
+
+    @Override
+    public void uusiPalveluPiste(String palveluTyyppi, int size) {
+
+    }
+
+    @Override
+    public void deletePalveluPiste(String palveluTyyppi, int size) {
+
+    }
+
+    @Override
+    public void showPalvelupisteet() {
+
     }
 
     @Override

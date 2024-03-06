@@ -66,6 +66,21 @@ public class Visualisointi2 extends Canvas implements IVisualisointi {
     }
 
     @Override
+    public void uusiPalveluPiste(String palveluTyyppi, int size) {
+
+    }
+
+    @Override
+    public void deletePalveluPiste(String palveluTyyppi, int size) {
+
+    }
+
+    @Override
+    public void showPalvelupisteet() {
+
+    }
+
+    @Override
     public void setLoppuaika(double aika, double hcr, int i, HashMap palvelupisteet) {
     }
 }
