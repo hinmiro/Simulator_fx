@@ -1,5 +1,9 @@
 package simu.framework;
 
+/**
+ * The `Trace` class provides a logging mechanism with configurable levels (INFO, WARN, ERR) to output messages to the console based on the set trace level.
+ */
+
 public class Trace {
 
 	public enum Level{INFO, WAR, ERR}
