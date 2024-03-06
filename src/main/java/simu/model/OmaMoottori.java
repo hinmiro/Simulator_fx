@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
+/**
+ * The `OmaMoottori` class extends `Moottori` to implement a specific simulation engine, managing customer arrivals and service processes across different service points. It initializes service processes and customer flow based on defined distributions and handles the dynamic addition and removal of service points. The class also oversees the simulation's progression, customer queue management, and service completion, culminating in the reporting of simulation results such as average processing time and customer satisfaction.
+ */
+
 public class OmaMoottori extends Moottori {
 
     private Saapumisprosessi saapumisprosessi;
