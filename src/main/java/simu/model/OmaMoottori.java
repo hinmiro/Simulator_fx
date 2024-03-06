@@ -20,19 +20,20 @@ public class OmaMoottori extends Moottori {
     public OmaMoottori(IKontrolleriForM kontrolleri) {
 
         super(kontrolleri);
-
+        initializeData();
+    }
+    public void initializeData(){
+        palvelupisteet.clear();
+        Asiakas.reset();
+        saapumisprosessi = new Saapumisprosessi(new Negexp(15, 5), tapahtumalista, TapahtumanTyyppi.SAAPUMINEN);
         for (int i = 0; i < 4; i++) {
             palvelupisteet.put(Integer.toString(i), new ArrayList<>());
         }
-        //TODO: Initialize data metodi
         palvelupisteet.get("0").add(new Palvelupiste(new Normal(10, 6), tapahtumalista, TapahtumanTyyppi.INFOTISKI, "Info"));
         palvelupisteet.get("1").add(new Palvelupiste(new Normal(10, 10), tapahtumalista, TapahtumanTyyppi.UUDEN_TILIN_AVAUS, "Uudet tilit"));
         palvelupisteet.get("2").add(new Palvelupiste(new Normal(5, 3), tapahtumalista, TapahtumanTyyppi.TALLETUS, "Talletus"));
         palvelupisteet.get("3").add(new Palvelupiste(new Normal(6, 9), tapahtumalista, TapahtumanTyyppi.SIJOITUS_PALVELUT, "Sijoutuspalvelut"));
-        saapumisprosessi = new Saapumisprosessi(new Negexp(15, 5), tapahtumalista, TapahtumanTyyppi.SAAPUMINEN);
-
     }
-
     public void addPalvelu(String type) {
         switch (type) {
             case "Infopiste":

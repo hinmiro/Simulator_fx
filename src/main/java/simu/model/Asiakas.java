@@ -117,5 +117,14 @@ public class Asiakas{
 	public static double getHappyRating(){
 		return happyRating / serviceDone;
 	}
+
+	public static void reset(){
+		i = 1;
+		sum = 0;
+		totalTime = 0;
+		totalCustomers = 0;
+		serviceDone = 0;
+		happyRating = 0;
+	}
 }
 
