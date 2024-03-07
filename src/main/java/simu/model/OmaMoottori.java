@@ -1,5 +1,7 @@
 package simu.model;
 
+import dao.SimuDao;
+import entity.Simu;
 import simu.framework.*;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
@@ -16,6 +18,7 @@ public class OmaMoottori extends Moottori {
 
     private HashMap<String, ArrayList<Palvelupiste>> palvelupisteet = new HashMap<>();
     private int prosentti;
+    private SimuDao dao;
 
     public OmaMoottori(IKontrolleriForM kontrolleri) {
 
@@ -23,6 +26,7 @@ public class OmaMoottori extends Moottori {
         initializeData();
     }
     public void initializeData(){
+        dao = new SimuDao();
         palvelupisteet.clear();
         Asiakas.reset();
         saapumisprosessi = new Saapumisprosessi(new Negexp(15, 5), tapahtumalista, TapahtumanTyyppi.SAAPUMINEN);
@@ -182,8 +186,15 @@ public class OmaMoottori extends Moottori {
         System.out.println("Keskimääräinen asiakastyytyväisyys: " + Asiakas.getHappyRating());
 
 
+        dao.persist(new Simu(Kello.getInstance().getAika(), Asiakas.getTotalCustomers(), palvelupisteet.size(),
+                Asiakas.getHappyRating(), getVaratutProsentti(), palvelupisteet.get("0").get(0).getPalvelunkesto(),
+                palvelupisteet.get("1").get(0).getPalvelunkesto(), palvelupisteet.get("2").get(0).getPalvelunkesto(),
+                palvelupisteet.get("3").get(0).getPalvelunkesto()));
+
+
         // UUTTA graafista
         kontrolleri.naytaLoppuaika(Kello.getInstance().getAika(), Asiakas.getHappyRating(), Asiakas.getTotalCustomers(), palvelupisteet);
+
     }
 
     protected boolean generateTrueFalse() {
