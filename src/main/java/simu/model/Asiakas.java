@@ -115,7 +115,7 @@ public class Asiakas{
 	}
 
 	public static double getHappyRating(){
-		return happyRating / serviceDone;
+		return happyRating / totalCustomers;
 	}
 
 	public static void reset(){

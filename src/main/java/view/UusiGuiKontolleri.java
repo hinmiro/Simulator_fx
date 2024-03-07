@@ -76,10 +76,12 @@ public class UusiGuiKontolleri {
         lisaaButton.setDisable(false);
         poistaButton.setDisable(false);
         simuloiButton.setDisable(true);
+        visualisointi2.showPalvelupisteet();
     }
 
     public void handleTyhjenna() {
         visualisointi.tyhjennaNaytto();
+        visualisointi2.tyhjennaNaytto();
         aikaField.clear();
         viiveField.clear();
         varatutField.clear();
@@ -106,6 +108,9 @@ public class UusiGuiKontolleri {
 
     public IVisualisointi getVisualisointi() {
         return visualisointi;
+    }
+    public IVisualisointi getVisualisointi2() {
+        return visualisointi2;
     }
 
     public void setUusiGui(UusiGui uusiGui) {
