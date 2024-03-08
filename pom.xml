@@ -52,7 +52,7 @@
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -62,5 +62,11 @@
 
 
     </dependencies>
+    <repositories>
+        <repository>
+            <id/>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>
+    </repositories>
 
 </project>
