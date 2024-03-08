@@ -101,6 +101,24 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 			}
 		});
 	}
+	@Override
+	public void visualisoiPalvelupiste(String palveluTyyppi,int size) {
+		Platform.runLater(new Runnable(){
+			public void run(){
+				ui.getVisualisointi2().uusiPalveluPiste(palveluTyyppi, size);
+			}
+		});
+	}
+
+	@Override
+	public void unvisualisoiPalvelupiste(String palveluTyyppi, int size) {
+		Platform.runLater(new Runnable(){
+			public void run(){
+				ui.getVisualisointi2().deletePalveluPiste(palveluTyyppi, size);
+			}
+		});
+	}
+
 
 	@Override
 	public void nollaaKello() {

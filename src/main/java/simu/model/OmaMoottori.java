@@ -1,5 +1,7 @@
 package simu.model;
 
+import dao.SimuDao;
+import entity.Simu;
 import simu.framework.*;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
@@ -16,6 +18,7 @@ public class OmaMoottori extends Moottori {
 
     private HashMap<String, ArrayList<Palvelupiste>> palvelupisteet = new HashMap<>();
     private int prosentti;
+    private SimuDao dao;
 
     public OmaMoottori(IKontrolleriForM kontrolleri) {
 
@@ -23,6 +26,7 @@ public class OmaMoottori extends Moottori {
         initializeData();
     }
     public void initializeData(){
+        dao = new SimuDao();
         palvelupisteet.clear();
         Asiakas.reset();
         saapumisprosessi = new Saapumisprosessi(new Negexp(15, 5), tapahtumalista, TapahtumanTyyppi.SAAPUMINEN);
@@ -39,18 +43,22 @@ public class OmaMoottori extends Moottori {
             case "Infopiste":
                 palvelupisteet.get("0").add(new Palvelupiste(new Normal(10, 6), tapahtumalista, TapahtumanTyyppi.INFOTISKI, "Info"));
                 System.out.println(palvelupisteet.get("0").size() + " infopisteet");
+                kontrolleri.visualisoiPalvelupiste(type, palvelupisteet.get("0").size());
                 break;
             case "Uusi tili":
                 palvelupisteet.get("1").add(new Palvelupiste(new Normal(10, 10), tapahtumalista, TapahtumanTyyppi.UUDEN_TILIN_AVAUS, "Uudet tilit"));
                 System.out.println(palvelupisteet.get("1").size() + " uudet tilit");
+                kontrolleri.visualisoiPalvelupiste(type, palvelupisteet.get("1").size());
                 break;
             case "Talletuspiste":
                 palvelupisteet.get("2").add(new Palvelupiste(new Normal(5, 3), tapahtumalista, TapahtumanTyyppi.TALLETUS, "Talletus"));
                 System.out.println(palvelupisteet.get("2").size() + " talletuspisteet");
+                kontrolleri.visualisoiPalvelupiste(type, palvelupisteet.get("2").size());
                 break;
             case "Sijoitusneuvonta":
                 palvelupisteet.get("3").add(new Palvelupiste(new Normal(6, 9), tapahtumalista, TapahtumanTyyppi.SIJOITUS_PALVELUT, "Sijoituspalvelut"));
                 System.out.println(palvelupisteet.get("3").size() + " sijoitusneuvonta");
+                kontrolleri.visualisoiPalvelupiste(type, palvelupisteet.get("3").size());
                 break;
         }
     }
@@ -58,23 +66,31 @@ public class OmaMoottori extends Moottori {
     public void deletePalvelu(String type) {
         switch (type) {
             case "Infopiste":
-                if (palvelupisteet.get("0").size() > 1) // Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
+                if (palvelupisteet.get("0").size() > 1) {// Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
                     palvelupisteet.get("0").remove(palvelupisteet.get("0").size() - 1);
+                    kontrolleri.unvisualisoiPalvelupiste(type, palvelupisteet.get("0").size());
+                }
                 System.out.println(palvelupisteet.get("0").size() + " infopisteet");
                 break;
             case "Uusi tili":
-                if (palvelupisteet.get("1").size() > 1) // Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
+                if (palvelupisteet.get("1").size() > 1) {// Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
                     palvelupisteet.get("1").remove(palvelupisteet.get("1").size() - 1);
+                    kontrolleri.unvisualisoiPalvelupiste(type, palvelupisteet.get("1").size());
+                }
                 System.out.println(palvelupisteet.get("1").size() + " uudet tilit");
                 break;
             case "Talletuspiste":
-                if (palvelupisteet.get("2").size() > 1) // Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
+                if (palvelupisteet.get("2").size() > 1){ // Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
                     palvelupisteet.get("2").remove(palvelupisteet.get("2").size() - 1);
+                    kontrolleri.unvisualisoiPalvelupiste(type, palvelupisteet.get("2").size());
+                }
                 System.out.println(palvelupisteet.get("2").size() + " talletuspisteet");
                 break;
             case "Sijoitusneuvonta":
-                if (palvelupisteet.get("3").size() > 1) // Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
+                if (palvelupisteet.get("3").size() > 1) {// Ei voi poistaa viimeistä palvelupistettä (joka on aina olemassa
                     palvelupisteet.get("3").remove(palvelupisteet.get("3").size() - 1);
+                    kontrolleri.unvisualisoiPalvelupiste(type, palvelupisteet.get("3").size());
+                }
                 System.out.println(palvelupisteet.get("3").size() + " sijoitusneuvonta");
                 break;
         }
@@ -123,7 +139,7 @@ public class OmaMoottori extends Moottori {
                         iterator.remove();
                     }
                 }
-                if (!a.isEmpty()){
+                if (!a.isEmpty()) {
                     iterator = a.iterator();
                     while (iterator.hasNext()) {
                         Asiakas asiakas = iterator.next();
@@ -182,8 +198,15 @@ public class OmaMoottori extends Moottori {
         System.out.println("Keskimääräinen asiakastyytyväisyys: " + Asiakas.getHappyRating());
 
 
+        dao.persist(new Simu(Kello.getInstance().getAika(), Asiakas.getTotalCustomers(), palvelupisteet.size(),
+                Asiakas.getHappyRating(), getVaratutProsentti(), palvelupisteet.get("0").get(0).getPalvelunkesto(),
+                palvelupisteet.get("1").get(0).getPalvelunkesto(), palvelupisteet.get("2").get(0).getPalvelunkesto(),
+                palvelupisteet.get("3").get(0).getPalvelunkesto()));
+
+
         // UUTTA graafista
         kontrolleri.naytaLoppuaika(Kello.getInstance().getAika(), Asiakas.getHappyRating(), Asiakas.getTotalCustomers(), palvelupisteet);
+
     }
 
     protected boolean generateTrueFalse() {
@@ -209,16 +232,16 @@ public class OmaMoottori extends Moottori {
     }
 
     protected ArrayList<Asiakas> otaJonosta(String palvelupisteNmr, String cmd) {
-        ArrayList <Asiakas> asiakkaat = new ArrayList<>();
+        ArrayList<Asiakas> asiakkaat = new ArrayList<>();
         switch (cmd) {
             case "otaJonosta":
                 for (Palvelupiste p : palvelupisteet.get(palvelupisteNmr)) {
-                        asiakkaat.add(p.otaJonosta());
+                    asiakkaat.add(p.otaJonosta());
                 }
                 break;
             case "otaVarattuJonosta":
                 for (Palvelupiste p : palvelupisteet.get(palvelupisteNmr)) {
-                        asiakkaat.add(p.otaVarattuJonosta());
+                    asiakkaat.add(p.otaVarattuJonosta());
                 }
                 break;
         }
@@ -248,6 +271,10 @@ public class OmaMoottori extends Moottori {
                 iterator.remove();
             }
         }
+    }
+
+    public void tyhjennaJonot() {
+
     }
 
 }

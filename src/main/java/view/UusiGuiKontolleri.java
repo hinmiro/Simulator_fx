@@ -52,6 +52,8 @@ public class UusiGuiKontolleri {
     @FXML
     private TextField viiveField;
     private IKontrolleriForV kontrolleri;
+    private KontrolleriData kontrolleriData;
+    private UusiGui gui;
 
     public UusiGuiKontolleri() {
         kontrolleri = new Kontrolleri(this);
@@ -59,6 +61,7 @@ public class UusiGuiKontolleri {
 
     @FXML
     public void initialize() {
+        gui = new UusiGui();
         poistaCombo.getItems().addAll("Infopiste", "Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
         lisaaCombo.getItems().addAll("Infopiste", "Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
         nopeus.setDisable(true);
@@ -67,6 +70,7 @@ public class UusiGuiKontolleri {
         Trace.setTraceLevel(Trace.Level.INFO);
         visualisointi = new VisualisointiNaytto1(visu1);
         visualisointi2 =  new VisualisointiNaytto2(visu2);
+        kontrolleriData = new KontrolleriData();
     }
 
 
@@ -76,10 +80,12 @@ public class UusiGuiKontolleri {
         lisaaButton.setDisable(false);
         poistaButton.setDisable(false);
         simuloiButton.setDisable(true);
+        visualisointi2.showPalvelupisteet();
     }
 
     public void handleTyhjenna() {
         visualisointi.tyhjennaNaytto();
+        visualisointi2.tyhjennaNaytto();
         aikaField.clear();
         viiveField.clear();
         varatutField.clear();
@@ -90,6 +96,10 @@ public class UusiGuiKontolleri {
         simuloiButton.setDisable(false);
         Kello.getInstance().setAika(0);
         kontrolleri.initializeData();
+    }
+
+    public void naytaData() {
+        gui.dataWindow();
     }
 
     public String getAika() {
@@ -106,6 +116,9 @@ public class UusiGuiKontolleri {
 
     public IVisualisointi getVisualisointi() {
         return visualisointi;
+    }
+    public IVisualisointi getVisualisointi2() {
+        return visualisointi2;
     }
 
     public void setUusiGui(UusiGui uusiGui) {

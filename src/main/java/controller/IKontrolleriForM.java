@@ -11,5 +11,7 @@ public interface IKontrolleriForM {
 
     public void naytaLoppuaika(double aika, double happyRating, int asiakkaat, HashMap<String, ArrayList<Palvelupiste>> palvelupisteet);
     public void visualisoiAsiakas();
+    public void visualisoiPalvelupiste(String palveluTyyppi, int size);
 
+    void unvisualisoiPalvelupiste(String type, int size);
 }
