@@ -44,4 +44,12 @@ public class SimuDao {
         MariadbConnection.closeEntityManager();
         return result;
     }
+    public List<Simu> findAmount(int n) {
+        EntityManager em = datasource.MariadbConnection.getInstance();
+        List<Simu> result = em.createQuery("SELECT s FROM Simu s ORDER BY s.id DESC", Simu.class)
+                .setMaxResults(n)
+                .getResultList();
+        MariadbConnection.closeEntityManager();
+        return result;
+    }
 }

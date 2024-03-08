@@ -100,6 +100,7 @@
             </AnchorPane>
             <Label fx:id="nopeusLabel" text="Nopeuta ja hidasta" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Button fx:id="data" layoutX="250.0" layoutY="282.0" mnemonicParsing="false" onAction="#naytaData" prefHeight="31.0" prefWidth="90.0" style="-fx-background-radius: 30;" text="Näytä data" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <TextField fx:id="kuinkaMontaField" prefHeight="25.0" prefWidth="87.0" promptText="Kuinka monta?" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Canvas fx:id="visu2" height="333.0" width="455.0" GridPane.columnIndex="1">

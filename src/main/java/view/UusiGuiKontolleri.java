@@ -54,6 +54,8 @@ public class UusiGuiKontolleri {
     private IKontrolleriForV kontrolleri;
     private KontrolleriData kontrolleriData;
     private UusiGui gui;
+    @FXML
+    private TextField kuinkaMontaField;
 
     public UusiGuiKontolleri() {
         kontrolleri = new Kontrolleri(this);
@@ -122,6 +124,11 @@ public class UusiGuiKontolleri {
     }
 
     public void setUusiGui(UusiGui uusiGui) {
+    }
+    public int getKuinkaMonta(){
+        String kuinkaMontaText = kuinkaMontaField.getText();
+        int kuinkaMonta = Integer.parseInt(kuinkaMontaText);
+        return kuinkaMonta;
     }
 
     public void nopeusLiuku() {

@@ -18,19 +18,18 @@ public class KontrolleriData {
     private SimuDao dao;
     private List<Simu> simut;
 
+    public void setController(UusiGuiKontolleri kontrolleri) {
+        this.kontrolleri = kontrolleri;
+    }
+
     public void initialize() {
         dao = new SimuDao();
-        simut = dao.findAll();
-
+        simut = dao.findAmount(kontrolleri.getKuinkaMonta());
         loadDataToChart();
     }
 
     public void setGui(UusiGui gui) {
         this.gui = gui;
-    }
-
-    public void setController(UusiGuiKontolleri kontrolleri) {
-        this.kontrolleri = kontrolleri;
     }
 
     private void loadDataToChart() {
