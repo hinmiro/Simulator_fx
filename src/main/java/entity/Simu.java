@@ -41,4 +41,42 @@ public class Simu {
         
     }
 
+    public int getAsiakkaat() {
+        return asiakkaat;
+    }
+    public double getAsiakastyytyvaisyys() {
+        return asiakastyytyvaisyys;
+    }
+
+    public double getInfoKeskiaika() {
+        return infoKeskiaika;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getVaratutAsiakkaat() {
+        return varatutAsiakkaat;
+    }
+
+    public double getSimulaatioAika() {
+        return simulaatioAika;
+    }
+
+    public double getUusitiliKeskiaika() {
+        return uusitiliKeskiaika;
+    }
+
+    public double getSijoitusKeskiaika() {
+        return sijoitusKeskiaika;
+    }
+
+    public double getTalletusKeskiaika() {
+        return talletusKeskiaika;
+    }
+
+    public int getPalvelupisteet() {
+        return palvelupisteet;
+    }
 }
