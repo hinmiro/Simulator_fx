@@ -3,7 +3,7 @@ package dao;
 import datasource.MariadbConnection;
 import entity.Simu;
 import jakarta.persistence.EntityManager;
-
+import java.util.List;
 public class SimuDao {
 
     public void persist(Simu s) {
@@ -36,6 +36,12 @@ public class SimuDao {
         em.remove(s);
         em.getTransaction().commit();
         MariadbConnection.closeEntityManager();
+    }
 
+    public List<Simu> findAll() {
+        EntityManager em = datasource.MariadbConnection.getInstance();
+        List<Simu> result = em.createQuery("SELECT s FROM Simu s", Simu.class).getResultList();
+        MariadbConnection.closeEntityManager();
+        return result;
     }
 }
