@@ -1,35 +1,4 @@
-/*.button {
-    -fx-background-color:
-            linear-gradient(to bottom, #ffffff 0%, #e0e9f5 100%),
-            linear-gradient(to bottom, #ffffff 0%, #e0e9f5 50%);
-    -fx-background-radius: 30;
-    -fx-background-insets: 0,1;
-    -fx-text-fill: black;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-}
-
-.button:hover {
-    -fx-background-color:
-            linear-gradient(to bottom, #e0e9f5 0%, #ffffff 100%),
-            linear-gradient(to bottom, #e0e9f5 0%, #ffffff 50%);
-    -fx-background-radius: 30;
-    -fx-background-insets: 0,1;
-    -fx-text-fill: black;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-}
-
-.button:pressed {
-    -fx-background-color:
-            linear-gradient(to bottom, #c8d6e5 0%, #ffffff 100%),
-            linear-gradient(to bottom, #c8d6e5 0%, #ffffff 50%);
-    -fx-background-radius: 30;
-    -fx-background-insets: 0,1;
-    -fx-text-fill: black;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-}
-
 .root {
-    -fx-background-color: linear-gradient(to bottom, #ADD8E6, #ffffff);
-}*/
-
-
+    -fx-background-image: url(/grid4.png);
+    color: ivory;
+}
