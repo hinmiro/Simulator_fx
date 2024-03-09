@@ -101,7 +101,13 @@ public class UusiGuiKontolleri {
     }
 
     public void naytaData() {
-        gui.dataWindow(Integer.parseInt(kuinkaMontaField.getText()));
+        try {
+            int number = Integer.parseInt(kuinkaMontaField.getText());
+            gui.dataWindow(number);
+        } catch (NumberFormatException e) {
+            kuinkaMontaField.setText("Enter a number...");
+            System.out.println("Enter integer");
+        }
     }
 
     public String getAika() {
