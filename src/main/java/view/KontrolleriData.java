@@ -17,14 +17,15 @@ public class KontrolleriData {
     private UusiGuiKontolleri kontrolleri;
     private SimuDao dao;
     private List<Simu> simut;
+    private int simuMaara;
 
     public void setController(UusiGuiKontolleri kontrolleri) {
         this.kontrolleri = kontrolleri;
     }
 
-    public void initialize() {
+    public void initialize(int maara) {
         dao = new SimuDao();
-        simut = dao.findAmount(kontrolleri.getKuinkaMonta());
+        simut = dao.findAmount(maara);
         loadDataToChart();
     }
 
@@ -45,11 +46,8 @@ public class KontrolleriData {
             series.getData().add(new XYChart.Data<>("Uudet tilit keskiaika", s.getUusitiliKeskiaika()));
             series.getData().add(new XYChart.Data<>("Kassa palvelu", s.getTalletusKeskiaika()));
             series.getData().add(new XYChart.Data<>("Sijoitusneuvonta", s.getSijoitusKeskiaika()));
-            //    series.getData().add(new XYChart.Data<>("Simulaation kestoaika", s.getSimulaatioAika()));
             simuData.getData().add(series);
 
-
-            //  simuData.getData().addAll(asiakkaat);
         }
     }
 }

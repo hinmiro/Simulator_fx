@@ -101,7 +101,7 @@ public class UusiGuiKontolleri {
     }
 
     public void naytaData() {
-        gui.dataWindow();
+        gui.dataWindow(Integer.parseInt(kuinkaMontaField.getText()));
     }
 
     public String getAika() {
@@ -125,11 +125,6 @@ public class UusiGuiKontolleri {
 
     public void setUusiGui(UusiGui uusiGui) {
     }
-    public int getKuinkaMonta(){
-        String kuinkaMontaText = kuinkaMontaField.getText();
-        int kuinkaMonta = Integer.parseInt(kuinkaMontaText);
-        return kuinkaMonta;
-    }
 
     public void nopeusLiuku() {
         kontrolleri.nopeutaHidasta(nopeus.getValue());
@@ -141,5 +136,9 @@ public class UusiGuiKontolleri {
 
     public void poistaPalvelu() {
         kontrolleri.poistaPalvelu(poistaCombo.getValue());
+    }
+
+    public UusiGuiKontolleri getKontrolleri() {
+        return this;
     }
 }
