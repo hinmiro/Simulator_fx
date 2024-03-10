@@ -9,11 +9,15 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import controller.IKontrolleriForV;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import simu.framework.IMoottori;
 import simu.framework.Kello;
 import simu.framework.Trace;
 import simu.model.OmaMoottori;
+import javafx.scene.image.Image;
 
 
 public class UusiGuiKontolleri {
@@ -102,6 +106,7 @@ public class UusiGuiKontolleri {
         lisaaButton.setDisable(true);
         poistaButton.setDisable(true);
         simuloiButton.setDisable(false);
+        kuinkaMontaField.clear();
         Kello.getInstance().setAika(0);
         kontrolleri.initializeData();
     }
@@ -112,18 +117,12 @@ public class UusiGuiKontolleri {
             int maxId = simuDao.getMaxIdFromDatabase();
 
             if (number > maxId) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Simulaatioita ei ole näin paljon... Voit nähdä " + maxId + " simulaation tulokset.");
-
-                alert.showAndWait();
+                showAlert(maxId);
             } else {
                 gui.dataWindow(number);
             }
         } catch (NumberFormatException e) {
-            kuinkaMontaField.setText("Enter a number...");
-            System.out.println("Enter integer");
+            inputError();
         }
     }
 
@@ -132,7 +131,30 @@ public class UusiGuiKontolleri {
         infoAlert.setTitle("Info");
         infoAlert.setHeaderText(null);
         infoAlert.setContentText("Valitse kuinka monen simulaation tiedot haluat.");
+        Stage stage = (Stage) infoAlert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("dollar.png"));
         infoAlert.showAndWait();
+    }
+
+    public void showAlert(int maxId){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Virheellinen syöte");
+        alert.setHeaderText(null);
+        alert.setContentText("Simulaatioita ei ole näin paljon... Voit nähdä " + maxId + " simulaation tulokset.");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("dollar.png"));
+        alert.showAndWait();
+    }
+
+    public void inputError(){
+        Alert inputAlert = new Alert(Alert.AlertType.ERROR);
+        inputAlert.setTitle("Virheellinen syöte");
+        inputAlert.setHeaderText(null);
+        inputAlert.setContentText("Syötteesi oli virheellinen. Syötä numero.");
+        Stage stage = (Stage) inputAlert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("dollar.png"));
+        inputAlert.showAndWait();
+        kuinkaMontaField.setText("");
     }
 
     public String getAika() {
