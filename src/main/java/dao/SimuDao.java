@@ -52,4 +52,10 @@ public class SimuDao {
         MariadbConnection.closeEntityManager();
         return result;
     }
+    public int getMaxIdFromDatabase() {
+        EntityManager em = datasource.MariadbConnection.getInstance();
+        Integer maxId = (Integer) em.createQuery("SELECT MAX(s.id) FROM Simu s").getSingleResult();
+        MariadbConnection.closeEntityManager();
+        return maxId != null ? maxId : 0;
+    }
 }

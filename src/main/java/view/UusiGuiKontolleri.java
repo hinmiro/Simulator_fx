@@ -2,6 +2,7 @@ package view;
 
 import controller.IKontrolleriForM;
 import controller.Kontrolleri;
+import dao.SimuDao;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -16,6 +17,7 @@ import simu.model.OmaMoottori;
 
 
 public class UusiGuiKontolleri {
+    private SimuDao simuDao;
     private IVisualisointi visualisointi = null;
     private IVisualisointi visualisointi2 = null;
 
@@ -56,9 +58,13 @@ public class UusiGuiKontolleri {
     private UusiGui gui;
     @FXML
     private TextField kuinkaMontaField;
+    @FXML
+    private Button infoButton;
+
 
     public UusiGuiKontolleri() {
         kontrolleri = new Kontrolleri(this);
+        simuDao = new SimuDao();
     }
 
     @FXML
@@ -103,11 +109,30 @@ public class UusiGuiKontolleri {
     public void naytaData() {
         try {
             int number = Integer.parseInt(kuinkaMontaField.getText());
-            gui.dataWindow(number);
+            int maxId = simuDao.getMaxIdFromDatabase();
+
+            if (number > maxId) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Simulaatioita ei ole näin paljon... Voit nähdä " + maxId + " simulaation tulokset.");
+
+                alert.showAndWait();
+            } else {
+                gui.dataWindow(number);
+            }
         } catch (NumberFormatException e) {
             kuinkaMontaField.setText("Enter a number...");
             System.out.println("Enter integer");
         }
+    }
+
+    public void showInfo(){
+        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+        infoAlert.setTitle("Info");
+        infoAlert.setHeaderText(null);
+        infoAlert.setContentText("Valitse kuinka monen simulaation tiedot haluat.");
+        infoAlert.showAndWait();
     }
 
     public String getAika() {
