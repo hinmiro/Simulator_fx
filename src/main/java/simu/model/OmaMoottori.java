@@ -191,6 +191,11 @@ public class OmaMoottori extends Moottori {
     }
     @Override
     protected void tulokset() {
+        for (ArrayList<Palvelupiste> pList : palvelupisteet.values()) {
+            for (Palvelupiste p : pList) {
+                p.setKayttoaste();
+            }
+        }
         System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
         System.out.println("---------------------------------------------------------");
         System.out.println("Keskimääräinen läpikulku aika on:  " + Asiakas.getAverageTimeSpent());
@@ -199,9 +204,9 @@ public class OmaMoottori extends Moottori {
 
 
         dao.persist(new Simu(Kello.getInstance().getAika(), Asiakas.getTotalCustomers(), palvelupisteet.size(),
-                Asiakas.getHappyRating(), getVaratutProsentti(), palvelupisteet.get("0").get(0).getPalvelunkesto(),
-                palvelupisteet.get("1").get(0).getPalvelunkesto(), palvelupisteet.get("2").get(0).getPalvelunkesto(),
-                palvelupisteet.get("3").get(0).getPalvelunkesto()));
+                Asiakas.getHappyRating(), getVaratutProsentti(), palvelupisteet.get("0").get(0).getPalvelunkesto(), palvelupisteet.get("0").get(0).getKayttoAste(),
+                palvelupisteet.get("1").get(0).getPalvelunkesto(), palvelupisteet.get("1").get(0).getKayttoAste(), palvelupisteet.get("2").get(0).getPalvelunkesto(), palvelupisteet.get("2").get(0).getKayttoAste(),
+                palvelupisteet.get("3").get(0).getPalvelunkesto(), palvelupisteet.get("3").get(0).getKayttoAste()));
 
 
         // UUTTA graafista

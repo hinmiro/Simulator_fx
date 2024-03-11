@@ -43,14 +43,15 @@ public class KontrolleriData {
             series.getData().add(new XYChart.Data<>("Varatut ajat %", s.getVaratutAsiakkaat(), s.getVaratutAsiakkaat()));
             series.getData().add(new XYChart.Data<>("Asiakastyytyväisyys", s.getAsiakastyytyvaisyys()));
             series.getData().add(new XYChart.Data<>("Info keskiaika", s.getInfoKeskiaika()));
+            series.getData().add(new XYChart.Data<>("Info käyttöaste", s.getInfoKayttoaste()));
             series.getData().add(new XYChart.Data<>("Uudet tilit keskiaika", s.getUusitiliKeskiaika()));
+            series.getData().add(new XYChart.Data<>("UUdet tilit käyttöaste", s.getUusitiliKayttoaste()));
             series.getData().add(new XYChart.Data<>("Kassa palvelu", s.getTalletusKeskiaika()));
+            series.getData().add(new XYChart.Data<>("Kassa käyttöaste", s.getTalletusKayttoaste()));
             series.getData().add(new XYChart.Data<>("Sijoitusneuvonta", s.getSijoitusKeskiaika()));
-            //    series.getData().add(new XYChart.Data<>("Simulaation kestoaika", s.getSimulaatioAika()));
+            series.getData().add(new XYChart.Data<>("Sijoutusneuvonta käyttöaste", s.getSijoitusKayttoaste()));
+
             simuData.getData().add(series);
-
-
-            //  simuData.getData().addAll(asiakkaat);
         }
     }
 }

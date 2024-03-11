@@ -19,6 +19,8 @@ public class Palvelupiste {
 	private int palveluAsiakkaat = 0;
 	private String nimi;
 	private double kayttoaste;
+	private double aloitus;
+	private double lopetus;
 
 
 
@@ -27,6 +29,7 @@ public class Palvelupiste {
 		this.generator = generator;
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
 		this.nimi = nimi;
+		aloitus = Kello.getInstance().getAika();
 	}
 
 	//Asiakas(boolean varattuAika)
@@ -109,6 +112,15 @@ public class Palvelupiste {
 
 	public String getNimi() {
 		return this.nimi;
+	}
+
+	public void setKayttoaste() {
+		lopetus = Kello.getInstance().getAika();
+		kayttoaste = palvelunKesto / (lopetus - aloitus);
+	}
+
+	public double getKayttoAste() {
+		return kayttoaste;
 	}
 
 	@Override
