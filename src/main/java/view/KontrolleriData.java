@@ -1,13 +1,16 @@
 package view;
 
-import controller.Kontrolleri;
 import dao.SimuDao;
 import entity.Simu;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class KontrolleriData {
@@ -52,6 +55,23 @@ public class KontrolleriData {
             series.getData().add(new XYChart.Data<>("Sijoutusneuvonta käyttöaste", s.getSijoitusKayttoaste()));
 
             simuData.getData().add(series);
+
+            simuData.setCreateSymbols(true);
+
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            for (XYChart.Data<String, Number> data : series.getData()) {
+                Node node = data.getNode();
+                Tooltip tooltip = new Tooltip();
+                tooltip.install(node, tooltip);
+
+                node.setOnMouseEntered(event -> {
+                    double value = data.getYValue().doubleValue();
+                    String formattedValue = decimalFormat.format(value);
+                    tooltip.setText(formattedValue);
+                    tooltip.show(node, event.getScreenX()+10, event.getScreenY()+10);
+                });
+                node.setOnMouseExited(event -> tooltip.hide());
+            }
         }
     }
 }
