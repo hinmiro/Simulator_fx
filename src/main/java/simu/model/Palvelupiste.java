@@ -18,6 +18,8 @@ public class Palvelupiste {
 	private double palvelunKesto;
 	private int palveluAsiakkaat = 0;
 	private String nimi;
+	private double kayttoaste;
+
 
 
 	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi, String nimi) {
