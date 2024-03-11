@@ -24,17 +24,29 @@ public class Simu {
     private double talletusKeskiaika;
     @Column(name="sijoitus_keskiaika")
     private double sijoitusKeskiaika;
+    @Column(name="info_käyttöaste")
+    private double infoKayttoaste;
+    @Column(name="uusitili_käyttöaste")
+    private double uusitiliKayttoaste;
+    @Column(name="talletus_käyttöaste")
+    private double talletusKayttoaste;
+    @Column(name="sijoitus_käyttöaste")
+    private double sijoitusKayttoaste;
 
-    public Simu(double simulaatioAika, int asiakkaat, int palvelupisteet, double asiakastyytyvaisyys, int varatutAsiakkaat, double infoKeskiaika, double uusitiliKeskiaika, double talletusKeskiaika ,double sijoitusKeskiaika) {
+    public Simu(double simulaatioAika, int asiakkaat, int palvelupisteet, double asiakastyytyvaisyys, int varatutAsiakkaat, double infoKeskiaika, double infoKayttoaste, double uusitiliKeskiaika, double uusitiliKayttoaste, double talletusKeskiaika, double talletusKayttoaste, double sijoitusKeskiaika, double sijoitusKayttoaste) {
         this.simulaatioAika = simulaatioAika;
         this.asiakkaat = asiakkaat;
         this.palvelupisteet = palvelupisteet;
         this.asiakastyytyvaisyys = asiakastyytyvaisyys;
         this.varatutAsiakkaat = varatutAsiakkaat;
         this.infoKeskiaika = infoKeskiaika;
+        this.infoKayttoaste = infoKayttoaste;
         this.uusitiliKeskiaika = uusitiliKeskiaika;
+        this.uusitiliKayttoaste = uusitiliKayttoaste;
         this.talletusKeskiaika = talletusKeskiaika;
+        this.talletusKayttoaste = talletusKayttoaste;
         this.sijoitusKeskiaika = sijoitusKeskiaika;
+        this.sijoitusKayttoaste = sijoitusKayttoaste;
     }
 
     public Simu() {
@@ -78,5 +90,21 @@ public class Simu {
 
     public int getPalvelupisteet() {
         return palvelupisteet;
+    }
+
+    public double getInfoKayttoaste() {
+        return infoKayttoaste;
+    }
+
+    public double getUusitiliKayttoaste() {
+        return uusitiliKayttoaste;
+    }
+
+    public double getTalletusKayttoaste() {
+        return talletusKayttoaste;
+    }
+
+    public double getSijoitusKayttoaste() {
+        return sijoitusKayttoaste;
     }
 }

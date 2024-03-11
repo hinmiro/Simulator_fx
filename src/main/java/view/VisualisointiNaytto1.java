@@ -119,6 +119,8 @@ public class VisualisointiNaytto1 implements IVisualisointi {
                 gc.fillText("Keskimääräinen palvelun kesto " + pp.getNimi() + ": " + String.format("%.2f", pp.getPalvelunkesto()), width, height + row * increment);
                 increment++;
                 gc.fillText("Palvelussa " + pp.getNimi() + " käyneet asiakkaat: " + pp.getPalveluAsiakkaat(), width, height + row * increment);
+                increment++;
+                gc.fillText("Palvelun " + pp.getNimi() + " käyttöaste: " + String.format("%.2f", pp.getKayttoAste()), width, height + row * increment);
                 increment += 2;
             }
         }

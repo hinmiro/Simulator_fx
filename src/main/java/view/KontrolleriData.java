@@ -1,13 +1,16 @@
 package view;
 
-import controller.Kontrolleri;
 import dao.SimuDao;
 import entity.Simu;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class KontrolleriData {
@@ -43,14 +46,32 @@ public class KontrolleriData {
             series.getData().add(new XYChart.Data<>("Varatut ajat %", s.getVaratutAsiakkaat(), s.getVaratutAsiakkaat()));
             series.getData().add(new XYChart.Data<>("Asiakastyytyväisyys", s.getAsiakastyytyvaisyys()));
             series.getData().add(new XYChart.Data<>("Info keskiaika", s.getInfoKeskiaika()));
+            series.getData().add(new XYChart.Data<>("Info käyttöaste", s.getInfoKayttoaste()));
             series.getData().add(new XYChart.Data<>("Uudet tilit keskiaika", s.getUusitiliKeskiaika()));
+            series.getData().add(new XYChart.Data<>("UUdet tilit käyttöaste", s.getUusitiliKayttoaste()));
             series.getData().add(new XYChart.Data<>("Kassa palvelu", s.getTalletusKeskiaika()));
+            series.getData().add(new XYChart.Data<>("Kassa käyttöaste", s.getTalletusKayttoaste()));
             series.getData().add(new XYChart.Data<>("Sijoitusneuvonta", s.getSijoitusKeskiaika()));
-            //    series.getData().add(new XYChart.Data<>("Simulaation kestoaika", s.getSimulaatioAika()));
+            series.getData().add(new XYChart.Data<>("Sijoutusneuvonta käyttöaste", s.getSijoitusKayttoaste()));
+
             simuData.getData().add(series);
 
+            simuData.setCreateSymbols(true);
 
-            //  simuData.getData().addAll(asiakkaat);
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            for (XYChart.Data<String, Number> data : series.getData()) {
+                Node node = data.getNode();
+                Tooltip tooltip = new Tooltip();
+                tooltip.install(node, tooltip);
+
+                node.setOnMouseEntered(event -> {
+                    double value = data.getYValue().doubleValue();
+                    String formattedValue = decimalFormat.format(value);
+                    tooltip.setText(formattedValue);
+                    tooltip.show(node, event.getScreenX()+10, event.getScreenY()+10);
+                });
+                node.setOnMouseExited(event -> tooltip.hide());
+            }
         }
     }
 }
