@@ -1,4 +1,8 @@
-/*.root {
-    -fx-background-image: url(/grid4.png);
+#root{
+    -fx-background-image: url(/grid.png);
     color: ivory;
-} */
+}
+#root2{
+    -fx-background-image: url(/grid.png);
+    color: ivory;
+}
