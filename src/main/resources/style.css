@@ -1,8 +1,23 @@
 #root{
-    -fx-background-image: url(/grid.png);
-    color: ivory;
+    -fx-background-image: url(/gridPhoto.png);
 }
-#root2{
-    -fx-background-image: url(/grid.png);
-    color: ivory;
+
+
+#poistaButton, #lisaaButton, #simuloiButton, #handleTyhjenna, #data, #infoButton {
+    -fx-background-color:
+            #000000,
+            linear-gradient(#7ebcea, #2f4b8f),
+            linear-gradient(#426ab7, #263e75),
+            linear-gradient(#395cab, #223768);
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 12 30 12 30;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
 }
+#poistaButton, #lisaaButton, #simuloiButton, #handleTyhjenna, #data, #infoButton Text {
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
+}
+
+
+
