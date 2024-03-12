@@ -20,20 +20,20 @@ public class KontrolleriData {
     private UusiGuiKontolleri kontrolleri;
     private SimuDao dao;
     private List<Simu> simut;
+    private int simuMaara;
 
-    public void initialize() {
+    public void setController(UusiGuiKontolleri kontrolleri) {
+        this.kontrolleri = kontrolleri;
+    }
+
+    public void initialize(int maara) {
         dao = new SimuDao();
-        simut = dao.findAll();
-
+        simut = dao.findAmount(maara);
         loadDataToChart();
     }
 
     public void setGui(UusiGui gui) {
         this.gui = gui;
-    }
-
-    public void setController(UusiGuiKontolleri kontrolleri) {
-        this.kontrolleri = kontrolleri;
     }
 
     private void loadDataToChart() {
