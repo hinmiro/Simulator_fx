@@ -45,17 +45,21 @@ public class UusiGui extends Application {
         }
     }
 
-    public void dataWindow() {
+    public void dataWindow(int monta) {
         secondaryStage = new Stage();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dataIkkuna.fxml"));
             BorderPane pane = (BorderPane) fxmlLoader.load();
 
-            Scene scene = new Scene(pane);
-
             KontrolleriData kontrolleriData = fxmlLoader.getController();
             kontrolleriData.setGui(this);
             kontrolleriData.setController(controller);
+
+            Scene scene = new Scene(pane);
+
+            kontrolleriData.initialize(monta);
+
+
 
             secondaryStage.setScene(scene);
             secondaryStage.initModality(Modality.APPLICATION_MODAL);

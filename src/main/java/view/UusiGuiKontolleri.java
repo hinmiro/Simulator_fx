@@ -2,20 +2,26 @@ package view;
 
 import controller.IKontrolleriForM;
 import controller.Kontrolleri;
+import dao.SimuDao;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import controller.IKontrolleriForV;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import simu.framework.IMoottori;
 import simu.framework.Kello;
 import simu.framework.Trace;
 import simu.model.OmaMoottori;
+import javafx.scene.image.Image;
 
 
 public class UusiGuiKontolleri {
+    private SimuDao simuDao;
     private IVisualisointi visualisointi = null;
     private IVisualisointi visualisointi2 = null;
 
@@ -54,9 +60,15 @@ public class UusiGuiKontolleri {
     private IKontrolleriForV kontrolleri;
     private KontrolleriData kontrolleriData;
     private UusiGui gui;
+    @FXML
+    private TextField kuinkaMontaField;
+    @FXML
+    private Button infoButton;
+
 
     public UusiGuiKontolleri() {
         kontrolleri = new Kontrolleri(this);
+        simuDao = new SimuDao();
     }
 
     @FXML
@@ -94,12 +106,55 @@ public class UusiGuiKontolleri {
         lisaaButton.setDisable(true);
         poistaButton.setDisable(true);
         simuloiButton.setDisable(false);
+        kuinkaMontaField.clear();
         Kello.getInstance().setAika(0);
         kontrolleri.initializeData();
     }
 
     public void naytaData() {
-        gui.dataWindow();
+        try {
+            int number = Integer.parseInt(kuinkaMontaField.getText());
+            int maxId = simuDao.getMaxIdFromDatabase();
+
+            if (number > maxId) {
+                showAlert(maxId);
+            } else {
+                gui.dataWindow(number);
+            }
+        } catch (NumberFormatException e) {
+            inputError();
+        }
+    }
+
+    public void showInfo(){
+        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+        infoAlert.setTitle("Info");
+        infoAlert.setHeaderText(null);
+        infoAlert.setContentText("Valitse kuinka monen simulaation tiedot haluat.");
+        Stage stage = (Stage) infoAlert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("dollar.png"));
+        infoAlert.showAndWait();
+    }
+
+    public void showAlert(int maxId){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Virheellinen syöte");
+        alert.setHeaderText(null);
+        alert.setContentText("Simulaatioita ei ole näin paljon... Voit nähdä " + maxId + " simulaation tulokset.");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("dollar.png"));
+        alert.showAndWait();
+    }
+
+    public void inputError(){
+        Alert inputAlert = new Alert(Alert.AlertType.ERROR);
+        inputAlert.setTitle("Virheellinen syöte");
+        inputAlert.setHeaderText(null);
+        inputAlert.setContentText("Syötteesi oli virheellinen. Syötä numero.");
+        Stage stage = (Stage) inputAlert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("dollar.png"));
+        inputAlert.showAndWait();
+        kuinkaMontaField.setText("");
     }
 
     public String getAika() {
@@ -134,5 +189,9 @@ public class UusiGuiKontolleri {
 
     public void poistaPalvelu() {
         kontrolleri.poistaPalvelu(poistaCombo.getValue());
+    }
+
+    public UusiGuiKontolleri getKontrolleri() {
+        return this;
     }
 }
