@@ -13,6 +13,10 @@ import view.UusiGuiKontolleri;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/** The Kontrolleri class in JavaFX manages the simulation's operations and UI interactions, handles user inputs, adjusts simulation speed, and displays results and errors.
+ * @author joku
+ * @version 1234
+ */
 public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUSI
 	
 	private IMoottori moottori; 

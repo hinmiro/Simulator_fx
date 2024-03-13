@@ -5,6 +5,10 @@ import simu.framework.Trace;
 
 import java.util.Random;
 
+/**
+ * The `Asiakas` class models a customer in the simulation, tracking their arrival and departure times, goals, and satisfaction. It generates statistical data such as average service time and overall happiness rating, supporting dynamic customer attributes and performance reporting.
+ */
+
 
 // TODO:
 // Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)
