@@ -227,7 +227,6 @@ public class OmaMoottori extends Moottori {
     protected boolean generateTrueFalse() {
         Random random = new Random();
         double rn = random.nextDouble() * 100;
-//        System.out.println("Random: " + rn + " Prosentti: " + getVaratutProsentti());
         return rn <= getVaratutProsentti() || getVaratutProsentti() == 100;
     }
 
@@ -287,9 +286,4 @@ public class OmaMoottori extends Moottori {
             }
         }
     }
-
-    public void tyhjennaJonot() {
-
-    }
-
 }
