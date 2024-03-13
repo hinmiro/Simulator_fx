@@ -62,7 +62,7 @@ public class VisualisointiNaytto1 implements IVisualisointi {
         gc.setFill(Color.GREEN);
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setFont(new Font(20));
-        gc.fillText("Simulointi Aika:  " + Kello.getInstance().getAika(), x, y);
+        gc.fillText(String.format("Simulointi Aika:  %.3f", Kello.getInstance().getAika()), x, y);
     }
 
 
