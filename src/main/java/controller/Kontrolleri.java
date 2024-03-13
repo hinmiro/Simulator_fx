@@ -101,6 +101,16 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 			}
 		});
 	}
+
+	@Override
+	public void naytaSimulointiAika(){
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				ui.getVisualisointi().naytaSimulointiAika();
+			}
+		});
+	}
 	@Override
 	public void visualisoiPalvelupiste(String palveluTyyppi,int size) {
 		Platform.runLater(new Runnable(){

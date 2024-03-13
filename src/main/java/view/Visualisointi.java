@@ -36,6 +36,11 @@ public class Visualisointi extends Canvas implements IVisualisointi{
 	}
 
 	@Override
+	public void naytaSimulointiAika() {
+		// Doesnt implement
+	}
+
+	@Override
 	public void naytaVirheIlmoitus(String s) {}
 
 	@Override

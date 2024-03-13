@@ -106,6 +106,11 @@ public class VisualisointiNaytto2 implements IVisualisointi{
     }
 
     @Override
+    public void naytaSimulointiAika() {
+        // Doesnt implement
+    }
+
+    @Override
     public void naytaVirheIlmoitus(String s) {
         //Doesnt implement
     }

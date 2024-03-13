@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import simu.framework.Kello;
 import simu.model.Palvelupiste;
 
 import java.util.ArrayList;
@@ -52,6 +53,18 @@ public class VisualisointiNaytto1 implements IVisualisointi {
         gc.fillText("Asiakas " + asiakasLkm, x, y);
 
     }
+
+    @Override
+    public void naytaSimulointiAika() {
+        double x = canvas.getWidth() / 2;
+        double y = canvas.getHeight() / 10 + 30;
+
+        gc.setFill(Color.GREEN);
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setFont(new Font(20));
+        gc.fillText("Simulointi Aika:  " + Kello.getInstance().getAika(), x, y);
+    }
+
 
     @Override
     public void naytaVirheIlmoitus(String virhe) {

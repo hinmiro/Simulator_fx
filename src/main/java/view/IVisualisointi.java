@@ -14,6 +14,7 @@ public interface IVisualisointi {
 	void showPalvelupisteet();
 
 	public void uusiAsiakas();
+	public void naytaSimulointiAika();
 	public void naytaVirheIlmoitus(String s);
 	GraphicsContext getGraphicsContext2D();
 
