@@ -19,5 +19,6 @@
     -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
 }
 
-
-
+#borderPane{
+    -fx-background-image: url(/gridPhoto.png);
+}

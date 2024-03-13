@@ -53,6 +53,8 @@ public class KontrolleriData {
             series.getData().add(new XYChart.Data<>("Kassa käyttöaste", s.getTalletusKayttoaste()));
             series.getData().add(new XYChart.Data<>("Sijoitusneuvonta", s.getSijoitusKeskiaika()));
             series.getData().add(new XYChart.Data<>("Sijoutusneuvonta käyttöaste", s.getSijoitusKayttoaste()));
+            simuData.setStyle("-fx-font-size: 14px;");
+
 
             simuData.getData().add(series);
 
