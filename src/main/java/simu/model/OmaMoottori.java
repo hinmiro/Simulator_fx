@@ -25,6 +25,7 @@ public class OmaMoottori extends Moottori {
     private HashMap<String, ArrayList<Palvelupiste>> palvelupisteet = new HashMap<>();
     private int prosentti;
     private SimuDao dao;
+    private int pisteet;
 
     public OmaMoottori(IKontrolleriForM kontrolleri, UusiGuiKontolleri uusiGuiKontolleri) {
 
@@ -201,10 +202,10 @@ public class OmaMoottori extends Moottori {
     @Override
     protected void tulokset() {
 
-        System.out.println(palvelupisteet.get("0").size());
         for (ArrayList<Palvelupiste> pList : palvelupisteet.values()) {
             for (Palvelupiste p : pList) {
                 p.setKayttoaste();
+                pisteet++;
             }
         }
         System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
@@ -214,7 +215,8 @@ public class OmaMoottori extends Moottori {
         System.out.println("Keskimääräinen asiakastyytyväisyys: " + Asiakas.getHappyRating());
 
 
-        dao.persist(new Simu(Kello.getInstance().getAika(), Asiakas.getTotalCustomers(), palvelupisteet.size(),
+
+        dao.persist(new Simu(Kello.getInstance().getAika(), Asiakas.getTotalCustomers(), pisteet,
                 Asiakas.getHappyRating(), getVaratutProsentti(),
                 palvelupisteet.get("0").get(0).getPalvelunkesto()/palvelupisteet.get("0").size(),
                 palvelupisteet.get("0").get(0).getKayttoAste()/palvelupisteet.get("0").size(),
@@ -224,6 +226,7 @@ public class OmaMoottori extends Moottori {
                 palvelupisteet.get("2").get(0).getKayttoAste()/palvelupisteet.get("2").size(),
                 palvelupisteet.get("3").get(0).getPalvelunkesto()/palvelupisteet.get("3").size(),
                 palvelupisteet.get("3").get(0).getKayttoAste()/palvelupisteet.get("3").size()));
+        pisteet = 0;
 
 
         // UUTTA graafista

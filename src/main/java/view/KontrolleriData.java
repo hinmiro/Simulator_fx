@@ -48,7 +48,7 @@ public class KontrolleriData {
             series.getData().add(new XYChart.Data<>("Info keskiaika", s.getInfoKeskiaika()));
             series.getData().add(new XYChart.Data<>("Info käyttöaste", s.getInfoKayttoaste()));
             series.getData().add(new XYChart.Data<>("Uudet tilit keskiaika", s.getUusitiliKeskiaika()));
-            series.getData().add(new XYChart.Data<>("UUdet tilit käyttöaste", s.getUusitiliKayttoaste()));
+            series.getData().add(new XYChart.Data<>("Uudet tilit käyttöaste", s.getUusitiliKayttoaste()));
             series.getData().add(new XYChart.Data<>("Kassa palvelu", s.getTalletusKeskiaika()));
             series.getData().add(new XYChart.Data<>("Kassa käyttöaste", s.getTalletusKayttoaste()));
             series.getData().add(new XYChart.Data<>("Sijoitusneuvonta", s.getSijoitusKeskiaika()));
