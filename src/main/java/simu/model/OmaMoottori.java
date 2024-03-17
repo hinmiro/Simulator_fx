@@ -138,7 +138,6 @@ public class OmaMoottori extends Moottori {
                 saapumisprosessi.generoiSeuraava();
                 break;
             case INFOTISKI: // 0
-                // System.out.println("Infotiski jonossa:" + palvelupisteet.get("0"););
                 a = otaJonosta("0", "otaJonosta");
                 System.out.println("Infotiski palvelee asiakasta");
                 Iterator<Asiakas> iterator = a.iterator();
@@ -176,12 +175,6 @@ public class OmaMoottori extends Moottori {
     }
 
 
-    // C-vaiheen tapahtumat
-
-    // Tässä vaiheessa palvelupisteet käyvät läpi jononsa ja aloittavat palvelun
-    // jos asiakas on jonossa ja palvelupiste on vapaa
-    // tai jos asiakas on varattu jonossa ja palvelupiste on vapaa
-    // Tämä metodi kutsutaan aina kun kello etenee
     @Override
     protected void yritaCTapahtumat() {
         palvelupisteet.forEach((k, v) -> {
@@ -203,6 +196,7 @@ public class OmaMoottori extends Moottori {
     }
     @Override
     protected void tulokset() {
+        System.out.println(palvelupisteet.get("0").get(0).getPalvelunkesto());
         for (ArrayList<Palvelupiste> pList : palvelupisteet.values()) {
             for (Palvelupiste p : pList) {
                 p.setKayttoaste();
