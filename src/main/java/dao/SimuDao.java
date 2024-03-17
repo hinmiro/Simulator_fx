@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 public class SimuDao {
 
+
     public void persist(Simu s) {
         EntityManager em = datasource.MariadbConnection.getInstance();
         em.getTransaction().begin();

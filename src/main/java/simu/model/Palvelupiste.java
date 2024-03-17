@@ -108,7 +108,10 @@ public class Palvelupiste {
 	}
 
 	public double getPalvelunkesto() {
-		return palvelunKesto/palveluAsiakkaat;
+		double keskiaika = palvelunKesto/palveluAsiakkaat;
+		if (Double.isNaN(keskiaika))
+			return 0;
+		return keskiaika;
 	}
 
 	public String getNimi() {
