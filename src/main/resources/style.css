@@ -15,9 +15,24 @@
     -fx-text-fill: white;
     -fx-font-size: 14px;
 }
-#poistaButton, #lisaaButton, #simuloiButton, #handleTyhjenna, #data, #infoButton Text {
-    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
+#poistaButton, #lisaaButton, #simuloiButton, #handleTyhjenna, #data, #infoButton {
+    -fx-effect: dropshadow(one-pass-box , rgba(0, 0, 0, 0.8), 0, 0.0, 0, 1);
 }
 
+#borderPane{
+    -fx-background-image: url(/gridPhoto.png);
+}
 
-
+#poistaButton:pressed, #lisaaButton:pressed, #simuloiButton:pressed, #handleTyhjenna:pressed, #data:pressed, #infoButton:pressed {
+    -fx-background-color:
+            #333333,
+            linear-gradient(#507dac, #3a5f9f),
+            linear-gradient(#4072b4, #2c5381),
+            linear-gradient(#2c3e50, #2c3e50);
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 12 30 12 30;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(one-pass-box , rgba(0, 0, 0, 0.8), 0, 0.0, 0, 2);
+}
