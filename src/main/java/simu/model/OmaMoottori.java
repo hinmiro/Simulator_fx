@@ -198,7 +198,8 @@ public class OmaMoottori extends Moottori {
     }
     @Override
     protected void tulokset() {
-        System.out.println(palvelupisteet.get("0").get(0).getPalvelunkesto());
+
+        System.out.println(palvelupisteet.get("0").size());
         for (ArrayList<Palvelupiste> pList : palvelupisteet.values()) {
             for (Palvelupiste p : pList) {
                 p.setKayttoaste();
@@ -212,13 +213,20 @@ public class OmaMoottori extends Moottori {
 
 
         dao.persist(new Simu(Kello.getInstance().getAika(), Asiakas.getTotalCustomers(), palvelupisteet.size(),
-                Asiakas.getHappyRating(), getVaratutProsentti(), palvelupisteet.get("0").get(0).getPalvelunkesto(), palvelupisteet.get("0").get(0).getKayttoAste(),
-                palvelupisteet.get("1").get(0).getPalvelunkesto(), palvelupisteet.get("1").get(0).getKayttoAste(), palvelupisteet.get("2").get(0).getPalvelunkesto(), palvelupisteet.get("2").get(0).getKayttoAste(),
-                palvelupisteet.get("3").get(0).getPalvelunkesto(), palvelupisteet.get("3").get(0).getKayttoAste()));
+                Asiakas.getHappyRating(), getVaratutProsentti(),
+                palvelupisteet.get("0").get(0).getPalvelunkesto()/palvelupisteet.get("0").size(),
+                palvelupisteet.get("0").get(0).getKayttoAste()/palvelupisteet.get("0").size(),
+                palvelupisteet.get("1").get(0).getPalvelunkesto()/palvelupisteet.get("1").size(),
+                palvelupisteet.get("1").get(0).getKayttoAste()/palvelupisteet.get("1").size(),
+                palvelupisteet.get("2").get(0).getPalvelunkesto()/palvelupisteet.get("2").size(),
+                palvelupisteet.get("2").get(0).getKayttoAste()/palvelupisteet.get("2").size(),
+                palvelupisteet.get("3").get(0).getPalvelunkesto()/palvelupisteet.get("3").size(),
+                palvelupisteet.get("3").get(0).getKayttoAste()/palvelupisteet.get("3").size()));
 
 
         // UUTTA graafista
-        kontrolleri.naytaLoppuaika(Kello.getInstance().getAika(), Asiakas.getHappyRating(), Asiakas.getTotalCustomers(), palvelupisteet);
+        kontrolleri.naytaLoppuaika(Kello.getInstance().getAika(), Asiakas.getHappyRating(),
+                Asiakas.getTotalCustomers(), palvelupisteet);
 
     }
 
