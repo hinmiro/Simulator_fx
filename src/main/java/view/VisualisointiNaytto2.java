@@ -39,7 +39,7 @@ public class VisualisointiNaytto2 implements IVisualisointi{
         gc.setFont(new Font(15));
         gc.setFill(Color.GREEN);
         gc.setTextAlign(TextAlignment.LEFT);
-        gc.fillText("iNFO Tiski:        ", WIDTH, HEIGHT);
+        gc.fillText("Infopiste:        ", WIDTH, HEIGHT);
         gc.fillText("Uuden Tilin avaus: ", WIDTH, HEIGHT + ROW);
         gc.fillText("Talletus Palvelu:  ", WIDTH, HEIGHT + ROW * 2);
         gc.fillText("Sijoitus tiski:    ", WIDTH, HEIGHT + ROW * 3);
