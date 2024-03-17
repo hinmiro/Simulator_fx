@@ -6,6 +6,7 @@ import simu.framework.*;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
 import controller.IKontrolleriForM;
+import view.UusiGuiKontolleri;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import java.util.Random;
  */
 
 public class OmaMoottori extends Moottori {
-
+    private UusiGuiKontolleri uusiGuiKontolleri;
     private Saapumisprosessi saapumisprosessi;
     private final int MAX_CAP = 4;
 
@@ -25,10 +26,11 @@ public class OmaMoottori extends Moottori {
     private int prosentti;
     private SimuDao dao;
 
-    public OmaMoottori(IKontrolleriForM kontrolleri) {
+    public OmaMoottori(IKontrolleriForM kontrolleri, UusiGuiKontolleri uusiGuiKontolleri) {
 
-        super(kontrolleri);
+        super(kontrolleri, uusiGuiKontolleri);
         initializeData();
+        this.uusiGuiKontolleri = uusiGuiKontolleri;
     }
     public void initializeData(){
         dao = new SimuDao();

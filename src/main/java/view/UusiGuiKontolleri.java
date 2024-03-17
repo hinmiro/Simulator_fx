@@ -3,6 +3,8 @@ package view;
 import controller.IKontrolleriForM;
 import controller.Kontrolleri;
 import dao.SimuDao;
+import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -12,7 +14,10 @@ import controller.IKontrolleriForV;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import simu.framework.IMoottori;
 import simu.framework.Kello;
 import simu.framework.Trace;
@@ -24,6 +29,7 @@ public class UusiGuiKontolleri {
     private SimuDao simuDao;
     private IVisualisointi visualisointi = null;
     private IVisualisointi visualisointi2 = null;
+    private RotateTransition rotate;
 
     @FXML
     private Canvas visu1;
@@ -64,11 +70,15 @@ public class UusiGuiKontolleri {
     private TextField kuinkaMontaField;
     @FXML
     private Button infoButton;
+    @FXML
+    private ImageView dollarImage;
+
 
 
     public UusiGuiKontolleri() {
         kontrolleri = new Kontrolleri(this);
         simuDao = new SimuDao();
+        rotate = new RotateTransition();
     }
 
     @FXML
@@ -93,6 +103,13 @@ public class UusiGuiKontolleri {
         poistaButton.setDisable(false);
         simuloiButton.setDisable(true);
         visualisointi2.showPalvelupisteet();
+        rotate.setNode(dollarImage);
+        rotate.setDuration(Duration.millis(2000));
+        rotate.setAxis(Rotate.Y_AXIS);
+        rotate.setByAngle(360);
+        rotate.setCycleCount(RotateTransition.INDEFINITE);
+        rotate.setAutoReverse(true);
+        rotate.play();
     }
 
     public void handleTyhjenna() {
@@ -194,4 +211,10 @@ public class UusiGuiKontolleri {
     public UusiGuiKontolleri getKontrolleri() {
         return this;
     }
+
+    public void stopRotate(){
+        rotate.stop();
+        dollarImage.setRotate(0);
+    }
+
 }
