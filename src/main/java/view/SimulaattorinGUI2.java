@@ -1,5 +1,9 @@
 package view;
 
+/*
+ *
+ The SimulaattorinGUI2 class extends Application and implements the ISimulaattorinUI interface to provide a graphical user interface for the simulation. It contains UI elements for inputting simulation parameters and controls for starting, pausing, and adjusting the simulation's speed.
+ */
 
 import java.text.DecimalFormat;
 
@@ -55,7 +59,10 @@ public class SimulaattorinGUI2 extends Application implements ISimulaattorinUI {
     private IVisualisointi naytto3;
     private IVisualisointi naytto4;
 
-
+    /**
+     * Initializes any necessary elements or data structures for the UI.
+     * Typically used to set initial values or configurations for the UI elements.
+     */
     @Override
     public void init() {
 
@@ -64,6 +71,10 @@ public class SimulaattorinGUI2 extends Application implements ISimulaattorinUI {
        // kontrolleri = new Kontrolleri(this);
     }
 
+    /**
+     * Starts and displays the application's main stage.
+     * @param primaryStage The primary stage for this application, onto which the application scene can be set.
+     */
     @Override
     public void start(Stage primaryStage) {
         // Käyttöliittymän rakentaminen
@@ -248,21 +259,36 @@ public class SimulaattorinGUI2 extends Application implements ISimulaattorinUI {
     }
 
 
-    //Käyttöliittymän rajapintametodit (kutsutaan kontrollerista)
-
+    /**
+     * Retrieves the percentage of reserved customers specified by the user in the UI.
+     * @return The percentage of reserved customers input by the user.
+     */
     @Override
     public int getVaratutAsiakkaat() { return Integer.parseInt(varatut.getText());}
 
+    /**
+     * Retrieves the simulation time specified by the user in the UI.
+     * @return The simulation time input by the user.
+     */
     @Override
     public double getAika() {
         return Double.parseDouble(aika.getText());
     }
 
+    /**
+     * Retrieves the simulation delay (viive) specified by the user in the UI.
+     * @return The simulation delay time input by the user.
+     */
     @Override
     public long getViive() {
         return Long.parseLong(viive.getText());
     }
 
+    /**
+     * Updates the UI with the final simulation time and happiness rating upon simulation completion.
+     * @param aika The final simulation time.
+     * @param happyCustomer The final average happiness rating of all customers.
+     */
     @Override
     public void setLoppuaika(double aika, double happyCustomer) {
         DecimalFormat formatter = new DecimalFormat("#0.00");
@@ -273,21 +299,37 @@ public class SimulaattorinGUI2 extends Application implements ISimulaattorinUI {
         kaynnistaButton.setDisable(false);
     }
 
+    /**
+     * Displays an error message on the UI.
+     * @param s The error message to be displayed.
+     */
     @Override
     public void naytaVirheIlmoitus(String virhe) {
         naytto.naytaVirheIlmoitus(virhe);
     }
 
+    /**
+     * Adds a new service point (Palvelupiste) based on user selection.
+     * @param lisattavaPiste The type of service point to be added.
+     */
     @Override
     public void lisaaUusiPalvelupiste(String lisattavaPiste) {
            kontrolleri.lisaaPalvelu(lisattavaPiste);
     }
 
+    /**
+     * Removes an existing service point (Palvelupiste) based on user selection.
+     * @param poistettavaPiste The type of service point to be removed.
+     */
     @Override
     public void poistaPalvelupiste(String poistettavaPiste) {
           kontrolleri.poistaPalvelu(poistettavaPiste);
     }
 
+    /**
+     * Provides access to the visualization component (IVisualisointi) used in the simulation UI.
+     * @return The visualization component used for displaying simulation data.
+     */
     @Override
     public IVisualisointi getVisualisointi() {
         return naytto;

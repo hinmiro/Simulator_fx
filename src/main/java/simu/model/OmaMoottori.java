@@ -21,11 +21,18 @@ public class OmaMoottori extends Moottori {
     private HashMap<String, ArrayList<Palvelupiste>> palvelupisteet = new HashMap<>();
     private int prosentti;
 
+    /**
+     * Initializes a new instance of the simulation engine with a specific controller.
+     * @param kontrolleri The controller interface implementation to be used by this engine.
+     */
     public OmaMoottori(IKontrolleriForM kontrolleri) {
 
         super(kontrolleri);
         initializeData();
     }
+    /**
+     * Initializes or resets the simulation data, setting up service processes and customer flows.
+     */
     public void initializeData(){
         palvelupisteet.clear();
         Asiakas.reset();
@@ -38,6 +45,11 @@ public class OmaMoottori extends Moottori {
         palvelupisteet.get("2").add(new Palvelupiste(new Normal(5, 3), tapahtumalista, TapahtumanTyyppi.TALLETUS, "Talletus"));
         palvelupisteet.get("3").add(new Palvelupiste(new Normal(6, 9), tapahtumalista, TapahtumanTyyppi.SIJOITUS_PALVELUT, "Sijoutuspalvelut"));
     }
+
+    /**
+     * Adds a new service point of the specified type to the simulation.
+     * @param type The type of service point to add, defined by a string identifier.
+     */
     public void addPalvelu(String type) {
         switch (type) {
             case "Infopiste":
@@ -59,6 +71,10 @@ public class OmaMoottori extends Moottori {
         }
     }
 
+    /**
+     * Removes the last service point of the specified type from the simulation.
+     * @param type The type of service point to remove, defined by a string identifier.
+     */
     public void deletePalvelu(String type) {
         switch (type) {
             case "Infopiste":
@@ -84,15 +100,26 @@ public class OmaMoottori extends Moottori {
         }
     }
 
+    /**
+     * Sets the percentage of reserved customers in the simulation.
+     * @param uusiProsentti The new percentage of reserved customers.
+     */
     public void setProsentti(int uusiProsentti) {
         prosentti = uusiProsentti;
     }
 
+    /**
+     * Prepares initial settings and generates the first arrival event in the simulation.
+     */
     @Override
     protected void alustukset() {
         saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
     }
 
+    /**
+     * Processes a single simulation event, determining actions based on the event's type.
+     * @param t The simulation event to be processed.
+     */
     @Override
     protected void suoritaTapahtuma(Tapahtuma t) {  // B-vaiheen tapahtumat
 
@@ -158,6 +185,9 @@ public class OmaMoottori extends Moottori {
     // jos asiakas on jonossa ja palvelupiste on vapaa
     // tai jos asiakas on varattu jonossa ja palvelupiste on vapaa
     // Tämä metodi kutsutaan aina kun kello etenee
+    /**
+     * Attempts to start service for waiting customers at all service points based on current conditions.
+     */
     @Override
     protected void yritaCTapahtumat() {
         palvelupisteet.forEach((k, v) -> {
@@ -171,12 +201,21 @@ public class OmaMoottori extends Moottori {
         });
     }
 
+    /**
+     * Manages the service process for customers at a specified service point.
+     * @param a The list of customers to be serviced.
+     * @param palvelupisteNmrAlus The starting identifier for service points.
+     * @param palvelupisteNmrLoppu The ending identifier for service points (for progression to the next service point).
+     */
     public void palvelee(ArrayList<Asiakas> a, String palvelupisteNmrAlus, String palvelupisteNmrLoppu) {
         a = otaJonosta(palvelupisteNmrAlus, "otaVarattuJonosta");
         handleCustomers(palvelupisteNmrLoppu, a, true);
         a = otaJonosta(palvelupisteNmrAlus, "otaJonosta");
         handleCustomers(palvelupisteNmrLoppu, a, false);
     }
+    /**
+     * Compiles and outputs simulation results, including average processing times and customer satisfaction.
+     */
     @Override
     protected void tulokset() {
         System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
@@ -190,6 +229,10 @@ public class OmaMoottori extends Moottori {
         kontrolleri.naytaLoppuaika(Kello.getInstance().getAika(), Asiakas.getHappyRating(), Asiakas.getTotalCustomers(), palvelupisteet);
     }
 
+    /**
+     * Generates a boolean value based on the set percentage of reserved customers.
+     * @return True if the generated number is less than or equal to the percentage of reserved customers; otherwise, false.
+     */
     protected boolean generateTrueFalse() {
         Random random = new Random();
         double rn = random.nextDouble() * 100;
@@ -197,6 +240,12 @@ public class OmaMoottori extends Moottori {
         return rn <= getVaratutProsentti() || getVaratutProsentti() == 100;
     }
 
+    /**
+     * Adds a customer to the queue at a specified service point.
+     * @param palvelupisteNmr The identifier for the service point.
+     * @param cmd The command determining whether to add to a regular or reserved queue.
+     * @param asiakas The customer to be added to the queue.
+     */
     protected void lisaaJonoon(String palvelupisteNmr, String cmd, Asiakas asiakas) {
         switch (cmd) {
             case "lisaaJonoon":
@@ -212,6 +261,12 @@ public class OmaMoottori extends Moottori {
         }
     }
 
+    /**
+     * Removes and returns customers from the queue of a specified service point.
+     * @param palvelupisteNmr The identifier for the service point.
+     * @param cmd The command determining whether to remove from a regular or reserved queue.
+     * @return A list of customers removed from the queue.
+     */
     protected ArrayList<Asiakas> otaJonosta(String palvelupisteNmr, String cmd) {
         ArrayList <Asiakas> asiakkaat = new ArrayList<>();
         switch (cmd) {
@@ -229,6 +284,12 @@ public class OmaMoottori extends Moottori {
         return asiakkaat;
     }
 
+    /**
+     * Handles the processing of customers after service, determining if they should move to another service point or exit the simulation.
+     * @param palvelupisteNmr The service point identifier for customer redirection.
+     * @param a The list of customers to be processed.
+     * @param varattu Indicates whether the service is for reserved customers.
+     */
     protected void handleCustomers(String palvelupisteNmr, ArrayList<Asiakas> a, boolean varattu) {
         Iterator<Asiakas> iterator = a.iterator();
         while (iterator.hasNext()) {

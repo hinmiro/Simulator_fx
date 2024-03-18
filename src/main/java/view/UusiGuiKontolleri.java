@@ -1,4 +1,7 @@
 package view;
+/**
+ * The UusiGuiKontolleri class serves as the controller for the JavaFX GUI, handling user interactions such as starting the simulation, adjusting parameters, and visualizing results. It manages the interface elements and links actions like adding or removing service points to the simulation controller.
+ */
 
 import controller.IKontrolleriForM;
 import controller.Kontrolleri;
@@ -53,10 +56,16 @@ public class UusiGuiKontolleri {
     private TextField viiveField;
     private IKontrolleriForV kontrolleri;
 
+    /**
+     * Constructs a new UusiGuiKontrolleri instance. Initializes the controller used by this GUI.
+     */
     public UusiGuiKontolleri() {
         kontrolleri = new Kontrolleri(this);
     }
 
+    /**
+     * Initializes the controller class. This method is automatically called after the FXML file has been loaded.
+     */
     @FXML
     public void initialize() {
         poistaCombo.getItems().addAll("Infopiste", "Uusi tili", "Talletuspiste", "Sijoitusneuvonta");
@@ -70,6 +79,9 @@ public class UusiGuiKontolleri {
     }
 
 
+    /**
+     * Starts the simulation by calling the appropriate method in the controller and updates the UI accordingly.
+     */
     public void kaynnistaSimulointi() {
         kontrolleri.kaynnistaSimulointi();
         nopeus.setDisable(false);
@@ -78,6 +90,9 @@ public class UusiGuiKontolleri {
         simuloiButton.setDisable(true);
     }
 
+    /**
+     * Clears the simulation visuals and resets all input fields and sliders to their default states.
+     */
     public void handleTyhjenna() {
         visualisointi.tyhjennaNaytto();
         aikaField.clear();
@@ -92,33 +107,63 @@ public class UusiGuiKontolleri {
         kontrolleri.initializeData();
     }
 
+    /**
+     * Retrieves the simulation time specified by the user.
+     * @return A string representing the simulation time.
+     */
     public String getAika() {
             return aikaField.getText();
     }
 
+    /**
+     * Retrieves the simulation delay specified by the user.
+     * @return A string representing the simulation delay.
+     */
     public String getViive() {
         return viiveField.getText();
     }
 
+    /**
+     * Retrieves the percentage of reserved customers specified by the user.
+     * @return A string representing the percentage of reserved customers.
+     */
     public String getVaratutAsiakkaat() {
             return varatutField.getText();
     }
 
+    /**
+     * Returns the visual representation component of this controller.
+     * @return An instance of IVisualisointi used for the simulation visualization.
+     */
     public IVisualisointi getVisualisointi() {
         return visualisointi;
     }
 
+    /**
+     * Sets the reference to the main application class to this controller.
+     * @param uusiGui The main application class instance.
+     */
     public void setUusiGui(UusiGui uusiGui) {
     }
 
+
+    /**
+     * Adjusts the simulation speed based on the slider's current value.
+     */
     public void nopeusLiuku() {
         kontrolleri.nopeutaHidasta(nopeus.getValue());
     }
 
+    /**
+     * Adds a new service point to the simulation based on the user's selection.
+     */
     public void lisaaPalvelu() {
         kontrolleri.lisaaPalvelu(lisaaCombo.getValue());
     }
 
+    /**
+     * Removes a service point from the simulation based on the user's selection.
+     */
     public void poistaPalvelu() {
         kontrolleri.poistaPalvelu(poistaCombo.getValue());
     }

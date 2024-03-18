@@ -21,15 +21,20 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	
 	private IMoottori moottori; 
 	private UusiGuiKontolleri ui;
-	
+
+	/**
+	 * Constructs a new controller instance.
+	 * @param ui The UI controller to be used.
+	 */
 	public Kontrolleri(UusiGuiKontolleri ui) {
 		this.ui = ui;
 		
 	}
 
 	
-	// Moottorin ohjausta:
-		
+	/**
+	 * Starts the simulation based on user inputs from the UI.
+	 */
 	@Override
 	public void kaynnistaSimulointi() {
 		boolean noErrors = true;
@@ -60,43 +65,82 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 			((Thread) moottori).start();
 		}
 	}
+
+	/**
+	 * Initializes data for the simulation engine.
+	 */
 	@Override
 	public void initializeData() {
 		moottori.initializeData();
 	}
+
+	/**
+	 * Slows down the simulation speed.
+	 */
 	@Override
 	public void hidasta() { // hidastetaan moottorisäiettä
 		moottori.setViive((long)(moottori.getViive()*1.10));
 	}
 
+	/**
+	 * Speeds up the simulation.
+	 */
 	@Override
 	public void nopeuta() { // nopeutetaan moottorisäiettä
 		moottori.setViive((long)(moottori.getViive()*0.9));
 	}
 
+	/**
+	 * Dynamically adjusts the simulation speed based on a value.
+	 * @param value The new speed value.
+	 */
 	@Override
 	public void nopeutaHidasta(double value) {
 		moottori.setViive((long)Math.round(value));
 	}
 
+	/**
+	 * Adds a service point to the simulation.
+	 * @param lisattavaPiste The service point to add.
+	 */
 	@Override
 	public void lisaaPalvelu(String lisattavaPiste) {
 		((OmaMoottori) moottori).addPalvelu(lisattavaPiste);
 	}
+
+	/**
+	 * Removes a service point from the simulation.
+	 * @param poistettavaPiste The service point to remove.
+	 */
 	@Override
 	public void poistaPalvelu(String poistettavaPiste) {
 		((OmaMoottori) moottori).deletePalvelu(poistettavaPiste);
 	}
 
+
+	/**
+	 * Displays the final simulation time, happiness score, and customer count.
+	 * @param aika The final simulation time.
+	 * @param happyCustomer The happiness score.
+	 * @param asiakkaat The customer count.
+	 * @param palvelupisteet The service points.
+	 */
 	@Override
 	public void naytaLoppuaika(double aika, double happyCustomer, int asiakkaat, HashMap<String, ArrayList<Palvelupiste>> palvelupisteet) {
 		Platform.runLater(()->ui.getVisualisointi().setLoppuaika(aika, happyCustomer, asiakkaat, palvelupisteet));
 	}
+
+	/**
+	 * Displays a given error message on the UI.
+	 * @param virhe The error message.
+	 */
 	private void naytaVirheIlmoitus(String virhe) {
 		Platform.runLater(() -> ui.getVisualisointi().naytaVirheIlmoitus(virhe));
 	}
 
-	
+	/**
+	 * Visualizes a new customer in the UI.
+	 */
 	@Override
 	public void visualisoiAsiakas() {
 		Platform.runLater(new Runnable(){
@@ -106,6 +150,9 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 		});
 	}
 
+	/**
+	 * Resets the simulation clock.
+	 */
 	@Override
 	public void nollaaKello() {
 		Kello.getInstance().setAika(0);

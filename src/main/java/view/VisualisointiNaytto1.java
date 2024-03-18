@@ -1,4 +1,7 @@
 package view;
+/**
+ * The VisualisointiNaytto1 class implements the IVisualisointi interface, handling the graphical visualization of simulation data on a canvas. It updates the display to show new customers, error messages, and final statistics, including overall time, customer satisfaction, and service point performances.
+ */
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,6 +24,11 @@ public class VisualisointiNaytto1 implements IVisualisointi {
 
     int asiakasLkm = 0;
 
+    /**
+     * Constructor for VisualisointiNaytto1 that initializes the canvas and graphical context.
+     * The canvas is filled with black color as the default background.
+     * @param canvas The canvas on which the graphical visualization will be drawn.
+     */
     public VisualisointiNaytto1(Canvas canvas) {
         virheet = new ArrayList<>();
         this.canvas = canvas;
@@ -31,6 +39,10 @@ public class VisualisointiNaytto1 implements IVisualisointi {
 
     }
 
+    /**
+     * Clears the display area by filling it with black color and clearing any error messages.
+     * This method resets the visualization area before new elements are drawn.
+     */
     @Override
     public void tyhjennaNaytto() {
         gc.setFill(Color.BLACK);
@@ -38,6 +50,10 @@ public class VisualisointiNaytto1 implements IVisualisointi {
         virheet.clear();
     }
 
+    /**
+     * Updates the visualization to represent a new customer.
+     * The number of customers represented is incremented and displayed at the center of the canvas.
+     */
     @Override
     public void uusiAsiakas() {
         asiakasLkm++;
@@ -53,6 +69,11 @@ public class VisualisointiNaytto1 implements IVisualisointi {
 
     }
 
+    /**
+     * Displays error messages on the canvas.
+     * Each new message is added to a list and displayed in the center of the canvas.
+     * @param virhe The error message to display.
+     */
     @Override
     public void naytaVirheIlmoitus(String virhe) {
         System.out.println(virhe);
@@ -67,21 +88,43 @@ public class VisualisointiNaytto1 implements IVisualisointi {
         }
     }
 
+    /**
+     * Returns the GraphicsContext associated with this canvas.
+     * This method is intended to provide low-level access to drawing operations.
+     * @return The GraphicsContext for the canvas.
+     */
     @Override
     public GraphicsContext getGraphicsContext2D() {
         return null;
     }
 
+    /**
+     * Returns the width of the canvas.
+     * @return The width of the canvas.
+     */
     @Override
     public double getWidth() {
         return 0;
     }
 
+    /**
+     * Returns the height of the canvas.
+     * @return The height of the canvas.
+     */
     @Override
     public double getHeight() {
         return 0;
     }
 
+
+    /**
+     * Updates the canvas to display final statistics at the end of the simulation.
+     * Displays overall simulation time, customer satisfaction, and statistics for each service point.
+     * @param aika Total time of the simulation.
+     * @param hcr Overall customer satisfaction rating.
+     * @param asiakkaat Total number of customers served.
+     * @param palvelut Map containing statistics for each service point.
+     */
     @Override
     public void setLoppuaika(double aika, double hcr, int asiakkaat, HashMap palvelut) {
         double width = canvas.getWidth() / 10;
