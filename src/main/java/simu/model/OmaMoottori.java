@@ -18,7 +18,6 @@ import java.util.Random;
  */
 
 public class OmaMoottori extends Moottori {
-    private UusiGuiKontolleri uusiGuiKontolleri;
 
     /**
      * Saapumisprosessi instance that handles the arrival process of the simulation.
@@ -55,7 +54,6 @@ public class OmaMoottori extends Moottori {
     public OmaMoottori(IKontrolleriForM kontrolleri) {
         super(kontrolleri);
         initializeData();
-        this.uusiGuiKontolleri = uusiGuiKontolleri;
     }
 
     /**
@@ -309,12 +307,6 @@ public class OmaMoottori extends Moottori {
         return rn <= getVaratutProsentti() || getVaratutProsentti() == 100;
     }
 
-    /**
-     * This method adds a customer to the queue of the given service point.
-     * @param palvelupisteNmr The number of the service point.
-     * @param cmd The command to be executed.
-     * @param asiakas The customer to be added to the queue.
-     */
     protected void lisaaJonoon(String palvelupisteNmr, String cmd, Asiakas asiakas) {
         switch (cmd) {
             case "lisaaJonoon":
@@ -330,12 +322,6 @@ public class OmaMoottori extends Moottori {
         }
     }
 
-    /**
-     * This method removes a customer from the queue of the given service point.
-     * @param palvelupisteNmr The number of the service point.
-     * @param cmd The command to be executed.
-     * @return The list of customers removed from the queue.
-     */
     protected ArrayList<Asiakas> otaJonosta(String palvelupisteNmr, String cmd) {
         ArrayList<Asiakas> asiakkaat = new ArrayList<>();
         switch (cmd) {
@@ -353,12 +339,6 @@ public class OmaMoottori extends Moottori {
         return asiakkaat;
     }
 
-    /**
-     * This method handles the customers at the service points.
-     * @param palvelupisteNmr The number of the service point.
-     * @param a The list of customers.
-     * @param varattu The reservation status of the customers.
-     */
     protected void handleCustomers(String palvelupisteNmr, ArrayList<Asiakas> a, boolean varattu) {
         Iterator<Asiakas> iterator = a.iterator();
         while (iterator.hasNext()) {
