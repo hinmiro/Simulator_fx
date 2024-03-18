@@ -12,6 +12,23 @@ import java.util.Random;
 
 // TODO:
 // Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)
+/**
+ * The `Asiakas` class models a customer in a simulation. It tracks the customer's arrival and departure times,
+ * goals, and satisfaction. It also generates statistical data such as average service time and overall happiness rating.
+ * This class supports dynamic customer attributes and performance reporting.
+ *
+ * <p>Each customer has a unique identifier, and the class keeps track of the total number of customers,
+ * the total time spent by all customers, and the number of services done. It also calculates the average
+ * happiness rating of customers.
+ *
+ * <p>The class also provides methods for getting and setting the customer's arrival and departure times,
+ * checking if the customer has a reservation, and getting the customer's target. It also provides methods
+ * for generating a report about the customer, calculating the happiness rating of a customer based on the
+ * time they spent, getting the average time spent by all customers, and getting the average happiness rating
+ * of all customers.
+ *
+ * <p>Finally, the class provides a static method for resetting all static variables to their initial values.
+ */
 public class Asiakas{
 	/**
 	 * A static Random object used for generating random values.
