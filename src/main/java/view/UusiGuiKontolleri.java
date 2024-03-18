@@ -29,14 +29,36 @@ import javafx.scene.image.Image;
  * It interacts with the Kontrolleri, SimuDao, and Visualisointi classes to control and display data.
  */
 public class UusiGuiKontolleri {
+    /**
+     * The SimuDao object used for database operations.
+     */
     private SimuDao simuDao;
+
+    /**
+     * The IVisualisointi object used for visualizing the simulation data.
+     */
     private IVisualisointi visualisointi = null;
+
+    /**
+     * The IVisualisointi object used for visualizing the simulation data in a different style.
+     */
     private IVisualisointi visualisointi2 = null;
+
+    /**
+     * The RotateTransition object used for rotating the dollar image.
+     */
     private RotateTransition rotate;
 
     @FXML
+    /**
+     * The Canvas object used for the first visualization.
+     */
     private Canvas visu1;
+
     @FXML
+    /**
+     * The Canvas object used for the second visualization.
+     */
     private Canvas visu2;
     @FXML
     private Slider nopeus;

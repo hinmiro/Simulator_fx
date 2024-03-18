@@ -12,8 +12,19 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class UusiGui extends Application {
+    /**
+     * The primary stage for this application, onto which the application scene can be set.
+     */
     private Stage primaryStage;
+
+    /**
+     * The secondary stage for this application, used for displaying additional data.
+     */
     private Stage secondaryStage;
+
+    /**
+     * The controller for this application, handling user interactions and updating the view.
+     */
     private UusiGuiKontolleri controller;
 
     /**

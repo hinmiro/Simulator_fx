@@ -18,8 +18,15 @@ import java.util.HashMap;
  * @version 1234
  */
 public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUSI
-	
-	private IMoottori moottori; 
+
+	/**
+	 * The IMoottori object used for controlling the simulation.
+	 */
+	private IMoottori moottori;
+
+	/**
+	 * The UusiGuiKontolleri object used for controlling the GUI.
+	 */
 	private UusiGuiKontolleri ui;
 	
 	public Kontrolleri(UusiGuiKontolleri ui) {

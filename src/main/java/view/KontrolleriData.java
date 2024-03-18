@@ -19,11 +19,34 @@ import java.util.List;
  */
 public class KontrolleriData {
     @FXML
+    /**
+     * The LineChart object used for displaying simulation data.
+     */
     private LineChart<String, Number> simuData;
+
+    /**
+     * The UusiGui object used for controlling the GUI.
+     */
     private UusiGui gui;
+
+    /**
+     * The UusiGuiKontolleri object used for controlling the GUI controller.
+     */
     private UusiGuiKontolleri kontrolleri;
+
+    /**
+     * The SimuDao object used for database operations.
+     */
     private SimuDao dao;
+
+    /**
+     * The list of Simu objects representing the simulations.
+     */
     private List<Simu> simut;
+
+    /**
+     * The number of simulations.
+     */
     private int simuMaara;
 
     /**
