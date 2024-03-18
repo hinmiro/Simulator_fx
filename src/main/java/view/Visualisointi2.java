@@ -11,26 +11,51 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This class is responsible for visualizing the simulation data in a different style.
+ * It extends the Canvas class and implements the IVisualisointi interface.
+ */
 public class Visualisointi2 extends Canvas implements IVisualisointi {
 
+    /**
+     * The GraphicsContext object used for drawing on the canvas.
+     */
     private GraphicsContext gc;
+
+    /**
+     * A list of error messages to be displayed.
+     */
     ArrayList<String> virheet = new ArrayList<>();
 
+    /**
+     * The number of customers that have been visualized.
+     */
     int asiakasLkm = 0;
 
+    /**
+     * Constructor for the Visualisointi2 class.
+     * Initializes the GraphicsContext and clears the display.
+     * @param w the width of the canvas
+     * @param h the height of the canvas
+     */
     public Visualisointi2(int w, int h) {
         super(w, h);
         gc = this.getGraphicsContext2D();
         tyhjennaNaytto();
     }
 
-
+    /**
+     * Clears the display by filling it with a gray color.
+     */
     public void tyhjennaNaytto() {
         gc.clearRect(0, 0, this.getWidth(), this.getHeight());
         gc.setFill(Color.GREY);
         gc.fillRect(0, 0, this.getWidth(), this.getHeight());
     }
 
+    /**
+     * Visualizes a new customer by updating a counter and displaying it in the center of the canvas.
+     */
     public void uusiAsiakas() {
 
         asiakasLkm++;

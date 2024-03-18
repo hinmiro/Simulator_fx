@@ -16,6 +16,12 @@ public class UusiGui extends Application {
     private Stage secondaryStage;
     private UusiGuiKontolleri controller;
 
+    /**
+     * Starts the application and initializes the root layout.
+     * @param primaryStage the primary stage for this application, onto which
+     * the application scene can be set.
+     * @throws Exception if any error occurs during the initialization
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
@@ -28,6 +34,9 @@ public class UusiGui extends Application {
 
     }
 
+    /**
+     * Initializes the root layout with the main scene.
+     */
     public void initRootLayout() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/simuGui.fxml"));
@@ -45,6 +54,10 @@ public class UusiGui extends Application {
         }
     }
 
+    /**
+     * Opens a new window to display data.
+     * @param monta the amount of data to be displayed
+     */
     public void dataWindow(int monta) {
         secondaryStage = new Stage();
         try {
@@ -74,11 +87,17 @@ public class UusiGui extends Application {
     }
 
 
-
+    /**
+     * Returns the primary stage of the application.
+     * @return the primary stage
+     */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-
+    /**
+     * The main entry point for all JavaFX applications.
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

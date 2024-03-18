@@ -31,7 +31,6 @@ public class OmaMoottori extends Moottori {
 
         super(kontrolleri, uusiGuiKontolleri);
         initializeData();
-        this.uusiGuiKontolleri = uusiGuiKontolleri;
     }
     public void initializeData(){
         dao = new SimuDao();

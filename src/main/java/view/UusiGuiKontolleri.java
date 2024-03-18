@@ -24,7 +24,10 @@ import simu.framework.Trace;
 import simu.model.OmaMoottori;
 import javafx.scene.image.Image;
 
-
+/**
+ * This class is responsible for controlling the GUI of the application.
+ * It interacts with the Kontrolleri, SimuDao, and Visualisointi classes to control and display data.
+ */
 public class UusiGuiKontolleri {
     private SimuDao simuDao;
     private IVisualisointi visualisointi = null;
@@ -73,13 +76,16 @@ public class UusiGuiKontolleri {
     @FXML
     private ImageView dollarImage;
 
-
-
+    /**
+     * Constructor for the UusiGuiKontolleri class.
+     * Initializes the Kontrolleri and SimuDao objects, and sets up a RotateTransition.
+     */
     public UusiGuiKontolleri() {
         kontrolleri = new Kontrolleri(this);
         simuDao = new SimuDao();
         rotate = new RotateTransition();
     }
+
 
     @FXML
     public void initialize() {

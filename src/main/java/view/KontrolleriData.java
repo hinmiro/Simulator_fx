@@ -13,6 +13,10 @@ import javafx.util.Duration;
 import java.text.DecimalFormat;
 import java.util.List;
 
+/**
+ * This class is responsible for controlling the data in the simulation.
+ * It interacts with the GUI and the SimuDao to fetch and display data.
+ */
 public class KontrolleriData {
     @FXML
     private LineChart<String, Number> simuData;
@@ -22,20 +26,35 @@ public class KontrolleriData {
     private List<Simu> simut;
     private int simuMaara;
 
+    /**
+     * Sets the controller for this class.
+     * @param kontrolleri the controller to be set
+     */
     public void setController(UusiGuiKontolleri kontrolleri) {
         this.kontrolleri = kontrolleri;
     }
 
+    /**
+     * Initializes the class with a specified amount of data.
+     * @param maara the amount of data to be fetched
+     */
     public void initialize(int maara) {
         dao = new SimuDao();
         simut = dao.findAmount(maara);
         loadDataToChart();
     }
 
+    /**
+     * Sets the GUI for this class.
+     * @param gui the GUI to be set
+     */
     public void setGui(UusiGui gui) {
         this.gui = gui;
     }
 
+    /**
+     * Loads data to the chart.
+     */
     private void loadDataToChart() {
 
         for (Simu s : simut) {
