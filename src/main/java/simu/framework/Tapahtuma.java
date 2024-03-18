@@ -2,6 +2,10 @@ package simu.framework;
 
 import simu.model.TapahtumanTyyppi;
 
+/**
+ * The `Tapahtuma` class represents an event in the simulation framework, characterized by its type and scheduled time. It implements the `Comparable` interface to enable sorting based on event time.
+ */
+
 public class Tapahtuma implements Comparable<Tapahtuma> {
 	
 		

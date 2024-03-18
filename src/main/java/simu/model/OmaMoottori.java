@@ -6,13 +6,19 @@ import simu.framework.*;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
 import controller.IKontrolleriForM;
+import view.UusiGuiKontolleri;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
+/**
+ * The `OmaMoottori` class extends `Moottori` to implement a specific simulation engine, managing customer arrivals and service processes across different service points. It initializes service processes and customer flow based on defined distributions and handles the dynamic addition and removal of service points. The class also oversees the simulation's progression, customer queue management, and service completion, culminating in the reporting of simulation results such as average processing time and customer satisfaction.
+ */
+
 public class OmaMoottori extends Moottori {
+    private UusiGuiKontolleri uusiGuiKontolleri;
 
     /**
      * Saapumisprosessi instance that handles the arrival process of the simulation.
@@ -49,6 +55,7 @@ public class OmaMoottori extends Moottori {
     public OmaMoottori(IKontrolleriForM kontrolleri) {
         super(kontrolleri);
         initializeData();
+        this.uusiGuiKontolleri = uusiGuiKontolleri;
     }
 
     /**
@@ -184,7 +191,6 @@ public class OmaMoottori extends Moottori {
                 saapumisprosessi.generoiSeuraava();
                 break;
             case INFOTISKI: // 0
-                // System.out.println("Infotiski jonossa:" + palvelupisteet.get("0"););
                 a = otaJonosta("0", "otaJonosta");
                 System.out.println("Infotiski palvelee asiakasta");
                 Iterator<Asiakas> iterator = a.iterator();
@@ -276,13 +282,20 @@ public class OmaMoottori extends Moottori {
 
 
         dao.persist(new Simu(Kello.getInstance().getAika(), Asiakas.getTotalCustomers(), palvelupisteet.size(),
-                Asiakas.getHappyRating(), getVaratutProsentti(), palvelupisteet.get("0").get(0).getPalvelunkesto(), palvelupisteet.get("0").get(0).getKayttoAste(),
-                palvelupisteet.get("1").get(0).getPalvelunkesto(), palvelupisteet.get("1").get(0).getKayttoAste(), palvelupisteet.get("2").get(0).getPalvelunkesto(), palvelupisteet.get("2").get(0).getKayttoAste(),
-                palvelupisteet.get("3").get(0).getPalvelunkesto(), palvelupisteet.get("3").get(0).getKayttoAste()));
+                Asiakas.getHappyRating(), getVaratutProsentti(),
+                palvelupisteet.get("0").get(0).getPalvelunkesto()/palvelupisteet.get("0").size(),
+                palvelupisteet.get("0").get(0).getKayttoAste()/palvelupisteet.get("0").size(),
+                palvelupisteet.get("1").get(0).getPalvelunkesto()/palvelupisteet.get("1").size(),
+                palvelupisteet.get("1").get(0).getKayttoAste()/palvelupisteet.get("1").size(),
+                palvelupisteet.get("2").get(0).getPalvelunkesto()/palvelupisteet.get("2").size(),
+                palvelupisteet.get("2").get(0).getKayttoAste()/palvelupisteet.get("2").size(),
+                palvelupisteet.get("3").get(0).getPalvelunkesto()/palvelupisteet.get("3").size(),
+                palvelupisteet.get("3").get(0).getKayttoAste()/palvelupisteet.get("3").size()));
 
 
         // UUTTA graafista
-        kontrolleri.naytaLoppuaika(Kello.getInstance().getAika(), Asiakas.getHappyRating(), Asiakas.getTotalCustomers(), palvelupisteet);
+        kontrolleri.naytaLoppuaika(Kello.getInstance().getAika(), Asiakas.getHappyRating(),
+                Asiakas.getTotalCustomers(), palvelupisteet);
 
     }
 

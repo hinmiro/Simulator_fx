@@ -1,5 +1,8 @@
 package simu.framework;
 
+/**
+ * The `Kello` class is a singleton that represents a clock in the simulation framework. It tracks and manages simulation time.
+ */
 public class Kello {
 
 	private double aika;

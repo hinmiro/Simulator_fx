@@ -221,7 +221,10 @@ public class Palvelupiste {
 	 * @return The duration of the service.
 	 */
 	public double getPalvelunkesto() {
-		return palvelunKesto/palveluAsiakkaat;
+		double keskiaika = palvelunKesto/palveluAsiakkaat;
+		if (Double.isNaN(keskiaika))
+			return 0;
+		return keskiaika;
 	}
 
 	/**

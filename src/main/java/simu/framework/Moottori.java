@@ -2,8 +2,15 @@ package simu.framework;
 
 
 import controller.IKontrolleriForM; // UUSI
+import view.UusiGuiKontolleri;
 
+import java.sql.SQLOutput;
+
+/**
+ * The `Moottori` class is an abstract simulation engine in the framework, managing time and event flow while interfacing with a controller. It controls simulation dynamics, such as timing and customer allocations, and requires derived classes to implement specific simulation functionalities.
+ */
 public abstract class Moottori extends Thread implements IMoottori{  // UUDET MÄÄRITYKSET
+	private UusiGuiKontolleri uusiGuiKontolleri;
 	
 	private double simulointiaika = 0;
 	private long viive = 0;
@@ -17,9 +24,10 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET M�
 
 	
 
-	public Moottori(IKontrolleriForM kontrolleri){  // UUSITTU
+	public Moottori(IKontrolleriForM kontrolleri, UusiGuiKontolleri uusiGuiKontolleri){  // UUSITTU
 		
 		this.kontrolleri = kontrolleri;  //UUSI
+		this.uusiGuiKontolleri = uusiGuiKontolleri;
 
 		kello = Kello.getInstance(); // Otetaan kello muuttujaan yksinkertaistamaan koodia
 		
@@ -61,6 +69,7 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET M�
 			yritaCTapahtumat();
 		}
 		tulokset();
+		uusiGuiKontolleri.stopRotate(); // Pysäyttää dollarin merkin pyörimisen
 		
 	}
 	
