@@ -4,6 +4,13 @@ import simu.framework.*;
 import java.util.LinkedList;
 import eduni.distributions.ContinuousGenerator;
 
+/**
+ * The `Palvelupiste` class represents a service point in a simulation.
+ * It manages queues of customers (Asiakas), both regular and reserved,
+ * and handles the service process for each customer.
+ * It uses a generator for continuous random variables to simulate various aspects of the service process.
+ * It also keeps track of events (Tapahtuma) that are scheduled to occur in the simulation.
+ */
 public class Palvelupiste {
 	/**
 	 * A queue of customers (Asiakas) waiting for service.
