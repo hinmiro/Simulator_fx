@@ -108,7 +108,9 @@ public class UusiGuiKontolleri {
         rotate = new RotateTransition();
     }
 
-
+    /**
+     * Initializes the GUI controller. This method is automatically called after the fxml file has been loaded.
+     */
     @FXML
     public void initialize() {
         gui = new UusiGui();
@@ -124,6 +126,10 @@ public class UusiGuiKontolleri {
     }
 
 
+    /**
+     * Starts the simulation. Enables the speed slider and the add and remove service buttons. Disables the simulate button.
+     * Displays the service points in the second visualization and starts the dollar image rotation.
+     */
     public void kaynnistaSimulointi() {
         kontrolleri.kaynnistaSimulointi();
         nopeus.setDisable(false);
@@ -140,6 +146,11 @@ public class UusiGuiKontolleri {
         rotate.play();
     }
 
+
+    /**
+     * Clears the visualizations and the input fields. Resets the speed slider and the clock time. Disables the speed slider and the add and remove service buttons. Enables the simulate button.
+     * Initializes the controller data.
+     */
     public void handleTyhjenna() {
         visualisointi.tyhjennaNaytto();
         visualisointi2.tyhjennaNaytto();
@@ -156,6 +167,11 @@ public class UusiGuiKontolleri {
         kontrolleri.initializeData();
     }
 
+
+    /**
+     * Displays the data of a specified number of simulations. The number is taken from the kuinkaMontaField text field.
+     * If the number is greater than the maximum ID in the database, an alert is shown.
+     */
     public void naytaData() {
         try {
             int number = Integer.parseInt(kuinkaMontaField.getText());
@@ -171,6 +187,9 @@ public class UusiGuiKontolleri {
         }
     }
 
+    /**
+     * Shows an information alert with instructions on how to use the simulation data display feature.
+     */
     public void showInfo(){
         Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
         infoAlert.setTitle("Info");
@@ -181,6 +200,10 @@ public class UusiGuiKontolleri {
         infoAlert.showAndWait();
     }
 
+    /**
+     * Shows an error alert when the user tries to display more simulation data than is available in the database.
+     * @param maxId The maximum number of simulations that can be displayed.
+     */
     public void showAlert(int maxId){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Virheellinen syöte");
@@ -191,6 +214,9 @@ public class UusiGuiKontolleri {
         alert.showAndWait();
     }
 
+    /**
+     * Shows an error alert when the user enters an invalid input in the kuinkaMontaField text field.
+     */
     public void inputError(){
         Alert inputAlert = new Alert(Alert.AlertType.ERROR);
         inputAlert.setTitle("Virheellinen syöte");
@@ -202,44 +228,89 @@ public class UusiGuiKontolleri {
         kuinkaMontaField.setText("");
     }
 
+    /**
+     * Returns the text in the aikaField text field.
+     * @return The text in the aikaField text field.
+     */
     public String getAika() {
             return aikaField.getText();
     }
 
+
+    /**
+     * Returns the text in the viiveField text field.
+     * @return The text in the viiveField text field.
+     */
     public String getViive() {
         return viiveField.getText();
     }
 
+
+    /**
+     * Returns the text in the varatutField text field.
+     * @return The text in the varatutField text field.
+     */
     public String getVaratutAsiakkaat() {
             return varatutField.getText();
     }
 
+
+    /**
+     * Returns the first visualization object.
+     * @return The first visualization object.
+     */
     public IVisualisointi getVisualisointi() {
         return visualisointi;
     }
+
+    /**
+     * Returns the second visualization object.
+     * @return The second visualization object.
+     */
     public IVisualisointi getVisualisointi2() {
         return visualisointi2;
     }
 
+
+    /**
+     * Sets the UusiGui object. This method is currently empty and does not perform any actions.
+     * @param uusiGui The UusiGui object to set.
+     */
     public void setUusiGui(UusiGui uusiGui) {
     }
 
+    /**
+     * Adjusts the simulation speed according to the value of the speed slider.
+     */
     public void nopeusLiuku() {
         kontrolleri.nopeutaHidasta(nopeus.getValue());
     }
 
+    /**
+     * Adds a service according to the value selected in the add service combo box.
+     */
     public void lisaaPalvelu() {
         kontrolleri.lisaaPalvelu(lisaaCombo.getValue());
     }
 
+    /**
+     * Removes a service according to the value selected in the remove service combo box.
+     */
     public void poistaPalvelu() {
         kontrolleri.poistaPalvelu(poistaCombo.getValue());
     }
 
+    /**
+     * Returns this GUI controller.
+     * @return This GUI controller.
+     */
     public UusiGuiKontolleri getKontrolleri() {
         return this;
     }
 
+    /**
+     * Stops the rotation of the dollar image and resets its rotation angle to 0.
+     */
     public void stopRotate(){
         rotate.stop();
         dollarImage.setRotate(0);
