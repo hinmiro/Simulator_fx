@@ -18,20 +18,47 @@ import java.util.Random;
  */
 
 public class OmaMoottori extends Moottori {
-    private UusiGuiKontolleri uusiGuiKontolleri;
+
+    /**
+     * Saapumisprosessi instance that handles the arrival process of the simulation.
+     */
     private Saapumisprosessi saapumisprosessi;
+
+    /**
+     * Constant that defines the maximum capacity for a service point.
+     */
     private final int MAX_CAP = 4;
 
+    /**
+     * A HashMap that stores the service points. The key is a String that represents the service point type,
+     * and the value is an ArrayList of Palvelupiste objects, which represent the service points of that type.
+     */
     private HashMap<String, ArrayList<Palvelupiste>> palvelupisteet = new HashMap<>();
+
+    /**
+     * An integer that represents the percentage of customers who have a reservation.
+     */
     private int prosentti;
+
+    /**
+     * SimuDao instance that handles the data access operations for the simulation.
+     */
     private SimuDao dao;
-    private int pisteet;
 
-    public OmaMoottori(IKontrolleriForM kontrolleri, UusiGuiKontolleri uusiGuiKontolleri) {
-
-        super(kontrolleri, uusiGuiKontolleri);
+    /**
+     * Constructor for the OmaMoottori class. It takes an IKontrolleriForM object as a parameter,
+     * calls the superclass constructor with this object, and then calls the initializeData method to initialize the simulation data.
+     *
+     * @param kontrolleri An instance of a class that implements the IKontrolleriForM interface.
+     */
+    public OmaMoottori(IKontrolleriForM kontrolleri) {
+        super(kontrolleri);
         initializeData();
     }
+
+    /**
+     * This method initializes the data for the simulation.
+     */
     public void initializeData(){
         dao = new SimuDao();
         palvelupisteet.clear();
@@ -45,6 +72,11 @@ public class OmaMoottori extends Moottori {
         palvelupisteet.get("2").add(new Palvelupiste(new Normal(5, 3), tapahtumalista, TapahtumanTyyppi.TALLETUS, "Talletus"));
         palvelupisteet.get("3").add(new Palvelupiste(new Normal(6, 9), tapahtumalista, TapahtumanTyyppi.SIJOITUS_PALVELUT, "Sijoutuspalvelut"));
     }
+
+    /**
+     * This method adds a new service point of the given type.
+     * @param type The type of the service point to be added.
+     */
     public void addPalvelu(String type) {
         switch (type) {
             case "Infopiste":
@@ -78,6 +110,10 @@ public class OmaMoottori extends Moottori {
         }
     }
 
+    /**
+     * This method removes a service point of the given type.
+     * @param type The type of the service point to be removed.
+     */
     public void deletePalvelu(String type) {
         switch (type) {
             case "Infopiste":
@@ -111,15 +147,26 @@ public class OmaMoottori extends Moottori {
         }
     }
 
+    /**
+     * This method sets the percentage of customers who have a reservation.
+     * @param uusiProsentti The new percentage of customers who have a reservation.
+     */
     public void setProsentti(int uusiProsentti) {
         prosentti = uusiProsentti;
     }
 
+    /**
+     * This method initializes the arrival process for the simulation.
+     */
     @Override
     protected void alustukset() {
         saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
     }
 
+    /**
+     * This method executes the event of the given type.
+     * @param t The event to be executed.
+     */
     @Override
     protected void suoritaTapahtuma(Tapahtuma t) {  // B-vaiheen tapahtumat
 
@@ -179,6 +226,16 @@ public class OmaMoottori extends Moottori {
     }
 
 
+    // C-vaiheen tapahtumat
+
+    // Tässä vaiheessa palvelupisteet käyvät läpi jononsa ja aloittavat palvelun
+    // jos asiakas on jonossa ja palvelupiste on vapaa
+    // tai jos asiakas on varattu jonossa ja palvelupiste on vapaa
+    // Tämä metodi kutsutaan aina kun kello etenee
+
+    /**
+     * This method attempts to execute the C-phase events for the simulation.
+     */
     @Override
     protected void yritaCTapahtumat() {
         palvelupisteet.forEach((k, v) -> {
@@ -192,19 +249,27 @@ public class OmaMoottori extends Moottori {
         });
     }
 
+    /**
+     * This method handles the customers at the service points.
+     * @param a The list of customers.
+     * @param palvelupisteNmrAlus The starting service point number.
+     * @param palvelupisteNmrLoppu The ending service point number.
+     */
     public void palvelee(ArrayList<Asiakas> a, String palvelupisteNmrAlus, String palvelupisteNmrLoppu) {
         a = otaJonosta(palvelupisteNmrAlus, "otaVarattuJonosta");
         handleCustomers(palvelupisteNmrLoppu, a, true);
         a = otaJonosta(palvelupisteNmrAlus, "otaJonosta");
         handleCustomers(palvelupisteNmrLoppu, a, false);
     }
+
+    /**
+     * This method generates the simulation results.
+     */
     @Override
     protected void tulokset() {
-
         for (ArrayList<Palvelupiste> pList : palvelupisteet.values()) {
             for (Palvelupiste p : pList) {
                 p.setKayttoaste();
-                pisteet++;
             }
         }
         System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
@@ -214,8 +279,7 @@ public class OmaMoottori extends Moottori {
         System.out.println("Keskimääräinen asiakastyytyväisyys: " + Asiakas.getHappyRating());
 
 
-
-        dao.persist(new Simu(Kello.getInstance().getAika(), Asiakas.getTotalCustomers(), pisteet,
+        dao.persist(new Simu(Kello.getInstance().getAika(), Asiakas.getTotalCustomers(), palvelupisteet.size(),
                 Asiakas.getHappyRating(), getVaratutProsentti(),
                 palvelupisteet.get("0").get(0).getPalvelunkesto()/palvelupisteet.get("0").size(),
                 palvelupisteet.get("0").get(0).getKayttoAste()/palvelupisteet.get("0").size(),
@@ -225,7 +289,6 @@ public class OmaMoottori extends Moottori {
                 palvelupisteet.get("2").get(0).getKayttoAste()/palvelupisteet.get("2").size(),
                 palvelupisteet.get("3").get(0).getPalvelunkesto()/palvelupisteet.get("3").size(),
                 palvelupisteet.get("3").get(0).getKayttoAste()/palvelupisteet.get("3").size()));
-        pisteet = 0;
 
 
         // UUTTA graafista
@@ -234,6 +297,10 @@ public class OmaMoottori extends Moottori {
 
     }
 
+    /**
+     * This method generates a boolean value based on the percentage of customers who have a reservation.
+     * @return True if the generated random number is less than or equal to the percentage of customers who have a reservation, false otherwise.
+     */
     protected boolean generateTrueFalse() {
         Random random = new Random();
         double rn = random.nextDouble() * 100;

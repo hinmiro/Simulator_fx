@@ -33,7 +33,7 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV{   // UUS
 	@Override
 	public void kaynnistaSimulointi() {
 		boolean noErrors = true;
-		moottori = new OmaMoottori(this, ui); // luodaan uusi moottorisäie jokaista simulointia varten
+		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
 		try {
 			moottori.setSimulointiaika(Double.parseDouble(ui.getAika()));
 		}catch (NumberFormatException e) {
